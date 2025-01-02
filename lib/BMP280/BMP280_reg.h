@@ -3,14 +3,14 @@
 
 namespace BMP280
 {
-    enum ADDR
+    enum class ADDR
     {
         I2C_1 = 0x76,
         I2C_2 = 0x77,
         I2C_DEFAULT = I2C_1
     };
 
-    enum REGISTER
+    enum class REGISTER
     {
         CALIB_00   = 0x88,
         CALIB_01   = 0x89,

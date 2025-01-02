@@ -1,9 +1,10 @@
 #ifndef UTILITY
 #define UTILITY
 
-namespace MASK
+#include <stdint.h>
+namespace BIT
 {
-    enum
+    enum class MASK : uint16_t
     {
         BIT_0  = (1 << 0),
         BIT_1  = (1 << 1),

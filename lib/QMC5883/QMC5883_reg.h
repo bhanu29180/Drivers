@@ -3,13 +3,13 @@
 
 namespace QMC5883
 {
-    enum ADDR
+    enum class ADDR
     {
         I2C = 0x0D,
         I2C_DEFAULT = I2C
     };
 
-    enum REGISTER
+    enum class REGISTER
     {
         DATA_OUT_X_LSB   = 0x00,
         DATA_OUT_X_MSB   = 0x01,

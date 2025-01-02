@@ -3,7 +3,7 @@
 
 namespace MPU9250
 {
-    enum ADDR
+    enum class ADDR
     {
         I2C_1 = 0x68,
         I2C_2 = 0x69,
@@ -12,7 +12,7 @@ namespace MPU9250
 
     namespace AC_GY
     {
-        enum REGISTER
+        enum class REGISTER
         {
             SELF_TEST_X_GYRO  = 0x00,
             SELF_TEST_Y_GYRO  = 0x01,
@@ -119,7 +119,7 @@ namespace MPU9250
 
     namespace MG
     {
-        enum REGISTER
+        enum class REGISTER
         {
             WIA    = 0x00,
             INFO   = 0x01,

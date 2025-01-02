@@ -3,14 +3,14 @@
 
 namespace MS5611
 {
-    enum ADDR
+    enum class ADDR
     {
         I2C_1 = 0x76,
         I2C_2 = 0x77,
         I2C_DEFAULT = I2C_1
     };
 
-    enum REGISTER
+    enum class REGISTER
     {
         RESET               = 0x1E,
         CONVERT_D1_OSR_256  = 0x40,

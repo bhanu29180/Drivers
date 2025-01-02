@@ -1,18 +1,18 @@
 #ifndef MPU6050_REG
 #define MPU6050_REG
 
-#include "stdint.h"
+#include <stdint.h>
 
 namespace MPU6050
 {
-    enum ADDR
+    enum class ADDR : uint8_t
     {
         I2C_1 = 0x68,
         I2C_2 = 0x69,
         I2C_DEFAULT = I2C_1
     };
     
-    enum REGISTER
+    enum class REGISTER : uint8_t
     {
         SELF_TEST_X        = 0x0D,
         SELF_TEST_Y        = 0x0E,
@@ -100,19 +100,23 @@ namespace MPU6050
 
     namespace BIT_FLAGS
     {
-        // enum SELF_TEST_X : uint8_t
+        // enum class SELF_TEST_X : uint8_t
         // {
         // };
-        // enum SELF_TEST_Y : uint8_t
+        
+        // enum class SELF_TEST_Y : uint8_t
         // {
         // };
-        // enum SELF_TEST_Z : uint8_t
+        
+        // enum class SELF_TEST_Z : uint8_t
         // {
         // };
-        // enum SELF_TEST_A : uint8_t
+        
+        // enum class SELF_TEST_A : uint8_t
         // {
         // };
-        enum CONFIG : uint8_t
+
+        enum class CONFIG : uint8_t
         {
             EXT_SYNC_SET_0 = 0,
             EXT_SYNC_SET_1 = 1,
@@ -131,7 +135,8 @@ namespace MPU6050
             DLPF_CFG_6 = 6,
             DLPF_CFG_7 = 7
         };
-        enum GYRO_CONFIG : uint8_t
+
+        enum class GYRO_CONFIG : uint8_t
         {
             XG_ST_0 = 0,
             XG_ST_1 = 1,
@@ -144,7 +149,8 @@ namespace MPU6050
             FS_SEL_2 = 2,
             FS_SEL_3 = 3
         };
-        enum ACCEL_CONFIG : uint8_t
+        
+        enum class ACCEL_CONFIG : uint8_t
         {
             XA_ST_0 = 0,
             XA_ST_1 = 1,
@@ -157,7 +163,8 @@ namespace MPU6050
             AFS_SEL_2 = 2,
             AFS_SEL_3 = 3
         };
-        enum FIFO_EN : uint8_t
+        
+        enum class FIFO_EN : uint8_t
         {
             TEMP_FIFO_EN_0 = 0,
             TEMP_FIFO_EN_1 = 1,
@@ -176,7 +183,8 @@ namespace MPU6050
             SLV0_FIFO_EN_0 = 0,
             SLV0_FIFO_EN_1 = 1
         };
-        enum I2C_MST_CTRL : uint8_t
+        
+        enum class I2C_MST_CTRL : uint8_t
         {
             MUL_MST_EN_0 = 0,
             MUL_MST_EN_1 = 1,
@@ -203,7 +211,8 @@ namespace MPU6050
             I2C_MST_CLK_14 = 14,
             I2C_MST_CLK_15 = 15
         };
-        enum I2C_MST_STATUS : uint8_t
+        
+        enum class I2C_MST_STATUS : uint8_t
         {
             PASS_THROUGH_0 = 0,
             PASS_THROUGH_1 = 1,
@@ -223,7 +232,8 @@ namespace MPU6050
             I2C_SLV0_NACK_1 = 1
 
         };
-        enum INT_PIN_CFG : uint8_t
+        
+        enum class INT_PIN_CFG : uint8_t
         {
             INT_LEVEL_0 = 0,
             INT_LEVEL_1 = 1,
@@ -240,7 +250,8 @@ namespace MPU6050
             I2C_BYPASS_EN_0 = 0,
             I2C_BYPASS_EN_1 = 1
         };
-        enum INT_ENABLE : uint8_t
+        
+        enum class INT_ENABLE : uint8_t
         {
             FIFO_OFLOW_EN_0 = 0,
             FIFO_OFLOW_EN_1 = 1,
@@ -249,7 +260,8 @@ namespace MPU6050
             DATA_RDY_EN_0 = 0,
             DATA_RDY_EN_1 = 1
         };
-        enum INT_STATUS : uint8_t
+        
+        enum class INT_STATUS : uint8_t
         {
             FIFO_OFLOW_INT_0 = 0,
             FIFO_OFLOW_INT_1 = 1,
@@ -258,7 +270,8 @@ namespace MPU6050
             DATA_RDY_INT_0 = 0,
             DATA_RDY_INT_1 = 1
         };
-        enum I2C_MST_DELAY_CTRL : uint8_t
+        
+        enum class I2C_MST_DELAY_CTRL : uint8_t
         {
             DELAY_ES_SHADOW_0 = 0,
             DELAY_ES_SHADOW_1 = 1,
@@ -273,7 +286,8 @@ namespace MPU6050
             I2C_SLV0_DLY_EN_0 = 0,
             I2C_SLV0_DLY_EN_1 = 1
         };
-        enum SIGNAL_PATH_RESET : uint8_t
+        
+        enum class SIGNAL_PATH_RESET : uint8_t
         {
             GYRO_RESET_0 = 0,
             GYRO_RESET_1 = 1,
@@ -282,7 +296,8 @@ namespace MPU6050
             TEMP_RESET_0 = 0,
             TEMP_RESET_1 = 1
         };
-        enum USER_CTRL : uint8_t
+        
+        enum class USER_CTRL : uint8_t
         {
             FIFO_EN_0 = 0,
             FIFO_EN_1 = 1,
@@ -297,7 +312,8 @@ namespace MPU6050
             SIG_COND_RESET_0 = 0,
             SIG_COND_RESET_1 = 1
         };
-        enum PWR_MGMT_1 : uint8_t
+        
+        enum class PWR_MGMT_1 : uint8_t
         {
             DEVICE_RESET_0 = 0,
             DEVICE_RESET_1 = 1,
@@ -316,7 +332,8 @@ namespace MPU6050
             CLKSEL_6 = 6,
             CLKSEL_7 = 7
         };
-        enum PWR_MGMT_2 : uint8_t
+        
+        enum class PWR_MGMT_2 : uint8_t
         {
             LP_WAKE_CTRL_0 = 0,
             LP_WAKE_CTRL_1 = 1,
@@ -335,7 +352,8 @@ namespace MPU6050
             STBY_ZG_0 = 0,
             STBY_ZG_1 = 1
         };
-        enum WHO_AM_I : uint8_t
+        
+        enum class WHO_AM_I : uint8_t
         {
             WHO_AM_I = 0x34
         };

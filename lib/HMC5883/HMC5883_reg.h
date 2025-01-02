@@ -3,13 +3,13 @@
 
 namespace HMC5883
 {
-    enum ADDR
+    enum class ADDR
     {
         I2C = 0x1E,
         I2C_DEFAULT = I2C
     };
 
-    enum REGISTER
+    enum class REGISTER
     {
         CONFIG_A         = 0x00,
         CONFIG_B         = 0x01,
