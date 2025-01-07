@@ -2,6 +2,7 @@
 #define I2C_BUS_H
 
 #include <Wire.h>
+#include <stdint.h>
 
 template <typename T>
 class I2C_bus {
