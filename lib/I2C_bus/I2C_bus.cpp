@@ -1,24 +1,24 @@
 #include "I2C_bus.h"
 
-template <typename T>
-I2C_bus<T>::I2C_bus(T* bus) : bus(bus)
+template <typename T_I2C_bus>
+I2C_bus<T_I2C_bus>::I2C_bus(T_I2C_bus* bus) : bus(bus)
 {
 }
 
-template <typename T>
-void I2C_bus<T>::init()
+template <typename T_I2C_bus>
+void I2C_bus<T_I2C_bus>::init()
 {
 	bus->begin();
 }
 
-template <typename T>
-void I2C_bus<T>::configure(uint32_t freq)
+template <typename T_I2C_bus>
+void I2C_bus<T_I2C_bus>::configure(uint32_t freq)
 {
 	bus->setClock(freq);
 }
 
-template <typename T>
-uint8_t I2C_bus<T>::read_register(uint8_t address, uint8_t reg) 
+template <typename T_I2C_bus>
+uint8_t I2C_bus<T_I2C_bus>::read_register(uint8_t address, uint8_t reg) 
 {
 	bus->beginTransmission(address);
 	bus->write(reg);
@@ -28,8 +28,8 @@ uint8_t I2C_bus<T>::read_register(uint8_t address, uint8_t reg)
 	return bus->read();
 }
 
-template <typename T>
-void I2C_bus<T>::read_registers(uint8_t address, uint8_t reg, uint8_t* buffer, uint8_t length) 
+template <typename T_I2C_bus>
+void I2C_bus<T_I2C_bus>::read_registers(uint8_t address, uint8_t reg, uint8_t* buffer, uint8_t length) 
 {
 	bus->beginTransmission(address);
 	bus->write(reg);
@@ -42,8 +42,8 @@ void I2C_bus<T>::read_registers(uint8_t address, uint8_t reg, uint8_t* buffer, u
 	}
 }
 
-template <typename T>
-void I2C_bus<T>::write_register(uint8_t address, uint8_t reg, uint8_t value) 
+template <typename T_I2C_bus>
+void I2C_bus<T_I2C_bus>::write_register(uint8_t address, uint8_t reg, uint8_t value) 
 {
 	bus->beginTransmission(address);
 	bus->write(reg);
@@ -51,8 +51,8 @@ void I2C_bus<T>::write_register(uint8_t address, uint8_t reg, uint8_t value)
 	bus->endTransmission();
 }
 
-template <typename T>
-void I2C_bus<T>::write_registers(uint8_t address, uint8_t reg, uint8_t* values, uint8_t length) 
+template <typename T_I2C_bus>
+void I2C_bus<T_I2C_bus>::write_registers(uint8_t address, uint8_t reg, uint8_t* values, uint8_t length) 
 {
 	bus->beginTransmission(address);
 	bus->write(reg);
@@ -63,16 +63,16 @@ void I2C_bus<T>::write_registers(uint8_t address, uint8_t reg, uint8_t* values, 
 	bus->endTransmission();
 }
 
-template <typename T>
-void I2C_bus<T>::send_data(uint8_t address, uint8_t value)
+template <typename T_I2C_bus>
+void I2C_bus<T_I2C_bus>::send_data(uint8_t address, uint8_t value)
 {
 	bus->beginTransmission(address);
 	bus->write(value);
 	bus->endTransmission();
 }
 
-template <typename T>
-void I2C_bus<T>::send_data(uint8_t address, uint8_t* values, uint8_t length)
+template <typename T_I2C_bus>
+void I2C_bus<T_I2C_bus>::send_data(uint8_t address, uint8_t* values, uint8_t length)
 {
 	bus->beginTransmission(address);
 	for(uint8_t i=0; i<length; i++)
@@ -82,8 +82,8 @@ void I2C_bus<T>::send_data(uint8_t address, uint8_t* values, uint8_t length)
 	bus->endTransmission();
 }
 
-template <typename T>
-uint8_t I2C_bus<T>::receive_data(uint8_t address)
+template <typename T_I2C_bus>
+uint8_t I2C_bus<T_I2C_bus>::receive_data(uint8_t address)
 {
 	bus->beginTransmission(address);
 	bus->requestFrom(address, (uint8_t)1);
@@ -93,8 +93,8 @@ uint8_t I2C_bus<T>::receive_data(uint8_t address)
 	return value;
 }
 
-template <typename T>
-uint8_t I2C_bus<T>::receive_data(uint8_t address, uint8_t* buffer, uint8_t length)
+template <typename T_I2C_bus>
+uint8_t I2C_bus<T_I2C_bus>::receive_data(uint8_t address, uint8_t* buffer, uint8_t length)
 {
 	bus->beginTransmission(address);
 	bus->requestFrom(address, length);

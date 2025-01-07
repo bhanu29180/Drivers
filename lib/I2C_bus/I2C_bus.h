@@ -4,10 +4,10 @@
 #include <Wire.h>
 #include <stdint.h>
 
-template <typename T>
+template <typename T_I2C_bus>
 class I2C_bus {
 	public:
-		I2C_bus(T* bus);
+		I2C_bus(T_I2C_bus* bus);
 		void init();
 		void configure(uint32_t freq);
 		uint8_t read_register(uint8_t address, uint8_t reg);
@@ -20,7 +20,7 @@ class I2C_bus {
 		uint8_t receive_data(uint8_t address, uint8_t* buffer, uint8_t length);
 
 	private:
-		T* bus;
+		T_I2C_bus* bus;
 };
 
 #endif
