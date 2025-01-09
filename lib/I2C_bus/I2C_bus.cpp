@@ -12,7 +12,7 @@ void I2C_bus<T_I2C_bus>::init()
 }
 
 template <typename T_I2C_bus>
-void I2C_bus<T_I2C_bus>::configure(uint32_t freq)
+void I2C_bus<T_I2C_bus>::config(uint32_t freq)
 {
 	bus->setClock(freq);
 }

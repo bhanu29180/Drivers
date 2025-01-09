@@ -9,8 +9,8 @@ class MPU6050
 {
     public:
         MPU6050(T_I2C_hal* i2c_hal, uint8_t address);
-        void config();
         void init();
+        void config();
 
         void get_acc(int16_t* AC_X, int16_t* AC_Y, int16_t* AC_Z);
         void get_gyro(int16_t* GY_X, int16_t* GY_Y, int16_t* GY_Z);
