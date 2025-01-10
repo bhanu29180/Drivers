@@ -8,7 +8,7 @@ template <typename T_I2C_hal>
 class MPU6050
 {
     public:
-        MPU6050(T_I2C_hal* i2c_hal, uint8_t address);
+        MPU6050(T_I2C_hal* i2c_hal, uint8_t address): i2c_hal(i2c_hal), address(address);
         void init();
         void config();
 
