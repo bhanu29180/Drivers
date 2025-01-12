@@ -34,7 +34,6 @@ void loop(){
   Serial.print((float)millis()/1000.0); Serial.print('\t');
   imu.get_data(&AcX, &AcY, &AcZ, &Tmp, &GyX, &GyY, &GyZ);
   print_raw_sensor_data();
-  // Serial.println();
 
   Serial.print(1000000.0/double(micros()-t_n)); Serial.print("\t");
   wait();
