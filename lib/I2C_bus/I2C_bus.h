@@ -1,8 +1,6 @@
 #ifndef I2C_BUS_H
 #define I2C_BUS_H
 
-#include "Arduino.h"
-#include <Wire.h>
 #include <stdint.h>
 
 template <typename T_I2C_bus>

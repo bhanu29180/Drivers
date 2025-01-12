@@ -158,7 +158,7 @@ namespace MPU6050_INFO
             YA_ST_1 = 1,
             ZA_ST_0 = 0,
             ZA_ST_1 = 1,
-            FA_SEL_0 = 0,
+            AFS_SEL_0 = 0,
             AFS_SEL_1 = 1,
             AFS_SEL_2 = 2,
             AFS_SEL_3 = 3
