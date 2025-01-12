@@ -27,8 +27,6 @@ class MPU6050
         uint8_t get_bit_val(uint8_t reg, uint8_t bit_mask, uint8_t bit_lcn_0);
 };
 
-#include "MPU6050.h"
-
 template <typename T_I2C_bus>
 MPU6050<T_I2C_bus>::MPU6050(T_I2C_bus* i2c_bus, uint8_t address): i2c_bus(i2c_bus), address(address)
 {
