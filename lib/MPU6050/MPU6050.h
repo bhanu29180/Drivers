@@ -9,7 +9,7 @@ template <typename T_I2C_bus>
 class MPU6050
 {
     public:
-        MPU6050(T_I2C_bus* i2c_bus, uint8_t address): i2c_bus(i2c_bus), address(address);
+        MPU6050(T_I2C_bus* i2c_bus, uint8_t address);
         void init();
         void config();
 
@@ -23,8 +23,8 @@ class MPU6050
         uint8_t address;
         uint8_t buff[14];
 
-        void set_bit_val(uint8_t register, uint8_t bit_mask, uint8_t bit_lcn_0, uint8_t bit_val);
-        uint8_t get_bit_val(uint8_t register, uint8_t bit_mask, uint8_t bit_lcn_0);
+        void set_bit_val(uint8_t reg, uint8_t bit_mask, uint8_t bit_lcn_0, uint8_t bit_val);
+        uint8_t get_bit_val(uint8_t reg, uint8_t bit_mask, uint8_t bit_lcn_0);
 };
 
 #endif
