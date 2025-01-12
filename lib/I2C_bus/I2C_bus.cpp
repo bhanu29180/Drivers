@@ -94,7 +94,7 @@ uint8_t I2C_bus<T_I2C_bus>::receive_data(uint8_t address)
 }
 
 template <typename T_I2C_bus>
-uint8_t I2C_bus<T_I2C_bus>::receive_data(uint8_t address, uint8_t* buffer, uint8_t length)
+void I2C_bus<T_I2C_bus>::receive_data(uint8_t address, uint8_t* buffer, uint8_t length)
 {
 	bus->beginTransmission(address);
 	bus->requestFrom(address, length);
