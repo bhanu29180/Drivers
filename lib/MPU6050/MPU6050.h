@@ -15,7 +15,7 @@ class MPU6050
 
         void get_acc(int16_t* ac_x, int16_t* ac_y, int16_t* ac_z);
         void get_gyro(int16_t* gy_x, int16_t* gy_y, int16_t* gy_z);
-        void get_temp();
+        uint8_t get_temp();
         void get_data(int16_t* ac_x, int16_t* ac_y, int16_t* ac_z, int16_t* temp, int16_t* gy_x, int16_t* gy_y, int16_t* gy_z);
 
     private:

@@ -39,7 +39,7 @@ void MPU6050<T_I2C_bus>::get_gyro(int16_t* gy_x, int16_t* gy_y, int16_t* gy_z)
 }
 
 template <typename T_I2C_bus>
-void MPU6050<T_I2C_bus>::get_temp()
+uint8_t MPU6050<T_I2C_bus>::get_temp()
 {
     i2c_bus->read_registers(address,MPU6050_INFO::REGISTER::TEMP_OUT_H, buff, 2);
     return ((int16_t)buff[0] << 8) | buff[1];
