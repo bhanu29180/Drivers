@@ -2,24 +2,29 @@
 #define MPU6050_H
 
 #include <stdint.h>
+#include "utility.h"
 #include "MPU6050_reg.h"
 
-template <typename T_I2C_hal>
+template <typename T_I2C_bus>
 class MPU6050
 {
     public:
-        MPU6050(T_I2C_hal* i2c_hal, uint8_t address): i2c_hal(i2c_hal), address(address);
+        MPU6050(T_I2C_bus* i2c_bus, uint8_t address): i2c_bus(i2c_bus), address(address);
         void init();
         void config();
 
-        void get_acc(int16_t* AC_X, int16_t* AC_Y, int16_t* AC_Z);
-        void get_gyro(int16_t* GY_X, int16_t* GY_Y, int16_t* GY_Z);
+        void get_acc(int16_t* ac_x, int16_t* ac_y, int16_t* ac_z);
+        void get_gyro(int16_t* gy_x, int16_t* gy_y, int16_t* gy_z);
         void get_temp();
-        void get_data(int16_t* AC_X, int16_t* AC_Y, int16_t* AC_Z, int16_t* TEMP, int16_t* GY_X, int16_t* GY_Y, int16_t* GY_Z);
+        void get_data(int16_t* ac_x, int16_t* ac_y, int16_t* ac_z, int16_t* temp, int16_t* gy_x, int16_t* gy_y, int16_t* gy_z);
 
     private:
-        T_I2C_hal* i2c_hal;
+        T_I2C_bus* i2c_bus;
         uint8_t address;
+        uint8_t buff[14];
+
+        void set_bit_val(uint8_t register, uint8_t bit_mask, uint8_t bit_lcn_0, uint8_t bit_val);
+        uint8_t get_bit_val(uint8_t register, uint8_t bit_mask, uint8_t bit_lcn_0);
 };
 
 #endif

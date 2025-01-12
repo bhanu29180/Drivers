@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-namespace MPU6050
+namespace MPU6050_INFO
 {
     enum class ADDR : uint8_t
     {

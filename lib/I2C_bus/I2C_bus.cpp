@@ -23,7 +23,7 @@ uint8_t I2C_bus<T_I2C_bus>::read_register(uint8_t address, uint8_t reg)
 	bus->beginTransmission(address);
 	bus->write(reg);
 	bus->endTransmission();
-	bus->requestFrom(address, (uint8_t)1);
+	bus->requestFrom(address, 1);
 	while(bus->available() < 1);
 	return bus->read();
 }
