@@ -18,7 +18,7 @@ class I2C_bus {
 		void send_data(uint8_t address, uint8_t value);
 		void send_data(uint8_t address, uint8_t* buffer, uint8_t length);
 		uint8_t receive_data(uint8_t address);
-		void receive_data(uint8_t address, uint8_t* buffer, uint8_t length);
+		uint8_t receive_data(uint8_t address, uint8_t* buffer, uint8_t length);
 
 	private:
 		T_I2C_bus* bus;
