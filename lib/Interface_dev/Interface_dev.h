@@ -1,23 +1,32 @@
 #ifndef INTERFACE_DEV
 #define INTERFACE_DEV
 
-template <typename T_com_bus, typename T_config>
+#include <stdint.h>
+
+template <typename T_config, typename T_recv, typename T_send>
 class Interface_dev
 {
     public:
-        Interface_dev(T_com_bus* com_bus_, T_config* config_): com_bus(com_bus_), config(config_){};
+        Interface_dev(uint8_t ID_): ID(ID_){};
+        virtual ~Interface_dev() = default;
         virtual void init() = 0;
-        virtual void config() = 0;
-        virtual void receive_data() = 0;
-        virtual void send_data() = 0;
+        virtual void config(T_config* config_) = 0;
+        virtual void receive_data(T_recv* recv_data) = 0;
+        virtual void send_data(T_send* send_data) = 0;
     
     protected:
-        T_com_bus* get_com_bus() const { return com_bus; }
-        T_config* get_config() const { return config; }
+        uint8_t get_ID()
+        {
+            return ID;
+        }
+        
+        void set_ID(uint8_t ID_)
+        {
+            ID = ID_;
+        }
 
     private:
-        T_com_bus* com_bus;
-        T_config* config;
+        uint8_t ID = 0;
 };
 
 #endif

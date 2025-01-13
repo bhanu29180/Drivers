@@ -1,16 +1,16 @@
 #ifndef INTERFACE_SENSOR
 #define INTERFACE_SENSOR
 
-template <typename T_com_bus, typename T_config>
-class Interface_sensor: public Interface_dev<T_com_bus, T_config>
+#include <stdint.h>
+#include "Interface_dev.h"
+
+template <typename T_config, typename T_recv, typename T_send>
+class Interface_sensor: public Interface_dev<T_config, T_recv, T_send>
 {
     public:
-        Interface_sensor(T_com_bus* com_bus_, T_config* config_): Interface_dev<T_com_bus, T_config>(com_bus_, config_) {}
+        explicit Interface_sensor(uint8_t ID_): Interface_dev<T_config, T_recv, T_send>(ID_) {}
+        virtual ~Interface_sensor() = default;
         virtual void calibrate() = 0;
-
-    private:
-        T_com_bus* com_bus;
-        T_config* config;
 };
 
 #endif

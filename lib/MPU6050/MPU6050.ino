@@ -4,7 +4,7 @@
 #include "Wire.h"
 
 I2C_bus<TwoWire> i2c_bus(&Wire);
-MPU6050<I2C_bus<TwoWire>> imu(&i2c_bus, 0x68);
+MPU6050<I2C_bus<TwoWire>> imu(&i2c_bus, (uint8_t)MPU6050_INFO::ADDR::I2C_DEFAULT);
 
 float SampleFrequency = 500.0, dt = 1.0/SampleFrequency;
 unsigned long loop_timer = 1000000.0*dt, t;
