@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "I2C_bus.h"
 #include "MPU6050.h"
+#include "Wire.h"
 
 I2C_bus<TwoWire> i2c_bus(&Wire);
 MPU6050<I2C_bus<TwoWire>> imu(&i2c_bus, 0x68);
@@ -34,7 +35,6 @@ void loop(){
   Serial.print((float)millis()/1000.0); Serial.print('\t');
   imu.get_data(&AcX, &AcY, &AcZ, &Tmp, &GyX, &GyY, &GyZ);
   print_raw_sensor_data();
-  // Serial.println();
 
   Serial.print(1000000.0/double(micros()-t_n)); Serial.print("\t");
   wait();
