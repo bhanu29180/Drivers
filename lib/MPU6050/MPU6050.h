@@ -41,7 +41,8 @@ void MPU6050<T_I2C_bus>::init()
 template <typename T_I2C_bus>
 void MPU6050<T_I2C_bus>::config()
 {
-    set_bit_val((uint8_t)MPU6050_INFO::REGISTER::CONFIG, (uint8_t)BIT::MASK8::BITM3_0, (uint8_t)ZERO, (uint8_t)MPU6050_INFO::BIT_FLAGS::CONFIG::DLPF_CFG_1);
+    set_bit_val((uint8_t)MPU6050_INFO::REGISTER::CONFIG, (uint8_t)BIT::MASK8::BITM3_0, (uint8_t)ZERO, (uint8_t)MPU6050_INFO::BIT_FLAGS::CONFIG::DLPF_CFG_0);
+    set_bit_val((uint8_t)MPU6050_INFO::REGISTER::PWR_MGMT_1, (uint8_t)BIT::MASK8::BITM3_0, (uint8_t)ZERO, (uint8_t)MPU6050_INFO::BIT_FLAGS::PWR_MGMT_1::CLKSEL_1);
     set_bit_val((uint8_t)MPU6050_INFO::REGISTER::SMPLRT_DIV, (uint8_t)BIT::MASK8::BITM8_0, (uint8_t)ZERO, (uint8_t)0);
     set_bit_val((uint8_t)MPU6050_INFO::REGISTER::GYRO_CONFIG, (uint8_t)BIT::MASK8::BITM2_3, (uint8_t)THREE, (uint8_t)MPU6050_INFO::BIT_FLAGS::GYRO_CONFIG::FS_SEL_2);
     set_bit_val((uint8_t)MPU6050_INFO::REGISTER::ACCEL_CONFIG, (uint8_t)BIT::MASK8::BITM2_3, (uint8_t)THREE, (uint8_t)MPU6050_INFO::BIT_FLAGS::ACCEL_CONFIG::AFS_SEL_2);
