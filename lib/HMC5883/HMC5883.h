@@ -26,26 +26,30 @@ class HMC5883
 };
 
 template <typename T_I2C_bus>
-HMC5883<T_I2C_bus>::HMC5883(T_I2C_bus* i2c_bus_, uint8_t address_)
+HMC5883<T_I2C_bus>::HMC5883(T_I2C_bus* i2c_bus, uint8_t address) : i2c_bus(i2c_bus), address(address)
 {
 }
 
 template <typename T_I2C_bus>
 void HMC5883<T_I2C_bus>::init()
 {
-    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::CONFIG_A, (uint8_t)BIT::MASK8::BITM1_7,(uint8_t)SEVEN,(uint8_t)0);
-    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::CONFIG_B, (uint8_t)BIT::MASK8::BITM5_0,(uint8_t)ZERO,(uint8_t)0);
+    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::MODE, (uint8_t)BIT::MASK8::BITM1_7,(uint8_t)SEVEN,(uint8_t)1); //I2C speed
+    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::CONFIG_A, (uint8_t)BIT::MASK8::BITM1_7,(uint8_t)SEVEN,(uint8_t)0); // in datasheet
+    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::CONFIG_B, (uint8_t)BIT::MASK8::BITM5_0,(uint8_t)ZERO,(uint8_t)0); // in datasheet
 }
 
 template <typename T_I2C_bus>
 void HMC5883<T_I2C_bus>::config()
 {
+    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::MODE, (uint8_t)BIT::MASK8::BITM2_0,(uint8_t)ZERO,(uint8_t)0); // continuous mode
+    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::CONFIG_A, (uint8_t)BIT::MASK8::BITM3_2,(uint8_t)TWO,(uint8_t)6); // data output rate
+    set_bit_val((uint8_t)HMC5883_INFO::REGISTER::CONFIG_A, (uint8_t)BIT::MASK8::BITM2_5,(uint8_t)FIVE,(uint8_t)0); // average window
 }
 
 template <typename T_I2C_bus>
 void HMC5883<T_I2C_bus>::get_mag(int16_t* mg_x, int16_t* mg_y, int16_t* mg_z)
 {
-    i2c_bus->read_registers(address,HMC5883_INFO::REGISTER::DATA_OUT_X_MSB, buff, 6);
+    i2c_bus->read_registers(address,(uint8_t)HMC5883_INFO::REGISTER::DATA_OUT_X_MSB, buff, (uint8_t)6);
     *mg_x = ((int16_t)buff[0] << 8) | buff[1];
     *mg_z = ((int16_t)buff[2] << 8) | buff[3];
     *mg_y = ((int16_t)buff[4] << 8) | buff[5];
@@ -54,7 +58,7 @@ void HMC5883<T_I2C_bus>::get_mag(int16_t* mg_x, int16_t* mg_y, int16_t* mg_z)
 template <typename T_I2C_bus>
 void HMC5883<T_I2C_bus>::get_data(int16_t* mg_x, int16_t* mg_y, int16_t* mg_z)
 {
-    i2c_bus->read_registers(address,HMC5883_INFO::REGISTER::DATA_OUT_X_MSB, buff, 6);
+    i2c_bus->read_registers(address,(uint8_t)HMC5883_INFO::REGISTER::DATA_OUT_X_MSB, buff, (uint8_t)6);
     *mg_x = ((int16_t)buff[0] << 8) | buff[1];
     *mg_z = ((int16_t)buff[2] << 8) | buff[3];
     *mg_y = ((int16_t)buff[4] << 8) | buff[5];

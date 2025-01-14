@@ -51,7 +51,7 @@ void MPU6050<T_I2C_bus>::config()
 template <typename T_I2C_bus>
 void MPU6050<T_I2C_bus>::get_acc(int16_t* ac_x, int16_t* ac_y, int16_t* ac_z)
 {
-    i2c_bus->read_registers(address,MPU6050_INFO::REGISTER::ACCEL_XOUT_H, buff, 6);
+    i2c_bus->read_registers(address,(uint8_t)MPU6050_INFO::REGISTER::ACCEL_XOUT_H, buff, (uint8_t)6);
     *ac_x = ((int16_t)buff[0] << 8) | buff[1];
     *ac_y = ((int16_t)buff[2] << 8) | buff[3];
     *ac_z = ((int16_t)buff[4] << 8) | buff[5];
@@ -60,7 +60,7 @@ void MPU6050<T_I2C_bus>::get_acc(int16_t* ac_x, int16_t* ac_y, int16_t* ac_z)
 template <typename T_I2C_bus>
 void MPU6050<T_I2C_bus>::get_gyro(int16_t* gy_x, int16_t* gy_y, int16_t* gy_z)
 {
-    i2c_bus->read_registers(address,MPU6050_INFO::REGISTER::GYRO_XOUT_H, buff, 6);
+    i2c_bus->read_registers(address,(uint8_t)MPU6050_INFO::REGISTER::GYRO_XOUT_H, buff, (uint8_t)6);
     *gy_x = ((int16_t)buff[0] << 8) | buff[1];
     *gy_y = ((int16_t)buff[2] << 8) | buff[3];
     *gy_z = ((int16_t)buff[4] << 8) | buff[5];
@@ -69,14 +69,14 @@ void MPU6050<T_I2C_bus>::get_gyro(int16_t* gy_x, int16_t* gy_y, int16_t* gy_z)
 template <typename T_I2C_bus>
 uint8_t MPU6050<T_I2C_bus>::get_temp()
 {
-    i2c_bus->read_registers(address,MPU6050_INFO::REGISTER::TEMP_OUT_H, buff, 2);
+    i2c_bus->read_registers(address,(uint8_t)MPU6050_INFO::REGISTER::TEMP_OUT_H, buff, (uint8_t)2);
     return ((int16_t)buff[0] << 8) | buff[1];
 }
 
 template <typename T_I2C_bus>
 void MPU6050<T_I2C_bus>::get_data(int16_t* ac_x, int16_t* ac_y, int16_t* ac_z, int16_t* temp, int16_t* gy_x, int16_t* gy_y, int16_t* gy_z)
 {
-    i2c_bus->read_registers((uint8_t)address,(uint8_t)MPU6050_INFO::REGISTER::ACCEL_XOUT_H, buff, 14);
+    i2c_bus->read_registers((uint8_t)address,(uint8_t)MPU6050_INFO::REGISTER::ACCEL_XOUT_H, buff, (uint8_t)14);
     *ac_x = ((int16_t)buff[0] << 8) | buff[1];
     *ac_y = ((int16_t)buff[2] << 8) | buff[3];
     *ac_z = ((int16_t)buff[4] << 8) | buff[5];
