@@ -13,8 +13,7 @@ class MS5611
         void init();
         void config();
 
-        void get_bar(int16_t* press, int16_t* temp);
-        void get_data(int16_t* press, int16_t* temp);
+        void get_data(int32_t* press, int32_t* temp);
 
     private:
         T_I2C_bus* i2c_bus;
@@ -41,7 +40,7 @@ class MS5611
         void read_prom();
         void d1_conversion();
         void d2_conversion();
-        void read_adc();
+        uint32_t read_adc();
         void cal_temp();
         void cal_temp_compensated_pressure();
         void second_order_temperature_compensation();
@@ -101,12 +100,11 @@ void MS5611<T_I2C_bus>::d2_conversion()
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::read_adc()
+uint32_t MS5611<T_I2C_bus>::read_adc()
 {
     uint8_t buff[3];
     i2c_bus->read_registers(address, MS5611_INFO::COMMAND::ADC_READ, buff, 3);
-
-    D12 = ((uint32_t)buff_temp[0])<<16 | ((uint32_t)buff_temp[1])<<8 | buff_temp[2];
+    uint32_t D12 = ((uint32_t)buff[0])<<16 | ((uint32_t)buff[1])<<8 | buff[2];
     return D12;
 }
 
