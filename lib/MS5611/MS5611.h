@@ -67,39 +67,44 @@ void MS5611<T_I2C_bus>::config()
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::reset()
 {
-    i2c_bus->send_data(address, 0x1E);
+    i2c_bus->send_data(address, MS5611_INFO::COMMAND::RESET);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::read_prom()
 {
-    uint8_t buff[16];
-    i2c_bus->read_registers(address, 0xA0, buff, 16);
-    C1 = ((uint16_t)buff[2] << 8) | buff[3];
-    C2 = ((uint16_t)buff[4] << 8) | buff[5];
-    C3 = ((uint16_t)buff[6] << 8) | buff[7];
-    C4 = ((uint16_t)buff[8] << 8) | buff[9];
-    C5 = ((uint16_t)buff[10] << 8) | buff[11];
-    C6 = ((uint16_t)buff[12] << 8) | buff[13];
+    uint8_t buff[2];
+    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_1, buff, 2);
+    C1 = ((uint16_t)buff[0] << 8) | buff[1];
+    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_2, buff, 2);
+    C2 = ((uint16_t)buff[0] << 8) | buff[1];
+    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_3, buff, 2);
+    C3 = ((uint16_t)buff[0] << 8) | buff[1];
+    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_4, buff, 2);
+    C4 = ((uint16_t)buff[0] << 8) | buff[1];
+    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_5, buff, 2);
+    C5 = ((uint16_t)buff[0] << 8) | buff[1];
+    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_6, buff, 2);
+    C6 = ((uint16_t)buff[0] << 8) | buff[1];
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d1_conversion()
 {
-    i2c_bus->send_data(address, 0x48);
+    i2c_bus->send_data(address, MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d2_conversion()
 {
-    i2c_bus->send_data(address, 0x58);
+    i2c_bus->send_data(address, MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::read_adc()
 {
     uint8_t buff[3];
-    i2c_bus->read_registers(address, 0x00, buff, 3);
+    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::ADC_READ, buff, 3);
 
     D12 = ((uint32_t)buff_temp[0])<<16 | ((uint32_t)buff_temp[1])<<8 | buff_temp[2];
     return D12;
