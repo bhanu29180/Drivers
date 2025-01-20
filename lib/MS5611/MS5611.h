@@ -19,6 +19,9 @@ class MS5611
     private:
         T_I2C_bus* i2c_bus;
         uint8_t address;
+        uint8_t sample_time = 2;
+        uint8_t max_time = 10;
+        uint8_t current_time = 0;
 
         uint16_t C1 = 0;
         uint16_t C2 = 0;
@@ -36,6 +39,8 @@ class MS5611
         int64_t OFF = 0;
         int64_t SENS = 0;
         int32_t P = 0;
+
+        bool strt = false;
 
         void reset();
         void read_prom();
@@ -57,7 +62,6 @@ void MS5611<T_I2C_bus>::init()
 {
     reset();
     // wait 100 ms
-    delay(100);
 }
 
 template <typename T_I2C_bus>
@@ -72,13 +76,10 @@ void MS5611<T_I2C_bus>::get_data(int32_t* press, int32_t* temp)
     d1_conversion();
     delay(10);
     D1 = read_adc();
-
     d2_conversion();
     delay(10);
     D2 = read_adc();
-
     cal_temp();
-
     cal_temp_compensated_pressure();
 
     *press = P;
