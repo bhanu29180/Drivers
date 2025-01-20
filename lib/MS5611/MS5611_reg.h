@@ -1,16 +1,18 @@
 #ifndef MS5611_REG
 #define MS5611_REG
 
-namespace MS5611
+#include <stdint.h>
+
+namespace MS5611_INFO
 {
     enum class ADDR
     {
         I2C_1 = 0x76,
         I2C_2 = 0x77,
-        I2C_DEFAULT = I2C_1
+        I2C_DEFAULT = I2C_2
     };
 
-    enum class REGISTER
+    enum class REGISTER : uint8_t
     {
         RESET               = 0x1E,
         CONVERT_D1_OSR_256  = 0x40,
@@ -24,23 +26,22 @@ namespace MS5611
         CONVERT_D2_OSR_2048 = 0x56,
         CONVERT_D2_OSR_4096 = 0x58,
         ADC_READ            = 0x00,
-        PROM_READ           = 0xA0,
         PROM_READ_0         = 0xA0,
-        PROM_READ_1         = 0xA1,
-        PROM_READ_2         = 0xA2,
-        PROM_READ_3         = 0xA3,
-        PROM_READ_4         = 0xA4,
-        PROM_READ_5         = 0xA5,
-        PROM_READ_6         = 0xA6,
-        PROM_READ_7         = 0xA7,
-        PROM_READ_8         = 0xA8,
-        PROM_READ_9         = 0xA9,
-        PROM_READ_10        = 0xAA,
-        PROM_READ_11        = 0xAB,
-        PROM_READ_12        = 0xAC,
-        PROM_READ_13        = 0xAD,
-        PROM_READ_14        = 0xAE
+        PROM_READ_1         = 0xA2,
+        PROM_READ_2         = 0xA4,
+        PROM_READ_3         = 0xA6,
+        PROM_READ_4         = 0xA8,
+        PROM_READ_5         = 0xAA,
+        PROM_READ_6         = 0xAC,
+        PROM_READ_7         = 0xAE 
     };
+
+    namespace BIT_FLAGS
+    {
+        enum class REG : uint8_t
+        {
+        };
+    }
 }
 
 #endif
