@@ -42,13 +42,25 @@ class MS5611
         void d1_conversion();
         void d2_conversion();
         void read_adc();
-
-        void set_bit_val(uint8_t reg, uint8_t bit_mask, uint8_t bit_lcn_0, uint8_t bit_val);
-        uint8_t get_bit_val(uint8_t reg, uint8_t bit_mask, uint8_t bit_lcn_0);
+        void cal_temp();
+        void cal_temp_compensated_pressure();
+        void second_order_temperature_compensation();
 };
 
 template <typename T_I2C_bus>
 MS5611<T_I2C_bus>::MS5611(T_I2C_bus* i2c_bus_, uint8_t address_): i2c_bus(i2c_bus_), address(address_)
+{
+}
+
+template <typename T_I2C_bus>
+void MS5611<T_I2C_bus>::init()
+{
+    i2c_bus->send_data(address, 0x1E);
+    // wait 100 ms
+}
+
+template <typename T_I2C_bus>
+void MS5611<T_I2C_bus>::config()
 {
 }
 
@@ -61,59 +73,82 @@ void MS5611<T_I2C_bus>::reset()
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::read_prom()
 {
-    uint8_t buff[12];
-    i2c_bus->read_registers(address, 0xA2, buff, 12);
+    uint8_t buff[16];
+    i2c_bus->read_registers(address, 0xA0, buff, 16);
+    C1 = ((uint16_t)buff[2] << 8) | buff[3];
+    C2 = ((uint16_t)buff[4] << 8) | buff[5];
+    C3 = ((uint16_t)buff[6] << 8) | buff[7];
+    C4 = ((uint16_t)buff[8] << 8) | buff[9];
+    C5 = ((uint16_t)buff[10] << 8) | buff[11];
+    C6 = ((uint16_t)buff[12] << 8) | buff[13];
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d1_conversion()
 {
+    i2c_bus->send_data(address, 0x48);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d2_conversion()
 {
+    i2c_bus->send_data(address, 0x58);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::read_adc()
 {
-}
+    uint8_t buff[3];
+    i2c_bus->read_registers(address, 0x00, buff, 3);
 
-
-
-
-
-
-
-
-
-
-template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::init()
-{
-    i2c_bus->send_data(address, 0x1E);
-    // wait 100 ms
+    D12 = ((uint32_t)buff_temp[0])<<16 | ((uint32_t)buff_temp[1])<<8 | buff_temp[2];
+    return D12;
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::config()
+void MS5611<T_I2C_bus>::cal_temp()
 {
-    set_bit_val((uint8_t)MS5611::REGISTER::MODE, (uint8_t)BIT::MASK8::BITM2_0,(uint8_t)ZERO,(uint8_t)0); // continuous mode
+    dT = D2 - (uint32_t)C5*256;
+    TEMP = 2000 + (dT*(int32_t)C6)/8388608.0;
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::set_bit_val(uint8_t reg, uint8_t bit_mask, uint8_t bit_lcn_0, uint8_t bit_val)
+void MS5611<T_I2C_bus>::cal_temp_compensated_pressure()
 {
-    uint8_t register_val = i2c_bus->read_register(address, reg);
-    register_val = (register_val & (~bit_mask)) | (bit_val<<bit_lcn_0);
-    i2c_bus->write_register(address, reg, register_val);
+    OFF  = (double)C2*65536.0 + ((double)C4*dT)/128.0;
+    SENS = (double)C1*32768.0 + ((double)C3*dT)/256.0;
+    second_order_temperature_compensation();
+    P = (D1*SENS/2097152.0 - OFF)/32768.0;
 }
 
 template <typename T_I2C_bus>
-uint8_t MS5611<T_I2C_bus>::get_bit_val(uint8_t reg, uint8_t bit_mask, uint8_t bit_lcn_0)
-{
-    return ((i2c_bus->read_register(address, reg)) & bit_mask) >> bit_lcn_0;
+void MS5611<T_I2C_bus>::second_order_temperature_compensation(){
+    double T2 = 0;
+    double OFF2 = 0;
+    double SENS2 = 0;
+
+    if(TEMP<2000)
+    {
+        T2 = dT*dT/2147483648.0;
+        OFF2 = 5.0*(TEMP-2000.0)*(TEMP-2000.0)/2.0;
+        SENS2 = 5.0*(TEMP-2000.0)*(TEMP-2000.0)/4.0;
+
+        if(TEMP<-1500)
+        {
+            OFF2 = OFF2 + 7.0*(TEMP+1500.0)*(TEMP+1500.0);
+            SENS2 = SENS2 + 11.0*((TEMP+1500.0)*(TEMP+1500.0))/2.0;
+        }
+    }
+    else
+    {
+        T2 = 0;
+        OFF2 = 0;
+        SENS2 = 0;
+    }
+
+    TEMP = TEMP - T2;
+    OFF = OFF - OFF2;
+    SENS = SENS - SENS2;
 }
 
 #endif
