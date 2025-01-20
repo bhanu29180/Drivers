@@ -1,17 +1,48 @@
 #include "Arduino.h"
-#include "I2C_bus.h"
-
-I2C_bus<TwoWire> i2c(&Wire);
-I2C_bus<TwoWire> i2c1(&Wire1);
-I2C_bus<TwoWire> i2c2(&Wire2);
+#include <Wire.h>
 
 void setup()
 {
-    i2c.init();
-    i2c1.init();
-    i2c2.init();
+    Serial.begin(115200);
+    Wire.begin();
+    Wire.setClock(400000);
 }
 
 void loop()
 {
+  byte error, address;
+  int nDevices;
+
+  Serial.println("Scanning...");
+
+  nDevices = 0;
+  for(address = 1; address < 127; address++ ) 
+  {
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+
+      nDevices++;
+    }
+    else if (error==4) 
+    {
+      Serial.print("Unknown error at address 0x");
+      if (address<16) 
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+  else
+    Serial.println("done\n");
+
+  delay(5000);           // wait 5 seconds for next scan
 }

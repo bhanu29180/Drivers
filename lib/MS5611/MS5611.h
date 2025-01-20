@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "utility.h"
 #include "MS5611_reg.h"
+#include "Arduino.h"
 
 template <typename T_I2C_bus>
 class MS5611
@@ -54,56 +55,86 @@ MS5611<T_I2C_bus>::MS5611(T_I2C_bus* i2c_bus_, uint8_t address_): i2c_bus(i2c_bu
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::init()
 {
-    i2c_bus->send_data(address, 0x1E);
+    reset();
     // wait 100 ms
+    delay(100);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::config()
 {
+    read_prom();
+}
+
+template <typename T_I2C_bus>
+void MS5611<T_I2C_bus>::get_data(int32_t* press, int32_t* temp)
+{
+    d1_conversion();
+    delay(10);
+    D1 = read_adc();
+
+    d2_conversion();
+    delay(10);
+    D2 = read_adc();
+
+    cal_temp();
+
+    cal_temp_compensated_pressure();
+
+    *press = P;
+    *temp = TEMP;
+
+    Serial.print(C1); Serial.print('\t');
+    Serial.print(C2); Serial.print('\t');
+    Serial.print(C3); Serial.print('\t');
+    Serial.print(C4); Serial.print('\t');
+    Serial.print(C5); Serial.print('\t');
+    Serial.print(C6); Serial.print('\t'); Serial.print("|\t");
+    Serial.print(P); Serial.print('\t');
+    Serial.print(TEMP); Serial.print('\t'); Serial.print("|\t");
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::reset()
 {
-    i2c_bus->send_data(address, MS5611_INFO::COMMAND::RESET);
+    i2c_bus->send_data(address, (uint8_t)MS5611_INFO::COMMAND::RESET);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::read_prom()
 {
     uint8_t buff[2];
-    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_1, buff, 2);
+    i2c_bus->read_registers(address, (uint8_t)MS5611_INFO::COMMAND::PROM_READ_1, buff, 2);
     C1 = ((uint16_t)buff[0] << 8) | buff[1];
-    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_2, buff, 2);
+    i2c_bus->read_registers(address, (uint8_t)MS5611_INFO::COMMAND::PROM_READ_2, buff, 2);
     C2 = ((uint16_t)buff[0] << 8) | buff[1];
-    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_3, buff, 2);
+    i2c_bus->read_registers(address, (uint8_t)MS5611_INFO::COMMAND::PROM_READ_3, buff, 2);
     C3 = ((uint16_t)buff[0] << 8) | buff[1];
-    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_4, buff, 2);
+    i2c_bus->read_registers(address, (uint8_t)MS5611_INFO::COMMAND::PROM_READ_4, buff, 2);
     C4 = ((uint16_t)buff[0] << 8) | buff[1];
-    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_5, buff, 2);
+    i2c_bus->read_registers(address, (uint8_t)MS5611_INFO::COMMAND::PROM_READ_5, buff, 2);
     C5 = ((uint16_t)buff[0] << 8) | buff[1];
-    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::PROM_READ_6, buff, 2);
+    i2c_bus->read_registers(address, (uint8_t)MS5611_INFO::COMMAND::PROM_READ_6, buff, 2);
     C6 = ((uint16_t)buff[0] << 8) | buff[1];
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d1_conversion()
 {
-    i2c_bus->send_data(address, MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096);
+    i2c_bus->send_data(address, (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d2_conversion()
 {
-    i2c_bus->send_data(address, MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096);
+    i2c_bus->send_data(address, (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096);
 }
 
 template <typename T_I2C_bus>
 uint32_t MS5611<T_I2C_bus>::read_adc()
 {
     uint8_t buff[3];
-    i2c_bus->read_registers(address, MS5611_INFO::COMMAND::ADC_READ, buff, 3);
+    i2c_bus->read_registers(address, (uint8_t)(uint8_t)MS5611_INFO::COMMAND::ADC_READ, buff, 3);
     uint32_t D12 = ((uint32_t)buff[0])<<16 | ((uint32_t)buff[1])<<8 | buff[2];
     return D12;
 }
