@@ -24,7 +24,7 @@ void setup()
 	i2c_bus.init();
 	i2c_bus.config(400000);
 	bar.init();
-	delay(10);
+	delay(5);
 	bar.config(4096, 4096);
 
 	Serial.println("---------------------------");
