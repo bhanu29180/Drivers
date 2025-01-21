@@ -10,8 +10,8 @@ MS5611<I2C_bus<TwoWire>> bar(&i2c_bus, (uint8_t)MS5611_INFO::ADDR::I2C_DEFAULT);
 float SampleFrequency = 500.0, dt = 1.0/SampleFrequency;
 unsigned long loop_timer = 1000000.0*dt, t;
 
-int32_t press = 0;
-int32_t temp = 0;
+double press = 0;
+double temp = 0;
 
 unsigned long t_n = 0;
 

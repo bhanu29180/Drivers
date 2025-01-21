@@ -14,7 +14,7 @@ class MS5611
         void init();
         void config(uint16_t osr_press_, uint16_t osr_temp_);
 
-        void get_data(int32_t* press, int32_t* temp);
+        void get_data(double* press, double* temp);
 
     private:
         T_I2C_bus* i2c_bus;
@@ -76,7 +76,7 @@ void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_)
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::get_data(int32_t* press, int32_t* temp)
+void MS5611<T_I2C_bus>::get_data(double* press, double* temp)
 {
     d1_conversion();
     delay(10);
