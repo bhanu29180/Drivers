@@ -17,35 +17,38 @@ unsigned long t_n = 0;
 
 void wait();
 
-void setup(){
-  Serial.begin(115200);
+void setup()
+{
+	Serial.begin(115200);
 
-  i2c_bus.init();
-  i2c_bus.config(400000);
-  bar.init();
-  delay(100);
-  bar.config();
-  
-  Serial.println("---------------------------");
-  Serial.println("Initializing test!");
+	i2c_bus.init();
+	i2c_bus.config(400000);
+	bar.init();
+	delay(10);
+	bar.config(4096, 4096);
 
-  t = micros();
+	Serial.println("---------------------------");
+	Serial.println("Initializing test!");
+
+	t = micros();
 }
 
-void loop(){
-  t_n = micros();
-  Serial.print((float)millis()/1000.0); Serial.print('\t');
-  bar.get_data(&press, &temp);
+void loop()
+{
+	t_n = micros();
+	Serial.print((float)millis()/1000.0); Serial.print('\t');
+	bar.get_data(&press, &temp);
 
-  // Serial.print(press); Serial.print('\t');
-  // Serial.print(temp); Serial.print('\t');
+	// Serial.print(press); Serial.print('\t');
+	// Serial.print(temp); Serial.print('\t');
 
-  Serial.print(1000000.0/double(micros()-t_n)); Serial.print("\t");
-  wait();
-  Serial.println(1000000.0/double(micros()-t_n));
+	Serial.print(1000000.0/double(micros()-t_n)); Serial.print("\t");
+	wait();
+	Serial.println(1000000.0/double(micros()-t_n));
 }
 
-void wait(){
-  while(micros()-t<loop_timer){}
-  t = micros();
+void wait()
+{
+	while(micros()-t<loop_timer){}
+	t = micros();
 }

@@ -12,16 +12,16 @@ class MS5611
     public:
         MS5611(T_I2C_bus* i2c_bus_, uint8_t address_);
         void init();
-        void config();
+        void config(uint16_t osr_press_, uint16_t osr_temp_);
 
         void get_data(int32_t* press, int32_t* temp);
 
     private:
         T_I2C_bus* i2c_bus;
         uint8_t address;
-        uint8_t sample_time = 2;
-        uint8_t max_time = 10;
-        uint8_t current_time = 0;
+
+        uint8_t OSR_P = 0;
+        uint8_t OSR_T = 0;
 
         uint16_t C1 = 0;
         uint16_t C2 = 0;
@@ -41,8 +41,12 @@ class MS5611
         int32_t P = 0;
 
         bool strt = false;
+        uint8_t sample_time = 2;
+        uint8_t max_time = 10;
+        uint8_t current_time = 0;
 
         void reset();
+        void set_osr(uint16_t osr_press_, uint16_t osr_temp_);
         void read_prom();
         void d1_conversion();
         void d2_conversion();
@@ -65,8 +69,9 @@ void MS5611<T_I2C_bus>::init()
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::config()
+void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_)
 {
+    set_osr(osr_press_, osr_temp_);
     read_prom();
 }
 
@@ -79,11 +84,12 @@ void MS5611<T_I2C_bus>::get_data(int32_t* press, int32_t* temp)
     d2_conversion();
     delay(10);
     D2 = read_adc();
+
     cal_temp();
     cal_temp_compensated_pressure();
 
-    *press = P;
-    *temp = TEMP;
+    *press = 0.01 * P;
+    *temp  = 0.01 * TEMP;
 
     Serial.print(C1); Serial.print('\t');
     Serial.print(C2); Serial.print('\t');
@@ -93,6 +99,52 @@ void MS5611<T_I2C_bus>::get_data(int32_t* press, int32_t* temp)
     Serial.print(C6); Serial.print('\t'); Serial.print("|\t");
     Serial.print(P); Serial.print('\t');
     Serial.print(TEMP); Serial.print('\t'); Serial.print("|\t");
+}
+
+template <typename T_I2C_bus>
+void MS5611<T_I2C_bus>::set_osr(uint16_t osr_press_, uint16_t osr_temp_)
+{
+    switch(osr_press_)
+    {
+        case 256:
+            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_256;
+            break;
+        case 512:
+            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_512;
+            break;
+        case 1024:
+            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_1024;
+            break;
+        case 2048:
+            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_2048;
+            break;
+        case 4096:
+            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096;
+            break;
+        default:
+            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096;
+    }
+
+    switch(osr_temp_)
+    {
+        case 256:
+            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_256;
+            break;
+        case 512:
+            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_512;
+            break;
+        case 1024:
+            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_1024;
+            break;
+        case 2048:
+            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_2048;
+            break;
+        case 4096:
+            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096;
+            break;
+        default:
+            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096;
+    }
 }
 
 template <typename T_I2C_bus>
@@ -136,35 +188,36 @@ uint32_t MS5611<T_I2C_bus>::read_adc()
 {
     uint8_t buff[3];
     i2c_bus->read_registers(address, (uint8_t)(uint8_t)MS5611_INFO::COMMAND::ADC_READ, buff, 3);
-    uint32_t D12 = ((uint32_t)buff[0])<<16 | ((uint32_t)buff[1])<<8 | buff[2];
-    return D12;
+    uint32_t adc_val = ((uint32_t)buff[0])<<16 | ((uint32_t)buff[1])<<8 | buff[2];
+    return adc_val;
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::cal_temp()
 {
-    dT = D2 - (uint32_t)C5*256;
-    TEMP = 2000 + (dT*(int32_t)C6)/8388608.0;
+    dT = D2 - (int32_t)C5 * 256;
+    TEMP = 2000 + (int32_t)((dT*(int32_t)C6)/8388608.0);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::cal_temp_compensated_pressure()
 {
-    OFF  = (double)C2*65536.0 + ((double)C4*dT)/128.0;
-    SENS = (double)C1*32768.0 + ((double)C3*dT)/256.0;
+    OFF  = (int64_t)C2*65536 + (int64_t)(((int64_t)C4*(int64_t)dT)/128.0);
+    SENS = (int64_t)C1*32768 + (int64_t)(((int64_t)C3*(int64_t)dT)/256.0);
     second_order_temperature_compensation();
-    P = (D1*SENS/2097152.0 - OFF)/32768.0;
+    P = (int64_t)(((D1*SENS)/2097152.0 - OFF) / 32768.0);
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::second_order_temperature_compensation(){
+void MS5611<T_I2C_bus>::second_order_temperature_compensation()
+{
     double T2 = 0;
     double OFF2 = 0;
     double SENS2 = 0;
 
     if(TEMP<2000)
     {
-        T2 = dT*dT/2147483648.0;
+        T2 = (double)dT*(double)dT / 2147483648.0;
         OFF2 = 5.0*(TEMP-2000.0)*(TEMP-2000.0)/2.0;
         SENS2 = 5.0*(TEMP-2000.0)*(TEMP-2000.0)/4.0;
 
@@ -181,9 +234,9 @@ void MS5611<T_I2C_bus>::second_order_temperature_compensation(){
         SENS2 = 0;
     }
 
-    TEMP = TEMP - T2;
-    OFF = OFF - OFF2;
-    SENS = SENS - SENS2;
+    TEMP = (int32_t)(TEMP - T2);
+    OFF = (int64_t)(OFF - OFF2);
+    SENS = (int64_t)(SENS - SENS2);
 }
 
 #endif
