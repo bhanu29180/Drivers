@@ -39,8 +39,8 @@ void loop()
 	Serial.print((float)millis()/1000.0); Serial.print('\t');
 	bar.get_data(&press, &temp);
 
-	// Serial.print(press); Serial.print('\t');
-	// Serial.print(temp); Serial.print('\t');
+	Serial.print(press); Serial.print('\t');
+	Serial.print(temp); Serial.print('\t');
 
 	Serial.print(1000000.0/double(micros()-t_n)); Serial.print("\t");
 	wait();
