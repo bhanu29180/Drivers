@@ -25,7 +25,7 @@ void setup()
 	i2c_bus.config(400000);
 	bar.init();
 	delay(5);
-	bar.config(4096, 4096, 4);
+	bar.config(4096, 4096, (uint16_t)loop_timer);
 
 	Serial.println("---------------------------");
 	Serial.println("Initializing test!");
@@ -36,19 +36,25 @@ void setup()
 void loop()
 {
 	t_n = micros();
-	Serial.print((float)millis()/1000.0); Serial.print('\t');
+	Serial.print((float)millis() / 1000.0);
+	Serial.print('\t');
 	bar.get_data(&press, &temp);
 
-	Serial.print(press); Serial.print('\t');
-	Serial.print(temp); Serial.print('\t');
+	Serial.print(press);
+	Serial.print('\t');
+	Serial.print(temp);
+	Serial.print('\t');
 
-	Serial.print(1000000.0/double(micros()-t_n)); Serial.print("\t");
+	Serial.print(1000000.0 / double(micros() - t_n));
+	Serial.print("\t");
 	wait();
-	Serial.println(1000000.0/double(micros()-t_n));
+	Serial.println(1000000.0 / double(micros() - t_n));
 }
 
 void wait()
 {
-	while(micros()-t<loop_timer){}
+	while (micros() - t < loop_timer)
+	{
+	}
 	t = micros();
 }
