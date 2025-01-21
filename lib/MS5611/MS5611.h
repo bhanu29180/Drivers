@@ -12,7 +12,7 @@ class MS5611
     public:
         MS5611(T_I2C_bus* i2c_bus_, uint8_t address_);
         void init();
-        void config(uint16_t osr_press_, uint16_t osr_temp_);
+        void config(uint16_t osr_press_, uint16_t osr_temp_, uint16_t time_us_sample_);
 
         void get_data(double* press, double* temp);
 
@@ -20,8 +20,11 @@ class MS5611
         T_I2C_bus* i2c_bus;
         uint8_t address;
 
-        uint8_t OSR_P = 0;
-        uint8_t OSR_T = 0;
+        uint16_t OSR_P = 4096;
+        uint16_t OSR_T = 4096;
+
+        uint8_t COMMAND_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096;
+        uint8_t COMMAND_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096;
 
         uint16_t C1 = 0;
         uint16_t C2 = 0;
@@ -40,10 +43,14 @@ class MS5611
         int64_t SENS = 0;
         int32_t P = 0;
 
-        bool strt = false;
-        uint8_t sample_time = 2;
-        uint8_t max_time = 10;
-        uint8_t current_time = 0;
+        uint16_t time_us_max_osr_4096 = 10000;
+        uint16_t time_us_sample = 2000;
+        uint16_t time_us_wait = time_us_max_osr_4096;
+        uint16_t time_us_current = 0;
+
+        bool trigger_point = true;
+        uint8_t p_t_ratio = 5;
+        uint8_t p_t_counter = 0;
 
         void reset();
         void set_osr(uint16_t osr_press_, uint16_t osr_temp_);
@@ -69,8 +76,9 @@ void MS5611<T_I2C_bus>::init()
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_)
+void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_, uint16_t time_us_sample_)
 {
+    time_us_sample = time_us_sample_;
     set_osr(osr_press_, osr_temp_);
     read_prom();
 }
@@ -78,13 +86,44 @@ void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_)
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::get_data(double* press, double* temp)
 {
-    d1_conversion();
-    delay(10);
-    D1 = read_adc();
-    d2_conversion();
-    delay(10);
-    D2 = read_adc();
+    if(trigger_point==true)
+    {
+        if(p_t_counter==0)
+        {
+            // request temperature
+            d2_conversion();
+            time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_T / 4096.0);
+        }
+        else if(p_t_counter==1)
+        {
+            // get temperature
+            D2 = read_adc();
+            // request pressure
+            d1_conversion();
+            time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_P / 4096.0);
+        }
+        else if(p_t_counter==p_t_ratio+1)
+        {
+            // get pressure
+            D1 = read_adc();
+        }
 
+        p_t_counter++;
+        if(p_t_counter>=p_t_ratio+1)
+        {
+            p_t_counter = 0;
+        }
+
+        time_us_current = 0;
+        trigger_point = false;
+    }
+
+    time_us_current += time_us_sample;
+    if(time_us_current>=time_us_wait)
+    {
+        trigger_point = true;
+    }
+    
     cal_temp();
     cal_temp_compensated_pressure();
 
@@ -104,46 +143,49 @@ void MS5611<T_I2C_bus>::get_data(double* press, double* temp)
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::set_osr(uint16_t osr_press_, uint16_t osr_temp_)
 {
+    OSR_P = osr_press_;
+    OSR_T = osr_temp_;
+
     switch(osr_press_)
     {
         case 256:
-            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_256;
+            COMMAND_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_256;
             break;
         case 512:
-            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_512;
+            COMMAND_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_512;
             break;
         case 1024:
-            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_1024;
+            COMMAND_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_1024;
             break;
         case 2048:
-            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_2048;
+            COMMAND_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_2048;
             break;
         case 4096:
-            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096;
+            COMMAND_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096;
             break;
         default:
-            OSR_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096;
+            COMMAND_P = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096;
     }
 
     switch(osr_temp_)
     {
         case 256:
-            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_256;
+            COMMAND_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_256;
             break;
         case 512:
-            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_512;
+            COMMAND_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_512;
             break;
         case 1024:
-            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_1024;
+            COMMAND_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_1024;
             break;
         case 2048:
-            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_2048;
+            COMMAND_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_2048;
             break;
         case 4096:
-            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096;
+            COMMAND_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096;
             break;
         default:
-            OSR_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096;
+            COMMAND_T = (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096;
     }
 }
 
@@ -174,13 +216,13 @@ void MS5611<T_I2C_bus>::read_prom()
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d1_conversion()
 {
-    i2c_bus->send_data(address, (uint8_t)MS5611_INFO::COMMAND::CONVERT_D1_OSR_4096);
+    i2c_bus->send_data(address, COMMAND_P);
 }
 
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::d2_conversion()
 {
-    i2c_bus->send_data(address, (uint8_t)MS5611_INFO::COMMAND::CONVERT_D2_OSR_4096);
+    i2c_bus->send_data(address, COMMAND_T);
 }
 
 template <typename T_I2C_bus>
