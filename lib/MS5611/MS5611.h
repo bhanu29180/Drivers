@@ -48,8 +48,8 @@ class MS5611
         uint16_t time_us_wait = time_us_max_osr_4096;
         uint16_t time_us_current = 0;
 
-        bool frame_start = true;
         bool trigger_point = true;
+        bool frame_start = true;
         uint8_t p_t_ratio = 5;
         uint8_t p_t_counter = 0;
 
@@ -87,47 +87,87 @@ void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_, uint16_t
 template <typename T_I2C_bus>
 void MS5611<T_I2C_bus>::get_data(double* press, double* temp)
 {
+    if(time_us_current >= time_us_wait)
+    {
+        trigger_point = true;
+        time_us_current = 0;
+    }
+
     if(trigger_point==true)
     {
         if(frame_start==true)
         {
             if(p_t_counter==0)
             {
-                d2_conversion(); // request temperature
-                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_T / 4096.0);
+                // request temperature
             }
-            else if(p_t_counter==1)
+            else if(p_t_counter == 1)
             {
-                D2 = read_adc(); // get temperature
-                d1_conversion(); // request pressure
-                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_P / 4096.0);
+                // get temperature
+                // request pressure
             }
-            else if(p_t_counter==p_t_ratio+1)
+            else if(p_t_counter == (p_t_ratio+1))
             {
-                D1 = read_adc(); // get pressure
+                // get pressure
+                // request temperature
             }
-
-            p_t_counter++;
-            if(p_t_counter>=p_t_ratio+1)
+            else
             {
-                p_t_counter = 0;
+                // get pressure
+                // request pressure
             }
-
             frame_start = false;
         }
         else
         {
+            if(p_t_counter == 1)
+            {
+                // get temperature
+                // request pressure
+            }
+            else if(p_t_counter == (p_t_ratio+1))
+            {
+                // get pressure
+                // request temperature
+            }
+            else
+            {
+                // get pressure
+                // request pressure
+            }
+        }
+
+        p_t_counter++;
+        if(p_t_counter>=p_t_ratio+1)
+        {
+            p_t_counter = 1;
         }
 
         trigger_point = false;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     time_us_current += time_us_sample;
-    if(time_us_current>=time_us_wait)
-    {
-        trigger_point = true;
-        time_us_current = 0;
-    }
     
     cal_temp();
     cal_temp_compensated_pressure();
