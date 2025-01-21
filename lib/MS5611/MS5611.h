@@ -99,22 +99,26 @@ void MS5611<T_I2C_bus>::get_data(double* press, double* temp)
         {
             if(p_t_counter==0)
             {
-                // request temperature
+                d2_conversion(); // request temperature
+                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_T / 4096.0);
             }
             else if(p_t_counter == 1)
             {
-                // get temperature
-                // request pressure
+                D2 = read_adc(); // get temperature
+                d1_conversion(); // request pressure
+                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_P / 4096.0);
             }
             else if(p_t_counter == (p_t_ratio+1))
             {
-                // get pressure
-                // request temperature
+                D1 = read_adc(); // get pressure
+                d2_conversion(); // request temperature
+                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_T / 4096.0);
             }
             else
             {
-                // get pressure
-                // request pressure
+                D1 = read_adc(); // get pressure
+                d1_conversion(); // request pressure
+                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_P / 4096.0);
             }
             frame_start = false;
         }
@@ -122,50 +126,32 @@ void MS5611<T_I2C_bus>::get_data(double* press, double* temp)
         {
             if(p_t_counter == 1)
             {
-                // get temperature
-                // request pressure
+                D2 = read_adc(); // get temperature
+                d1_conversion(); // request pressure
+                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_P / 4096.0);
             }
             else if(p_t_counter == (p_t_ratio+1))
             {
-                // get pressure
-                // request temperature
+                D1 = read_adc(); // get pressure
+                d2_conversion(); // request temperature
+                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_T / 4096.0);
             }
             else
             {
-                // get pressure
-                // request pressure
+                D1 = read_adc(); // get pressure
+                d1_conversion(); // request pressure
+                time_us_wait = (uint16_t)((double)time_us_max_osr_4096 * (double)OSR_P / 4096.0);
             }
         }
 
         p_t_counter++;
-        if(p_t_counter>=p_t_ratio+1)
+        if(p_t_counter>=p_t_ratio+2)
         {
             p_t_counter = 1;
         }
 
         trigger_point = false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     time_us_current += time_us_sample;
     
