@@ -25,7 +25,7 @@ void setup()
 	i2c_bus.config(400000);
 	bar.init();
 	delay(5);
-	bar.config(4096, 4096, (uint16_t)loop_timer);
+	bar.config(4096, 4096, (uint16_t)loop_timer, 3);
 
 	Serial.println("---------------------------");
 	Serial.println("Initializing test!");

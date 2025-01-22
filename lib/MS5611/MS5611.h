@@ -12,7 +12,7 @@ class MS5611
     public:
         MS5611(T_I2C_bus* i2c_bus_, uint8_t address_);
         void init();
-        void config(uint16_t osr_press_, uint16_t osr_temp_, uint16_t time_us_sample_);
+        void config(uint16_t osr_press_, uint16_t osr_temp_, uint16_t time_us_sample_, uint8_t p_t_ratio_);
 
         void get_data(double* press, double* temp);
 
@@ -77,9 +77,10 @@ void MS5611<T_I2C_bus>::init()
 }
 
 template <typename T_I2C_bus>
-void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_, uint16_t time_us_sample_)
+void MS5611<T_I2C_bus>::config(uint16_t osr_press_, uint16_t osr_temp_, uint16_t time_us_sample_, uint8_t p_t_ratio_)
 {
     time_us_sample = time_us_sample_;
+    p_t_ratio = p_t_ratio_;
     set_osr(osr_press_, osr_temp_);
     read_prom();
 }
@@ -160,15 +161,6 @@ void MS5611<T_I2C_bus>::get_data(double* press, double* temp)
 
     *press = 0.01 * P;
     *temp  = 0.01 * TEMP;
-
-    Serial.print(C1); Serial.print('\t');
-    Serial.print(C2); Serial.print('\t');
-    Serial.print(C3); Serial.print('\t');
-    Serial.print(C4); Serial.print('\t');
-    Serial.print(C5); Serial.print('\t');
-    Serial.print(C6); Serial.print('\t'); Serial.print("|\t");
-    Serial.print(P); Serial.print('\t');
-    Serial.print(TEMP); Serial.print('\t'); Serial.print("|\t");
 }
 
 template <typename T_I2C_bus>
