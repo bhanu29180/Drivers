@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include "utility.h"
 #include "MS5611_reg.h"
-#include "Arduino.h"
 
 template <typename T_I2C_bus>
 class MS5611
