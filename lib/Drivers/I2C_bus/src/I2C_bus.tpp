@@ -1,3 +1,5 @@
+#include "I2C_bus.h"
+
 template <typename T_I2C_bus>
 I2C_bus<T_I2C_bus>::I2C_bus(T_I2C_bus* bus) : bus(bus)
 {

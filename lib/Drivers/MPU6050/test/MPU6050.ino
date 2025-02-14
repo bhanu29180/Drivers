@@ -1,6 +1,6 @@
 #include "Arduino.h"
-#include "I2C_bus.h"
-#include "MPU6050.h"
+#include "../Drivers/I2C_bus/src/I2C_bus.h"
+#include "../Drivers/MPU6050/src/MPU6050.h"
 #include "Wire.h"
 
 I2C_bus<TwoWire> i2c_bus(&Wire);

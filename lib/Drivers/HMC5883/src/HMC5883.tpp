@@ -1,3 +1,5 @@
+#include "HMC5883.h"
+
 template <typename T_I2C_bus>
 HMC5883<T_I2C_bus>::HMC5883(T_I2C_bus* i2c_bus, uint8_t address) : i2c_bus(i2c_bus), address(address)
 {

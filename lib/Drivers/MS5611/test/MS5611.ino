@@ -1,6 +1,6 @@
 #include "Arduino.h"
-#include "I2C_bus.h"
-#include "MS5611.h"
+#include "../Drivers/I2C_bus/src/I2C_bus.h"
+#include "../Drivers/MS5611/src/MS5611.h"
 #include "Wire.h"
 #include <stdint.h>
 

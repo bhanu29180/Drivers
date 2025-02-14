@@ -1,3 +1,5 @@
+#include "MS5611.h"
+
 template <typename T_I2C_bus>
 MS5611<T_I2C_bus>::MS5611(T_I2C_bus* i2c_bus_, uint8_t address_): i2c_bus(i2c_bus_), address(address_)
 {

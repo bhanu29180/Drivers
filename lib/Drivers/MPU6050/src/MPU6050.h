@@ -2,7 +2,7 @@
 #define MPU6050_H
 
 #include <stdint.h>
-#include "utility.h"
+#include "../../Utility/src/Utility.h"
 #include "MPU6050_reg.h"
 
 template <typename T_I2C_bus>

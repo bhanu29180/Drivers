@@ -1,6 +1,6 @@
 #include "Arduino.h"
-#include "I2C_bus.h"
-#include "HMC5883.h"
+#include "../Drivers/I2C_bus/src/I2C_bus.h"
+#include "../Drivers/HMC5883/src/HMC5883.h"
 #include "Wire.h"
 #include <stdint.h>
 
