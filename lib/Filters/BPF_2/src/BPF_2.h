@@ -1,27 +1,28 @@
-#ifndef FILTER_HPF_2_H
-#define FILTER_HPF_2_H
+#ifndef FILTER_BPF_2_H
+#define FILTER_BPF_2_H
 
-#include <stdint.h>
+#include "stdint.h"
 #include "../Constants/Constants.h"
 
 template <typename T>
-class HPF_2
+class BPF_2
 {
    public:
-      HPF_2();
-      void init(T fc_, T dt_);
-      void set_param(T fc_, T dt_);
+      BPF_2();
+      void init(T f0_, T dt_);
+      void set_param(T f0_, T dt_);
       T update(T x_k);
       void reset();
 
-      void set_fc(T fc_);
+      void set_f0(T f0_);
       void set_dt(T dt_);
-      T get_fc();
+      T get_f0();
       T get_dt();
       T get_fs();
 
    private:
-      T fc = 0.0;
+      T f0 = 0.0;
+      T B = 0.0;
       T dt = 0.0;
 
       T lambda_1 = 0.0;
@@ -39,6 +40,6 @@ class HPF_2
       uint8_t start_counter = 0;
 };
 
-#include "HPF_2.tpp"
+#include "BPF_2.tpp"
 
 #endif
