@@ -1,17 +1,20 @@
 #include "LPF_2.h"
 
 template <typename T>
-LPF_2<T>::LPF_2(){
+LPF_2<T>::LPF_2()
+{
    reset();
 }
 
 template <typename T>
-void LPF_2<T>::init(T fc_, T dt_){
+void LPF_2<T>::init(T fc_, T dt_)
+{
    set_param(fc_, dt_);
 }
 
 template <typename T>
-void LPF_2<T>::set_param(T fc_, T dt_){
+void LPF_2<T>::set_param(T fc_, T dt_)
+{
    fc = fc_;
    dt = dt_;
    T wc = math_2pi*fc;
@@ -30,7 +33,8 @@ void LPF_2<T>::set_param(T fc_, T dt_){
 }
 
 template <typename T>
-T LPF_2<T>::update(T x_k){
+T LPF_2<T>::update(T x_k)
+{
    T y_k = 0.0;
 
    if (start_counter <= 1)
@@ -51,31 +55,37 @@ T LPF_2<T>::update(T x_k){
 }
 
 template <typename T>
-void LPF_2<T>::reset(){
+void LPF_2<T>::reset()
+{
    start_counter = 0;
 }
 
 template <typename T>
-void LPF_2<T>::set_fc(T fc_){
+void LPF_2<T>::set_fc(T fc_)
+{
    set_param(fc_, dt);
 }
 
 template <typename T>
-void LPF_2<T>::set_dt(T dt_){
+void LPF_2<T>::set_dt(T dt_)
+{
    set_param(fc, dt_);
 }
 
 template <typename T>
-T LPF_2<T>::get_fc(){
+T LPF_2<T>::get_fc()
+{
    return fc;
 }
 
 template <typename T>
-T LPF_2<T>::get_dt(){
+T LPF_2<T>::get_dt()
+{
    return dt;
 }
 
 template <typename T>
-T LPF_2<T>::get_fs(){
+T LPF_2<T>::get_fs()
+{
    return 1.0 / dt;
 }

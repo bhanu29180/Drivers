@@ -2,7 +2,8 @@
 #define FILTER_SRL
 
 template <typename T>
-class SRL{
+class SRL
+{
     public:
         SRL();
         void init(T dt_, T dx_dt_min_, T dx_dt_max_);

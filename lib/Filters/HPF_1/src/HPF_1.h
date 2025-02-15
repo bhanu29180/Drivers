@@ -4,7 +4,8 @@
 #include "../Constants/Constants.h"
 
 template <typename T>
-class HPF_1{
+class HPF_1
+{
 	public:
 		HPF_1();
 		void init(T fc_, T dt_);

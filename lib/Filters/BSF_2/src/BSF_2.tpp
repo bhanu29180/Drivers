@@ -1,17 +1,20 @@
 #include "BSF_2.h"
 
 template <typename T>
-BSF_2<T>::BSF_2(){
+BSF_2<T>::BSF_2()
+{
    reset();
 }
 
 template <typename T>
-void BSF_2<T>::init(T f0_, T dt_){
+void BSF_2<T>::init(T f0_, T dt_)
+{
    set_param(f0_, dt_);
 }
 
 template <typename T>
-void BSF_2<T>::set_param(T f0_, T dt_){
+void BSF_2<T>::set_param(T f0_, T dt_)
+{
    f0 = f0_;
    dt = dt_;
    T wc = math_2pi*f0;
@@ -30,7 +33,8 @@ void BSF_2<T>::set_param(T f0_, T dt_){
 }
 
 template <typename T>
-T BSF_2<T>::update(T x_k){
+T BSF_2<T>::update(T x_k)
+{
    T y_k = 0.0;
 
    if (start_counter <= 1)
@@ -51,31 +55,37 @@ T BSF_2<T>::update(T x_k){
 }
 
 template <typename T>
-void BSF_2<T>::reset(){
+void BSF_2<T>::reset()
+{
    start_counter = 0;
 }
 
 template <typename T>
-void BSF_2<T>::set_f0(T f0_){
+void BSF_2<T>::set_f0(T f0_)
+{
    set_param(f0_, dt);
 }
 
 template <typename T>
-void BSF_2<T>::set_dt(T dt_){
+void BSF_2<T>::set_dt(T dt_)
+{
    set_param(f0, dt_);
 }
 
 template <typename T>
-T BSF_2<T>::get_f0(){
+T BSF_2<T>::get_f0()
+{
    return f0;
 }
 
 template <typename T>
-T BSF_2<T>::get_dt(){
+T BSF_2<T>::get_dt()
+{
    return dt;
 }
 
 template <typename T>
-T BSF_2<T>::get_fs(){
+T BSF_2<T>::get_fs()
+{
    return 1.0 / dt;
 }

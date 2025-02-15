@@ -5,7 +5,8 @@
 #include "../Constants/Constants.h"
 
 template <typename T>
-class MA{
+class MA
+{
 	public:
 		MA();
         

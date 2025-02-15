@@ -4,7 +4,8 @@
 #include "../Constants/Constants.h"
 
 template <typename T>
-class LPF_1{
+class LPF_1
+{
 	public:
 		LPF_1();
 		void init(T fc_, T dt_);

@@ -1,17 +1,20 @@
 #include "HPF_2.h"
 
 template <typename T>
-HPF_2<T>::HPF_2(){
+HPF_2<T>::HPF_2()
+{
    reset();
 }
 
 template <typename T>
-void HPF_2<T>::init(T fc_, T dt_){
+void HPF_2<T>::init(T fc_, T dt_)
+{
    set_param(fc_, dt_);
 }
 
 template <typename T>
-void HPF_2<T>::set_param(T fc_, T dt_){
+void HPF_2<T>::set_param(T fc_, T dt_)
+{
    fc = fc_;
    dt = dt_;
    T wc = math_2pi*fc;
@@ -29,7 +32,8 @@ void HPF_2<T>::set_param(T fc_, T dt_){
    lambda_5 = -a2 / a0;
 }
 template <typename T>
-T HPF_2<T>::update(T x_k){
+T HPF_2<T>::update(T x_k)
+{
    T y_k = 0.0;
 
    if (start_counter <= 1)
@@ -50,31 +54,37 @@ T HPF_2<T>::update(T x_k){
 }
 
 template <typename T>
-void HPF_2<T>::reset(){
+void HPF_2<T>::reset()
+{
    start_counter = 0;
 }
 
 template <typename T>
-void HPF_2<T>::set_fc(T fc_){
+void HPF_2<T>::set_fc(T fc_)
+{
    set_param(fc_, dt);
 }
 
 template <typename T>
-void HPF_2<T>::set_dt(T dt_){
+void HPF_2<T>::set_dt(T dt_)
+{
    set_param(fc, dt_);
 }
 
 template <typename T>
-T HPF_2<T>::get_fc(){
+T HPF_2<T>::get_fc()
+{
    return fc;
 }
 
 template <typename T>
-T HPF_2<T>::get_dt(){
+T HPF_2<T>::get_dt()
+{
    return dt;
 }
 
 template <typename T>
-T HPF_2<T>::get_fs(){
+T HPF_2<T>::get_fs()
+{
    return 1.0 / dt;
 }
