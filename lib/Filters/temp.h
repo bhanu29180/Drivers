@@ -1,4 +1,5 @@
-class Filter_name{
+class Filter_name
+{
     public:
         Filter_name();
         void init();
