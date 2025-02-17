@@ -12,7 +12,7 @@ class Vector2
         Vector2<T> add(Vector2<T> v1, Vector2<T> v2);
         Vector2<T> sub(Vector2<T> v1, Vector2<T> v2);
         Vector2<T> mul(Vector2<T> v1, T s);
-        Vector2<T> mul(T s, Vector2<T> v2);
+        Vector2<T> mul(T s, Vector2<T> v1);
         Vector2<T> div(Vector2<T> v1, T s);
         T normalize(Vector2<T> v1);
         T abs(Vector2<T> v1);
