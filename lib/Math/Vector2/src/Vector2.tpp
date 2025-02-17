@@ -20,7 +20,8 @@ inline constexpr Vector2<T> Vector2<T>::zero()
 }
 
 template <typename T>
-inline constexpr Vector2<T> Vector2<T>::ones() {
+inline constexpr Vector2<T> Vector2<T>::ones()
+{
     return Vector2<T>(1, 1);
 }
 
