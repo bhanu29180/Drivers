@@ -1,6 +1,3 @@
-#ifndef VECTOR2_TPP
-#define VECTOR2_TPP
-
 #include "Vector2.h"
 
 template <typename T>
@@ -189,5 +186,3 @@ constexpr bool Vector2<T>::operator>=(const Vector2<T>& other) const
 {
     return x >= other.x && y >= other.y;
 }
-
-#endif
