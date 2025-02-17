@@ -18,7 +18,7 @@ void LPF_1<T>::set_param(T fc_, T dt_)
 {
 	fc = fc_;
 	dt = dt_;
-	tau = 1.0 / (2.0*math_pi*fc);
+	tau = 1.0 / (2.0*MATH_PI*fc);
 	alpha = dt / (dt + tau);
 }
 
@@ -56,7 +56,7 @@ template <typename T>
 void LPF_1<T>::set_tau(T tau_)
 {
 	tau = tau_;
-	fc = 1.0 / (2.0*math_pi*tau);
+	fc = 1.0 / (2.0*MATH_PI*tau);
 	alpha = dt / (dt + tau);
 }
 
@@ -71,7 +71,7 @@ void LPF_1<T>::set_alpha(T alpha_)
 {
 	alpha = alpha_;
 	tau = ((1.0 - alpha)*dt) / alpha;
-	fc = 1.0 / (2.0*math_pi*tau);
+	fc = 1.0 / (2.0*MATH_PI*tau);
 }
 
 template <typename T>

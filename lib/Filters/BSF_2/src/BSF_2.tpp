@@ -17,13 +17,13 @@ void BSF_2<T>::set_param(T f0_, T dt_)
 {
    f0 = f0_;
    dt = dt_;
-   T wc = math_2pi*f0;
+   T wc = MATH_2_PI*f0;
    T b0 = 4.0 + wc*wc*dt*dt;
    T b1 = 2.0*b0 - 16.0;
    T b2 = b0;
-   T a0 = dt*dt*wc*wc + 2.0*sqrt(2.0)*dt*wc + 4.0;
+   T a0 = dt*dt*wc*wc + 2.0*MATH_SQRT_2*dt*wc + 4.0;
    T a1 = b1;
-   T a2 = dt*dt*wc*wc - 2.0*sqrt(2.0)*dt*wc + 4.0;
+   T a2 = dt*dt*wc*wc - 2.0*MATH_SQRT_2*dt*wc + 4.0;
 
    lambda_1 = b0 / a0;
    lambda_2 = b1 / a0;

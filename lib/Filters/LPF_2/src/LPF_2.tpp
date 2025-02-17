@@ -17,13 +17,13 @@ void LPF_2<T>::set_param(T fc_, T dt_)
 {
    fc = fc_;
    dt = dt_;
-   T wc = math_2pi*fc;
+   T wc = MATH_2_PI*fc;
    T b0 = dt*dt*wc*wc;
    T b1 = 2.0*b0;
    T b2 = b0;
-   T a0 = b0 + 2.0*sqrt(2.0)*dt*wc + 4.0;
+   T a0 = b0 + 2.0*MATH_SQRT_2*dt*wc + 4.0;
    T a1 = b1 - 8.0;
-   T a2 = b0 - 2*sqrt(2.0)*dt*wc + 4.0;
+   T a2 = b0 - 2*MATH_SQRT_2*dt*wc + 4.0;
 
    lambda_1 = b0 / a0;
    lambda_2 = b1 / a0;

@@ -18,7 +18,7 @@ void MA<T>::set_param(T fc_, T dt_)
 {
 	fc = fc_;
 	dt = dt_;
-	tau = 1.0 / (2.0*math_pi*fc);
+	tau = 1.0 / (2.0*MATH_PI*fc);
 	alpha = dt / (dt + tau);
 }
 

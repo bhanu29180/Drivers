@@ -17,13 +17,13 @@ void BPF_2<T>::set_param(T f0_, T dt_)
 {
    f0 = f0_;
    dt = dt_;
-   T wc = math_2pi*f0;
-   T b0 = 2.0*sqrt(2.0)*dt*wc;
+   T wc = MATH_2_PI*f0;
+   T b0 = 2.0*MATH_SQRT_2*dt*wc;
    T b1 = 0.0;
    T b2 = -b0;
-   T a0 = dt*dt*wc*wc + 2.0*sqrt(2.0)*dt*wc + 4.0;
+   T a0 = dt*dt*wc*wc + 2.0*MATH_SQRT_2*dt*wc + 4.0;
    T a1 = 2.0*dt*dt*wc*wc - 8.0;
-   T a2 = dt*dt*wc*wc - 2.0*sqrt(2.0)*dt*wc + 4.0;
+   T a2 = dt*dt*wc*wc - 2.0*MATH_SQRT_2*dt*wc + 4.0;
 
    lambda_1 = b0 / a0;
    lambda_2 = b1 / a0;

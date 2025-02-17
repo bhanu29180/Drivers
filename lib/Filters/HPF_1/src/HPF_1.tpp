@@ -19,7 +19,7 @@ void HPF_1<T>::set_param(T fc_, T dt_)
 	fc = fc_;
 	dt = dt_;
 
-	tau = 1.0 / (2.0*math_pi*fc);
+	tau = 1.0 / (2.0*MATH_PI*fc);
 	alpha = tau / (dt + tau);
 }
 
@@ -60,7 +60,7 @@ template <typename T>
 void HPF_1<T>::set_tau(T tau_)
 {
 	tau = tau_;
-	fc = 1.0 / (2.0*math_pi*tau);
+	fc = 1.0 / (2.0*MATH_PI*tau);
 	alpha = tau / (dt + tau);
 }
 
@@ -75,7 +75,7 @@ void HPF_1<T>::set_alpha(T alpha_)
 {
 	alpha = alpha_;
 	tau = (alpha/(1.0 - alpha)) * dt;
-	fc = 1.0 / (2.0*math_pi*tau);
+	fc = 1.0 / (2.0*MATH_PI*tau);
 }
 
 template <typename T>

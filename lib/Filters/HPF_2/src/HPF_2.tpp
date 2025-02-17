@@ -17,13 +17,13 @@ void HPF_2<T>::set_param(T fc_, T dt_)
 {
    fc = fc_;
    dt = dt_;
-   T wc = math_2pi*fc;
+   T wc = MATH_2_PI*fc;
    T b0 = 4.0;
    T b1 = -8.0;
    T b2 = 4.0;
-   T a0 = dt*dt*wc*wc + 2.0*sqrt(2.0)*dt*wc + 4.0;
+   T a0 = dt*dt*wc*wc + 2.0*MATH_SQRT_2*dt*wc + 4.0;
    T a1 = 2.0*dt*dt*wc*wc - 8.0;
-   T a2 = dt*dt*wc*wc - 2.0*sqrt(2.0)*dt*wc + 4.0;
+   T a2 = dt*dt*wc*wc - 2.0*MATH_SQRT_2*dt*wc + 4.0;
 
    lambda_1 = b0 / a0;
    lambda_2 = b1 / a0;
