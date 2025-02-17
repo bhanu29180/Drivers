@@ -29,7 +29,7 @@ void PWM::config(float pwm_min_us_, float pwm_max_us_, uint32_t resolution_, flo
     set_pwm(pwm_min_us, pwm_min_us, pwm_min_us, pwm_min_us);
 }
 
-void PWM::set_pwm(float pwm1=1000, float pwm2=1000, float pwm3=1000, float pwm4=1000)
+void PWM::set_pwm(float pwm1, float pwm2, float pwm3, float pwm4)
 {
     pwm1 = saturate(pwm1, pwm_min_us, pwm_max_us);
     pwm2 = saturate(pwm2, pwm_min_us, pwm_max_us);
