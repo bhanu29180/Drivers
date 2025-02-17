@@ -7,31 +7,31 @@ template <typename T>
 class Vector2 
 {
     public:
-        T x;
-        T y;
+        T x = 0;
+        T y = 0;
 
         // Constructors
         constexpr Vector2();
         constexpr Vector2(T x, T y);
 
-        static constexpr Vector2<T> zero();
-        static constexpr Vector2<T> ones();
+        static inline constexpr Vector2<T> zero();
+        static inline constexpr Vector2<T> ones();
 
         // Static member functions
-        static constexpr Vector2<T> add(const Vector2<T>& v1, const Vector2<T>& v2);
-        static constexpr Vector2<T> sub(const Vector2<T>& v1, const Vector2<T>& v2);
-        static constexpr Vector2<T> mul(const Vector2<T>& v, T s);
-        static constexpr Vector2<T> div(const Vector2<T>& v, T s);
-        static constexpr Vector2<T> div(T s, const Vector2<T>& v);
+        static inline constexpr Vector2<T> add(const Vector2<T>& v1, const Vector2<T>& v2);
+        static inline constexpr Vector2<T> sub(const Vector2<T>& v1, const Vector2<T>& v2);
+        static inline constexpr Vector2<T> mul(const Vector2<T>& v, T s);
+        static inline constexpr Vector2<T> div(const Vector2<T>& v, T s);
+        static inline constexpr Vector2<T> div(T s, const Vector2<T>& v);
 
         // Static member functions
-        static constexpr T dot(const Vector2<T>& v1, const Vector2<T>& v2);
-        static constexpr T cross(const Vector2<T>& v1, const Vector2<T>& v2);
-        static constexpr Vector2<T> normalize(const Vector2<T>& v);
-        static constexpr T magnitude(const Vector2<T>& v);
-        static constexpr T length(const Vector2<T>& v);
-        static constexpr T norm(const Vector2<T>& v);
-        static constexpr T angle(const Vector2<T>& v);
+        static inline constexpr T dot(const Vector2<T>& v1, const Vector2<T>& v2);
+        static inline constexpr T cross(const Vector2<T>& v1, const Vector2<T>& v2);
+        static inline constexpr Vector2<T> normalize(const Vector2<T>& v);
+        static inline constexpr T magnitude(const Vector2<T>& v);
+        static inline constexpr T length(const Vector2<T>& v);
+        static inline constexpr T norm(const Vector2<T>& v);
+        static inline constexpr T angle(const Vector2<T>& v);
 
         constexpr Vector2<T> operator+(const Vector2<T>& other) const;
         constexpr Vector2<T> operator-(const Vector2<T>& other) const;
