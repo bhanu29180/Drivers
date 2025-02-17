@@ -43,7 +43,7 @@ Vector2<T> Vector2<T>::div(Vector2<T> v1, T s)
 }
 
 template <typename T>
-T Vector2<T>::normalize(Vector2<T> v1)
+Vector2<T> Vector2<T>::normalize(Vector2<T> v1)
 {
     T norm_v1 = sqrt(v1.x*v1.x + v1.y*v1.y);
     return {v1.x/norm_v1, v1.y/norm_v1};

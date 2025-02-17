@@ -8,6 +8,9 @@
         "utility": "cpp",
         "*.tpp": "cpp",
         "string_view": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "atomic": "cpp",
+        "string": "cpp",
+        "typeinfo": "cpp"
     }
 }
