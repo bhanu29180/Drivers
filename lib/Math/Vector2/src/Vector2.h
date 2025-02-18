@@ -62,7 +62,6 @@ class Vector2
         constexpr bool operator!() const;
         constexpr bool operator&&(const Vector2<T>& other) const;
         constexpr bool operator||(const Vector2<T>& other) const;
-
 };
 
 #include "Vector2.tpp"
