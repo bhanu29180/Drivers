@@ -170,6 +170,12 @@ constexpr Vector2<T> Vector2<T>::operator/(T scalar) const
 }
 
 template <typename T>
+constexpr Vector2<T> Vector2<T>::operator%(T scalar) const
+{
+    return Vector2(x%scalar, y%scalar)
+}
+
+template <typename T>
 Vector2<T>& Vector2<T>::operator+=(const Vector2<T>& other)
 {
     x += other.x;

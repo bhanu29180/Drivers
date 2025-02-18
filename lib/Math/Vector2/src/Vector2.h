@@ -44,6 +44,7 @@ class Vector2
         constexpr Vector2<T> operator-(const Vector2<T>& other) const;
         constexpr Vector2<T> operator*(T scalar) const;
         constexpr Vector2<T> operator/(T scalar) const;
+        constexpr Vector2<T> operator%(T scalar) const;
 
         Vector2<T>& operator+=(const Vector2<T>& other);
         Vector2<T>& operator-=(const Vector2<T>& other);
