@@ -102,6 +102,50 @@ inline constexpr T Vector2<T>::angle(const Vector2<T>& v)
 }
 
 template <typename T>
+constexpr Vector2<T> Vector2<T>::operator+() const
+{
+    return *this;
+}
+
+template <typename T>
+constexpr Vector2<T> Vector2<T>::operator-() const
+{
+    return Vector2<T>(-x, -y);
+}
+
+template <typename T>
+Vector2<T>& Vector2<T>::operator++()
+{
+    ++x;
+    ++y;
+    return *this;
+}
+
+template <typename T>
+Vector2<T> Vector2<T>::operator++(int)
+{
+    Vector2<T> temp = *this;
+    ++(*this);
+    return temp;
+}
+
+template <typename T>
+Vector2<T>& Vector2<T>::operator--()
+{
+    --x;
+    --y;
+    return *this;
+}
+
+template <typename T>
+Vector2<T> Vector2<T>::operator--(int)
+{
+    Vector2<T> temp = *this;
+    --(*this);
+    return temp;
+}
+
+template <typename T>
 constexpr Vector2<T> Vector2<T>::operator+(const Vector2<T>& other) const
 {
     return Vector2<T>(x + other.x, y + other.y);
@@ -158,9 +202,17 @@ Vector2<T>& Vector2<T>::operator/=(T scalar)
 }
 
 template <typename T>
+Vector2<T>& Vector2<T>::operator%=(T scalar)
+{
+    x %= scalar;
+    y %= scalar;
+    return *this;
+}
+
+template <typename T>
 constexpr bool Vector2<T>::operator==(const Vector2<T>& other) const
 {
-    return x == other.x && y == other.y;
+    return (x == other.x) && (y == other.y);
 }
 
 template <typename T>
@@ -172,23 +224,41 @@ constexpr bool Vector2<T>::operator!=(const Vector2<T>& other) const
 template <typename T>
 constexpr bool Vector2<T>::operator<(const Vector2<T>& other) const
 {
-    return x < other.x && y < other.y;
+    return (x*x + y*y) < (other.x*other.x + other.y*other.y)
 }
 
 template <typename T>
 constexpr bool Vector2<T>::operator<=(const Vector2<T>& other) const
 {
-    return x <= other.x && y <= other.y;
+    return (x*x + y*y) <= (other.x*other.x + other.y*other.y)
 }
 
 template <typename T>
 constexpr bool Vector2<T>::operator>(const Vector2<T>& other) const
 {
-    return x > other.x && y > other.y;
+    return (x*x + y*y) > (other.x*other.x + other.y*other.y)
 }
 
 template <typename T>
 constexpr bool Vector2<T>::operator>=(const Vector2<T>& other) const
 {
-    return x >= other.x && y >= other.y;
+    return (x*x + y*y) >= (other.x*other.x + other.y*other.y)
+}
+
+template <typename T>
+constexpr bool Vector2<T>::operator!() const
+{
+    return (x == 0) && (y == 0);
+}
+
+template <typename T>
+constexpr bool Vector2<T>::operator&&(const Vector2<T>& v) const
+{
+    return ((x != 0) || (y != 0)) && ((other.x != 0) || (other.y != 0));
+}
+
+template <typename T>
+constexpr bool Vector2<T>::operator||(const Vector2<T>& v) const
+{
+    return ((x != 0) || (y != 0)) || ((other.x != 0) || (other.y != 0));
 }

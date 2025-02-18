@@ -33,6 +33,13 @@ class Vector2
         static inline constexpr T norm(const Vector2<T>& v);
         static inline constexpr T angle(const Vector2<T>& v);
 
+        constexpr Vector2<T> operator+() const;
+        constexpr Vector2<T> operator-() const;
+        Vector2<T>& operator++(); // pre
+        Vector2<T> operator++(int); // post
+        Vector2<T>& operator--(); // pre
+        Vector2<T> operator--(int); // post
+
         constexpr Vector2<T> operator+(const Vector2<T>& other) const;
         constexpr Vector2<T> operator-(const Vector2<T>& other) const;
         constexpr Vector2<T> operator*(T scalar) const;
@@ -42,6 +49,7 @@ class Vector2
         Vector2<T>& operator-=(const Vector2<T>& other);
         Vector2<T>& operator*=(T scalar);
         Vector2<T>& operator/=(T scalar);
+        Vector2<T>& operator%=(T scalar);
 
         constexpr bool operator==(const Vector2<T>& other) const;
         constexpr bool operator!=(const Vector2<T>& other) const;
@@ -49,6 +57,11 @@ class Vector2
         constexpr bool operator<=(const Vector2<T>& other) const;
         constexpr bool operator>(const Vector2<T>& other) const;
         constexpr bool operator>=(const Vector2<T>& other) const;
+
+        constexpr bool operator!() const;
+        constexpr bool operator&&(const Vector2<T>& other) const;
+        constexpr bool operator||(const Vector2<T>& other) const;
+
 };
 
 #include "Vector2.tpp"
