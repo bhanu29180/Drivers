@@ -35,10 +35,10 @@ class Vector2
 
         constexpr Vector2<T> operator+() const;
         constexpr Vector2<T> operator-() const;
-        Vector2<T>& operator++(); // pre
-        Vector2<T> operator++(int); // post
-        Vector2<T>& operator--(); // pre
-        Vector2<T> operator--(int); // post
+        Vector2<T>& operator++();
+        Vector2<T> operator++(int);
+        Vector2<T>& operator--();
+        Vector2<T> operator--(int);
 
         constexpr Vector2<T> operator+(const Vector2<T>& other) const;
         constexpr Vector2<T> operator-(const Vector2<T>& other) const;
