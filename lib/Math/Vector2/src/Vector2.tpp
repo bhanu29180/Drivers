@@ -172,7 +172,7 @@ constexpr Vector2<T> Vector2<T>::operator/(T scalar) const
 template <typename T>
 constexpr Vector2<T> Vector2<T>::operator%(T scalar) const
 {
-    return Vector2(x%scalar, y%scalar)
+    return Vector2(x%scalar, y%scalar);
 }
 
 template <typename T>
@@ -230,25 +230,25 @@ constexpr bool Vector2<T>::operator!=(const Vector2<T>& other) const
 template <typename T>
 constexpr bool Vector2<T>::operator<(const Vector2<T>& other) const
 {
-    return (x*x + y*y) < (other.x*other.x + other.y*other.y)
+    return (x*x + y*y) < (other.x*other.x + other.y*other.y);
 }
 
 template <typename T>
 constexpr bool Vector2<T>::operator<=(const Vector2<T>& other) const
 {
-    return (x*x + y*y) <= (other.x*other.x + other.y*other.y)
+    return (x*x + y*y) <= (other.x*other.x + other.y*other.y);
 }
 
 template <typename T>
 constexpr bool Vector2<T>::operator>(const Vector2<T>& other) const
 {
-    return (x*x + y*y) > (other.x*other.x + other.y*other.y)
+    return (x*x + y*y) > (other.x*other.x + other.y*other.y);
 }
 
 template <typename T>
 constexpr bool Vector2<T>::operator>=(const Vector2<T>& other) const
 {
-    return (x*x + y*y) >= (other.x*other.x + other.y*other.y)
+    return (x*x + y*y) >= (other.x*other.x + other.y*other.y);
 }
 
 template <typename T>
