@@ -103,30 +103,81 @@ inline constexpr T Quaternion<T>::norm(const Quaternion<T>& q)
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::inv(const Quaternion<T>& q)
 {
+    T len = q.q0*q.q0 + q.q1*q.q1 + q.q2*q.q2 + q.q3*q.q3;
+    if (len == T(1))
+    {
+        return Quaternion<T>(q.q0, -q.q1, -q.q2, -q.q3);
+    }
+    else
+    {
+        return Quaternion<T>(q.q0/len, -q.q1/len, -q.q2/len, -q.q3/len);
+    }
 }
 
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::log_e(const Quaternion<T>& q)
 {
+    Quaternion<T> q_2;
+
+    T q_norm = norm(q);
+    q_2.q0 = log(q_norm);
+
+    T u_norm = sqrt(q.q1 * q.q1 + q.q2 * q.q2 + q.q3 * q.q3);
+    T acos_q0_norm_q = acos(q.q0 / norm(q));
+    q_2.q1 = acos_q0_norm_q * q.q1 / u_norm;
+    q_2.q2 = acos_q0_norm_q * q.q2 / u_norm;
+    q_2.q3 = acos_q0_norm_q * q.q3 / u_norm;
+
+    return q_2;
 }
 
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::exp(const Quaternion<T>& q)
 {
+    Quaternion<T> q_2;
+    <T> u_norm = sqrt(q.q1 * q.q1 + q.q2 * q.q2 + q.q3 * q.q3);
+    q_2.q0 = cos(u_norm);
+    q_2.q1 = sin(u_norm) * q.q1 / u_norm;
+    q_2.q2 = sin(u_norm) * q.q2 / u_norm;
+    q_2.q3 = sin(u_norm) * q.q3 / u_norm;
+
+    q_2 = q2 * exp(q.q0);
+
+    return q2;
 }
 
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::pow(const Quaternion<T>& q, T r)
 {
+    T norm_q = norm(q);
+    T th = acos(q.q0 / sqrt(q.q0 * q.q0 + q.q1 * q.q1 + q.q2 * q.q2 + q.q3 * q.q3));
+    T u_norm = sqrt(q.q1 * q.q1 + q.q2 * q.q2 + q.q3 * q.q3);
+
+    if(u_norm==0.0)
+    {
+        T sin_r_th = sin(r * th);
+        return Quaternion<T>(pow(norm_q,r), 0.0, 0.0, 0.0);
+    }
+    else
+    {
+        T u_hat_x = q.q1 / u_norm;
+        T u_hat_y = q.q2 / u_norm;
+        T u_hat_z = q.q3 / u_norm;
+
+        T sin_r_th = sin(r * th);
+        Quaternion<T> q_2(cos(r*th), u_hat_x * sin_r_th, u_hat_y * sin_r_th, u_hat_z * sin_r_th);
+        q2 = q2 * pow(norm_q,r);
+        return q2;
+    }
 }
 
 template <typename T>
-inline constexpr Quaternion<T> Quaternion<T>::LERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, <T> tau)
+inline constexpr Quaternion<T> Quaternion<T>::LERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, T tau)
 {
 }
 
 template <typename T>
-inline constexpr Quaternion<T> Quaternion<T>::SLERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, <T> tau)
+inline constexpr Quaternion<T> Quaternion<T>::SLERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, T tau)
 {
 }
 

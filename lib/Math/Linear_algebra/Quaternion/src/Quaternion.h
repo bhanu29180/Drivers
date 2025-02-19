@@ -38,8 +38,8 @@ class Quaternion
         static inline constexpr Quaternion<T> log_e(const Quaternion<T>& q);
         static inline constexpr Quaternion<T> exp(const Quaternion<T>& q);
         static inline constexpr Quaternion<T> pow(const Quaternion<T>& q, T r);
-        static inline constexpr Quaternion<T> LERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, <T> tau);
-        static inline constexpr Quaternion<T> SLERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, <T> tau);
+        static inline constexpr Quaternion<T> LERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, T tau);
+        static inline constexpr Quaternion<T> SLERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, T tau);
 
         constexpr Quaternion<T> operator+() const;
         constexpr Quaternion<T> operator-() const;
