@@ -10,23 +10,23 @@ constexpr Matrix2<T>::Matrix2(T m11, T m12, T m21, T m22) : m{{m11, m12}, {m21, 
 {
 }
 
-template <typename T>
-constexpr Matrix2<T>::Matrix2(const Matrix2<T>& other) : m{{other.m[0][0], other.m[0][1]}, {other.m[1][0], other.m[1][1]}}
-{
-}
+// template <typename T>
+// constexpr Matrix2<T>::Matrix2(const Matrix2<T>& other) : m{{other.m[0][0], other.m[0][1]}, {other.m[1][0], other.m[1][1]}}
+// {
+// }
 
-template <typename T>
-constexpr Matrix2<T>& Matrix2<T>::operator=(const Matrix2<T>& other)
-{
-    if (this != &other)
-    {
-        m[0][0] = other.m[0][0];
-        m[0][1] = other.m[0][1];
-        m[1][0] = other.m[1][0];
-        m[1][1] = other.m[1][1];
-    }
-    return *this;
-}
+// template <typename T>
+// constexpr Matrix2<T>& Matrix2<T>::operator=(const Matrix2<T>& other)
+// {
+//     if (this != &other)
+//     {
+//         m[0][0] = other.m[0][0];
+//         m[0][1] = other.m[0][1];
+//         m[1][0] = other.m[1][0];
+//         m[1][1] = other.m[1][1];
+//     }
+//     return *this;
+// }
 
 template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::zero()
@@ -380,14 +380,14 @@ bool Matrix2<T>::isSymmetric() const
     return (m[0][1] == m[1][0]);
 }
 
-template <typename T>
-T& Matrix2<T>::operator()(int row, int col)
-{
-    return m[row][col];
-}
+// template <typename T>
+// T& Matrix2<T>::operator()(int row, int col)
+// {
+//     return m[row][col];
+// }
 
-template <typename T>
-constexpr T Matrix2<T>::operator()(int row, int col) const
-{
-    return m[row][col];
-}
+// template <typename T>
+// constexpr T Matrix2<T>::operator()(int row, int col) const
+// {
+//     return m[row][col];
+// }
