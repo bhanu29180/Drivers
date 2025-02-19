@@ -56,6 +56,7 @@ class Quaternion
 
         Quaternion<T>& operator+=(const Quaternion<T>& other);
         Quaternion<T>& operator-=(const Quaternion<T>& other);
+        Quaternion<T>& operator*=(const Quaternion<T>& other);
         Quaternion<T>& operator*=(T scalar);
         Quaternion<T>& operator/=(T scalar);
         Quaternion<T>& operator%=(T scalar);
