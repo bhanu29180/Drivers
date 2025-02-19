@@ -50,10 +50,8 @@ template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::add(const Matrix2<T>& M1, const Matrix2<T>& M2)
 {
     return Matrix2<T>(
-        M1.m[0][0] + M2.m[0][0],
-        M1.m[0][1] + M2.m[0][1],
-        M1.m[1][0] + M2.m[1][0],
-        M1.m[1][1] + M2.m[1][1]
+        M1.m[0][0] + M2.m[0][0], M1.m[0][1] + M2.m[0][1],
+        M1.m[1][0] + M2.m[1][0], M1.m[1][1] + M2.m[1][1]
     );
 }
 
@@ -61,10 +59,8 @@ template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::sub(const Matrix2<T>& M1, const Matrix2<T>& M2)
 {
     return Matrix2<T>(
-        M1.m[0][0] - M2.m[0][0],
-        M1.m[0][1] - M2.m[0][1],
-        M1.m[1][0] - M2.m[1][0],
-        M1.m[1][1] - M2.m[1][1]
+        M1.m[0][0] - M2.m[0][0], M1.m[0][1] - M2.m[0][1],
+        M1.m[1][0] - M2.m[1][0], M1.m[1][1] - M2.m[1][1]
     );
 }
 
@@ -72,10 +68,8 @@ template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::mul(const Matrix2<T>& M1, const Matrix2<T>& M2)
 {
     return Matrix2<T>(
-        M1.m[0][0] * M2.m[0][0] + M1.m[0][1] * M2.m[1][0],
-        M1.m[0][0] * M2.m[0][1] + M1.m[0][1] * M2.m[1][1],
-        M1.m[1][0] * M2.m[0][0] + M1.m[1][1] * M2.m[1][0],
-        M1.m[1][0] * M2.m[0][1] + M1.m[1][1] * M2.m[1][1]
+        M1.m[0][0] * M2.m[0][0] + M1.m[0][1] * M2.m[1][0], M1.m[0][0] * M2.m[0][1] + M1.m[0][1] * M2.m[1][1],
+        M1.m[1][0] * M2.m[0][0] + M1.m[1][1] * M2.m[1][0], M1.m[1][0] * M2.m[0][1] + M1.m[1][1] * M2.m[1][1]
     );
 }
 
@@ -203,13 +197,19 @@ inline constexpr Matrix2<T> Matrix2<T>::inv(const Matrix2<T>& M)
 template <typename T>
 constexpr Matrix2<T> Matrix2<T>::operator+(const Matrix2<T>& other) const
 {
-    return add(*this, other);
+    return Matrix2<T>(
+        m[0][0] + other.m[0][0], m[0][1] + other.m[0][1],
+        m[1][0] + other.m[1][0], m[1][1] + other.m[1][1]
+    );
 }
 
 template <typename T>
 constexpr Matrix2<T> Matrix2<T>::operator-(const Matrix2<T>& other) const
 {
-    return sub(*this, other);
+    return Matrix2<T>(
+        m[0][0] - other.m[0][0], m[0][1] - other.m[0][1],
+        m[1][0] - other.m[1][0], m[1][1] - other.m[1][1]
+    );
 }
 
 template <typename T>
@@ -221,13 +221,19 @@ constexpr Matrix2<T> Matrix2<T>::operator*(const Matrix2<T>& other) const
 template <typename T>
 constexpr Matrix2<T> Matrix2<T>::operator*(T scalar) const
 {
-    return mul(*this, scalar);
+    return Matrix2<T>(
+        m[0][0] * scalar, m[0][1] * scalar,
+        m[1][0] * scalar, m[1][1] * scalar
+    );
 }
 
 template <typename T>
 constexpr Matrix2<T> Matrix2<T>::operator/(T scalar) const
 {
-    return div(*this, scalar);
+    return Matrix2<T>(
+        m[0][0] / scalar, m[0][1] / scalar,
+        m[1][0] / scalar, m[1][1] / scalar
+    );
 }
 
 template <typename T>
@@ -338,10 +344,10 @@ Matrix2<T>& Matrix2<T>::operator%=(T scalar)
 template <typename T>
 constexpr bool Matrix2<T>::operator==(const Matrix2<T>& other) const
 {
-    return (m[0][0] == other.m[0][0] &&
-            m[0][1] == other.m[0][1] &&
-            m[1][0] == other.m[1][0] &&
-            m[1][1] == other.m[1][1]);
+    return ((m[0][0] == other.m[0][0]) &&
+            (m[0][1] == other.m[0][1]) &&
+            (m[1][0] == other.m[1][0]) &&
+            (m[1][1] == other.m[1][1]));
 }
 
 template <typename T>
@@ -353,7 +359,7 @@ constexpr bool Matrix2<T>::operator!=(const Matrix2<T>& other) const
 template <typename T>
 bool Matrix2<T>::isDiagonal() const
 {
-    return (m[0][1] == 0 && m[1][0] == 0);
+    return ((m[0][1] == 0) && (m[1][0] == 0));
 }
 
 template <typename T>
