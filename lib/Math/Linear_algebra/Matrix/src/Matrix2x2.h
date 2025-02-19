@@ -1,48 +1,66 @@
 #ifndef MATRIX2_H
 #define MATRIX2_H
 
+template <typename T>
+class Matrix2
+{
+public:
+    constexpr Matrix2();
+    constexpr Matrix2(T m11, T m12, T m21, T m22);
+    Matrix2<T>(const Matrix2<T>& other);
+    Matrix2<T>& operator=(const Matrix2& other);
+    static inline constexpr Matrix2<T> zero();
+    static inline constexpr Matrix2<T> ones();
+    static inline constexpr Matrix2<T> identity();
+    static inline constexpr Matrix2<T> add(const Matrix2<T>& M1, const Matrix2<T>& M2);
+    static inline constexpr Matrix2<T> sub(const Matrix2<T>& M1, const Matrix2<T>& M2);
+    static inline constexpr Matrix2<T> mul(const Matrix2<T>& M1, const Matrix2<T>& M2);
+    static inline constexpr Matrix2<T> add(const Matrix2<T>& M1, T val);
+    static inline constexpr Matrix2<T> add(T val, const Matrix2<T>& M1);
+    static inline constexpr Matrix2<T> sub(const Matrix2<T>& M1, T val);
+    static inline constexpr Matrix2<T> sub(T val, const Matrix2<T>& M1);
+    static inline constexpr Matrix2<T> mul(const Matrix2<T>& M1, T val);
+    static inline constexpr Matrix2<T> mul(T val, const Matrix2<T>& M1);
+    static inline constexpr Matrix2<T> div(const Matrix2<T>& M1, T val);
+    static inline constexpr Matrix2<T> transpose(const Matrix2<T>& M);
+    static inline constexpr Matrix2<T> det(const Matrix2<T>& M);
+    static inline constexpr Matrix2<T> trace(const Matrix2<T>& M);
+    static inline constexpr Matrix2<T> minor(const Matrix2<T>& M);
+    static inline constexpr Matrix2<T> cofactor(const Matrix2<T>& M);
+    static inline constexpr Matrix2<T> adj(const Matrix2<T>& M);
+    static inline constexpr Matrix2<T> inv(const Matrix2<T>& M);
+
+    constexpr Matrix2<T> operator+(const Matrix2<T>& other) const;
+    constexpr Matrix2<T> operator-(const Matrix2<T>& other) const;
+    constexpr Matrix2<T> operator*(const Matrix2<T>& other) const;
+    constexpr Matrix2<T> operator*(T scalar) const;
+    constexpr Matrix2<T> operator/(T scalar) const;
+    constexpr Matrix2<T> operator%(T scalar) const;
+
+    T& operator()(int row, int col); // Element access (modifiable)
+    T operator()(int row, int col) const; // Element access (read-only)
+    
+    constexpr bool operator==(const Matrix2<T>& other) const;
+    constexpr bool operator!=(const Matrix2<T>& other) const;
+
+    bool isSingular(const Matrix2<T>& M) const;
+    bool isIdentity(const Matrix2<T>& M) const;
+    bool isSymmetric(const Matrix2<T>& M) const;
+};
+
 element operator
     increment
     decrement
     multiplication
     division
 
-mathematical opetation
-    addition
-    subtraction
-    multiplication
-    division
-    transpose
-    inverse
-
 #endif
 
 1. Constructors & Initialization
-    Matrix2()  Default constructor (zero matrix)
-    Matrix2(T a, T b, T c, T d)  Initialize with four values
     Matrix2(const Matrix2& other)  Copy constructor
     Matrix2& operator=(const Matrix2& other)  Copy assignment
-2. Basic Matrix Operations
-    Matrix2 operator+(const Matrix2& other) const  Matrix addition
-    Matrix2 operator-(const Matrix2& other) const  Matrix subtraction
-    Matrix2 operator*(const Matrix2& other) const  Matrix multiplication
-    Matrix2 operator*(T scalar) const  Scalar multiplication
-    Matrix2 operator/(T scalar) const  Scalar division
-    bool operator==(const Matrix2& other) const  Equality check
-    bool operator!=(const Matrix2& other) const  Inequality check
 3. Access & Modification
-    T& operator()(int row, int col)  Element access (modifiable)
-    T operator()(int row, int col) const  Element access (read-only)
+    
     void set(T a, T b, T c, T d)  Set all elements
     void setIdentity()  Set to identity matrix
     void setZero()  Set to zero matrix
-4. Linear Algebra Operations
-    T determinant() const  Compute determinant
-    Matrix2 transpose() const  Compute transpose
-    Matrix2 inverse() const  Compute inverse (if determinant ≠ 0)
-    T trace() const  Compute trace (sum of diagonal elements)
-5. Utility Functions
-    bool isSingular() const  Check if determinant is zero
-    bool isIdentity() const  Check if matrix is identity
-    bool isSymmetric() const  Check if matrix is symmetric
-    void print() const  Print matrix (for debugging)
