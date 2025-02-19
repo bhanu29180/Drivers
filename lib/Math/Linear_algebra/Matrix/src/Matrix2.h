@@ -12,8 +12,8 @@ public:
     constexpr Matrix2();
     constexpr Matrix2(T m11, T m12, T m21, T m22);
     
-    Matrix2<T>(const Matrix2<T>& other);
-    Matrix2<T>& operator=(const Matrix2& other);
+    constexpr Matrix2<T>(const Matrix2<T>& other);
+    constexpr Matrix2<T>& operator=(const Matrix2<T>& other);
     
     static inline constexpr Matrix2<T> zero();
     static inline constexpr Matrix2<T> ones();
@@ -29,8 +29,8 @@ public:
     static inline constexpr Matrix2<T> mul(T val, const Matrix2<T>& M1);
     static inline constexpr Matrix2<T> div(const Matrix2<T>& M1, T val);
     static inline constexpr Matrix2<T> transpose(const Matrix2<T>& M);
-    static inline constexpr Matrix2<T> det(const Matrix2<T>& M);
-    static inline constexpr Matrix2<T> trace(const Matrix2<T>& M);
+    static inline constexpr T det(const Matrix2<T>& M);
+    static inline constexpr T trace(const Matrix2<T>& M);
     static inline constexpr Matrix2<T> minor(const Matrix2<T>& M);
     static inline constexpr Matrix2<T> cofactor(const Matrix2<T>& M);
     static inline constexpr Matrix2<T> adj(const Matrix2<T>& M);
@@ -52,12 +52,13 @@ public:
 
     Matrix2<T>& operator+=(const Matrix2<T>& other);
     Matrix2<T>& operator-=(const Matrix2<T>& other);
+    Matrix2<T>& operator*=(const Matrix2<T>& other);
     Matrix2<T>& operator*=(T scalar);
     Matrix2<T>& operator/=(T scalar);
     Matrix2<T>& operator%=(T scalar);
 
-    T& operator()(int row, int col); // Element access (modifiable)
-    T operator()(int row, int col) const; // Element access (read-only)
+    T& operator()(int row, int col);
+    constexpr T operator()(int row, int col) const;
     
     constexpr bool operator==(const Matrix2<T>& other) const;
     constexpr bool operator!=(const Matrix2<T>& other) const;
