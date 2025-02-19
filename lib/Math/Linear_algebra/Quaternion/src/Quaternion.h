@@ -2,7 +2,6 @@
 #define QUATERNION_H
 
 #include <cmath>
-#include "../../Vector/src/Vector3.h"
 
 template <typename T>
 class Quaternion
