@@ -56,6 +56,7 @@ public:
     constexpr bool operator==(const Matrix2<T>& other) const;
     constexpr bool operator!=(const Matrix2<T>& other) const;
 
+    bool isDiagonal(const Matrix2<T>& M) const;
     bool isSingular(const Matrix2<T>& M) const;
     bool isIdentity(const Matrix2<T>& M) const;
     bool isSymmetric(const Matrix2<T>& M) const;
