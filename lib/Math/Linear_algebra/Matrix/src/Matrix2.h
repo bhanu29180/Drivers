@@ -37,6 +37,19 @@ public:
     constexpr Matrix2<T> operator/(T scalar) const;
     constexpr Matrix2<T> operator%(T scalar) const;
 
+    constexpr Matrix2<T> operator+() const;
+    constexpr Matrix2<T> operator-() const;
+    Matrix2<T>& operator++();
+    Matrix2<T> operator++(int);
+    Matrix2<T>& operator--();
+    Matrix2<T> operator--(int);
+
+    Matrix2<T>& operator+=(const Matrix2<T>& other);
+    Matrix2<T>& operator-=(const Matrix2<T>& other);
+    Matrix2<T>& operator*=(T scalar);
+    Matrix2<T>& operator/=(T scalar);
+    Matrix2<T>& operator%=(T scalar);
+
     T& operator()(int row, int col); // Element access (modifiable)
     T operator()(int row, int col) const; // Element access (read-only)
     
@@ -48,19 +61,6 @@ public:
     bool isSymmetric(const Matrix2<T>& M) const;
 };
 
-element operator
-    increment
-    decrement
-    multiplication
-    division
+#include "Matrix2.tpp"
 
 #endif
-
-1. Constructors & Initialization
-    Matrix2(const Matrix2& other)  Copy constructor
-    Matrix2& operator=(const Matrix2& other)  Copy assignment
-3. Access & Modification
-    
-    void set(T a, T b, T c, T d)  Set all elements
-    void setIdentity()  Set to identity matrix
-    void setZero()  Set to zero matrix
