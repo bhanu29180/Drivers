@@ -12,7 +12,7 @@ public:
     constexpr Matrix2();
     constexpr Matrix2(T m11, T m12, T m21, T m22);
     
-    constexpr Matrix2<T>(const Matrix2<T>& other);
+    constexpr Matrix2(const Matrix2<T>& other);
     constexpr Matrix2<T>& operator=(const Matrix2<T>& other);
     
     static inline constexpr Matrix2<T> zero();
@@ -61,10 +61,10 @@ public:
     constexpr bool operator==(const Matrix2<T>& other) const;
     constexpr bool operator!=(const Matrix2<T>& other) const;
 
-    bool isDiagonal(const Matrix2<T>& M) const;
-    bool isSingular(const Matrix2<T>& M) const;
-    bool isIdentity(const Matrix2<T>& M) const;
-    bool isSymmetric(const Matrix2<T>& M) const;
+    bool isDiagonal() const;
+    bool isSingular() const;
+    bool isIdentity() const;
+    bool isSymmetric() const;
 
     T& operator()(int row, int col);
     constexpr T operator()(int row, int col) const;
