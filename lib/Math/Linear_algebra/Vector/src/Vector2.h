@@ -23,7 +23,6 @@ class Vector2
         static inline constexpr Vector2<T> mul(const Vector2<T>& v, T s);
         static inline constexpr Vector2<T> mul(T s, const Vector2<T>& v);
         static inline constexpr Vector2<T> div(const Vector2<T>& v, T s);
-        static inline constexpr Vector2<T> div(T s, const Vector2<T>& v);
 
         static inline constexpr T dot(const Vector2<T>& v1, const Vector2<T>& v2);
         static inline constexpr T cross(const Vector2<T>& v1, const Vector2<T>& v2);
@@ -54,14 +53,6 @@ class Vector2
 
         constexpr bool operator==(const Vector2<T>& other) const;
         constexpr bool operator!=(const Vector2<T>& other) const;
-        constexpr bool operator<(const Vector2<T>& other) const;
-        constexpr bool operator<=(const Vector2<T>& other) const;
-        constexpr bool operator>(const Vector2<T>& other) const;
-        constexpr bool operator>=(const Vector2<T>& other) const;
-
-        constexpr bool operator!() const;
-        constexpr bool operator&&(const Vector2<T>& other) const;
-        constexpr bool operator||(const Vector2<T>& other) const;
 };
 
 #include "Vector2.tpp"

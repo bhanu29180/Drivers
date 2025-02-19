@@ -53,12 +53,6 @@ inline constexpr Vector2<T> Vector2<T>::div(const Vector2<T>& v, T s)
 }
 
 template <typename T>
-inline constexpr Vector2<T> Vector2<T>::div(T s, const Vector2<T>& v)
-{
-    return Vector2<T>(v.x / s, v.y / s);
-}
-
-template <typename T>
 inline constexpr T Vector2<T>::dot(const Vector2<T>& v1, const Vector2<T>& v2)
 {
     return v1.x * v2.x + v1.y * v2.y;
@@ -225,46 +219,4 @@ template <typename T>
 constexpr bool Vector2<T>::operator!=(const Vector2<T>& other) const
 {
     return !(*this == other);
-}
-
-template <typename T>
-constexpr bool Vector2<T>::operator<(const Vector2<T>& other) const
-{
-    return (x*x + y*y) < (other.x*other.x + other.y*other.y);
-}
-
-template <typename T>
-constexpr bool Vector2<T>::operator<=(const Vector2<T>& other) const
-{
-    return (x*x + y*y) <= (other.x*other.x + other.y*other.y);
-}
-
-template <typename T>
-constexpr bool Vector2<T>::operator>(const Vector2<T>& other) const
-{
-    return (x*x + y*y) > (other.x*other.x + other.y*other.y);
-}
-
-template <typename T>
-constexpr bool Vector2<T>::operator>=(const Vector2<T>& other) const
-{
-    return (x*x + y*y) >= (other.x*other.x + other.y*other.y);
-}
-
-template <typename T>
-constexpr bool Vector2<T>::operator!() const
-{
-    return (x == 0) && (y == 0);
-}
-
-template <typename T>
-constexpr bool Vector2<T>::operator&&(const Vector2<T>& v) const
-{
-    return ((x != 0) || (y != 0)) && ((other.x != 0) || (other.y != 0));
-}
-
-template <typename T>
-constexpr bool Vector2<T>::operator||(const Vector2<T>& v) const
-{
-    return ((x != 0) || (y != 0)) || ((other.x != 0) || (other.y != 0));
 }
