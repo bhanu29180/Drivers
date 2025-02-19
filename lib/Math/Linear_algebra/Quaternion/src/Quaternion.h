@@ -2,61 +2,68 @@
 #define QUATERNION_H
 
 #include <cmath>
-#include "Vector3.h"
-
+#include "../../Vector/src/Vector3.h"
 
 template <typename T>
-class Vector4
+class Quaternion
 {
     public:
-        T x = 0;
-        T y = 0;
-        T z = 0;
-        T w = 0;
+        T q0 = 0;
+        T q1 = 0;
+        T q2 = 0;
+        T q3 = 0;
 
         // Constructors
-        constexpr Vector4();
-        constexpr Vector4(T x, T y, T z, T w);
+        constexpr Quaternion();
+        constexpr Quaternion(T q0, T q1, T q2, T q3);
 
-        static inline constexpr Vector4<T> zero();
-        static inline constexpr Vector4<T> ones();
+        static inline constexpr Quaternion<T> zero();
+        static inline constexpr Quaternion<T> ones();
+        static inline constexpr Quaternion<T> identity();
 
         // Static member functions
-        static inline constexpr Vector4<T> add(const Vector4<T>& v1, const Vector4<T>& v2);
-        static inline constexpr Vector4<T> sub(const Vector4<T>& v1, const Vector4<T>& v2);
-        static inline constexpr Vector4<T> mul(const Vector4<T>& v, T s);
-        static inline constexpr Vector4<T> mul(T s, const Vector4<T>& v);
-        static inline constexpr Vector4<T> div(const Vector4<T>& v, T s);
+        static inline constexpr Quaternion<T> add(const Quaternion<T>& q_1, const Quaternion<T>& q_2);
+        static inline constexpr Quaternion<T> sub(const Quaternion<T>& q_1, const Quaternion<T>& q_2);
+        static inline constexpr Quaternion<T> mul(const Quaternion<T>& q_1, const Quaternion<T>& q_2);
+        static inline constexpr Quaternion<T> mul(const Quaternion<T>& q, T s);
+        static inline constexpr Quaternion<T> mul(T s, const Quaternion<T>& q);
+        static inline constexpr Quaternion<T> div(const Quaternion<T>& q, T s);
 
-        static inline constexpr T dot(const Vector4<T>& v1, const Vector4<T>& v2);
-        static inline constexpr Vector4<T> normalize(const Vector4<T>& v);
-        static inline constexpr T magnitude(const Vector4<T>& v);
-        static inline constexpr T length(const Vector4<T>& v);
-        static inline constexpr T norm(const Vector4<T>& v);
+        static inline constexpr Quaternion<T> conj(const Quaternion<T>& q);
+        static inline constexpr Quaternion<T> normalize(const Quaternion<T>& q);
+        static inline constexpr T magnitude(const Quaternion<T>& q);
+        static inline constexpr T length(const Quaternion<T>& q);
+        static inline constexpr T norm(const Quaternion<T>& q);
+        static inline constexpr Quaternion<T> inv(const Quaternion<T>& q);
+        static inline constexpr Quaternion<T> log_e(const Quaternion<T>& q);
+        static inline constexpr Quaternion<T> exp(const Quaternion<T>& q);
+        static inline constexpr Quaternion<T> pow(const Quaternion<T>& q, T r);
+        static inline constexpr Quaternion<T> LERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, <T> tau);
+        static inline constexpr Quaternion<T> SLERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, <T> tau);
 
-        constexpr Vector4<T> operator+() const;
-        constexpr Vector4<T> operator-() const;
-        Vector4<T>& operator++();
-        Vector4<T> operator++(int);
-        Vector4<T>& operator--();
-        Vector4<T> operator--(int);
+        constexpr Quaternion<T> operator+() const;
+        constexpr Quaternion<T> operator-() const;
+        Quaternion<T>& operator++();
+        Quaternion<T> operator++(int);
+        Quaternion<T>& operator--();
+        Quaternion<T> operator--(int);
 
-        constexpr Vector4<T> operator+(const Vector4<T>& other) const;
-        constexpr Vector4<T> operator-(const Vector4<T>& other) const;
-        constexpr Vector4<T> operator*(T scalar) const;
-        constexpr Vector4<T> operator/(T scalar) const;
-        constexpr Vector4<T> operator%(T scalar) const;
+        constexpr Quaternion<T> operator+(const Quaternion<T>& other) const;
+        constexpr Quaternion<T> operator-(const Quaternion<T>& other) const;
+        constexpr Quaternion<T> operator*(T scalar) const;
+        constexpr Quaternion<T> operator/(T scalar) const;
+        constexpr Quaternion<T> operator%(T scalar) const;
 
-        Vector4<T>& operator+=(const Vector4<T>& other);
-        Vector4<T>& operator-=(const Vector4<T>& other);
-        Vector4<T>& operator*=(T scalar);
-        Vector4<T>& operator/=(T scalar);
-        Vector4<T>& operator%=(T scalar);
+        Quaternion<T>& operator+=(const Quaternion<T>& other);
+        Quaternion<T>& operator-=(const Quaternion<T>& other);
+        Quaternion<T>& operator*=(T scalar);
+        Quaternion<T>& operator/=(T scalar);
+        Quaternion<T>& operator%=(T scalar);
 
-        constexpr bool operator==(const Vector4<T>& other) const;
-        constexpr bool operator!=(const Vector4<T>& other) const;
+        constexpr bool operator==(const Quaternion<T>& other) const;
+        constexpr bool operator!=(const Quaternion<T>& other) const;
 };
 
-#include "Vector4.tpp"
+#include "Quaternion.tpp"
 
 #endif
