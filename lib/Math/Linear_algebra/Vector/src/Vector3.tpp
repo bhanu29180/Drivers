@@ -53,12 +53,6 @@ inline constexpr Vector3<T> Vector3<T>::div(const Vector3<T>& v, T s)
 }
 
 template <typename T>
-inline constexpr Vector3<T> Vector3<T>::div(T s, const Vector3<T>& v)
-{
-    return Vector3<T>(v.x / s, v.y / s, v.z / s);
-}
-
-template <typename T>
 inline constexpr T Vector3<T>::dot(const Vector3<T>& v1, const Vector3<T>& v2)
 {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
@@ -233,46 +227,4 @@ template <typename T>
 constexpr bool Vector3<T>::operator!=(const Vector3<T>& other) const
 {
     return !(*this == other);
-}
-
-template <typename T>
-constexpr bool Vector3<T>::operator<(const Vector3<T>& other) const
-{
-    return (x*x + y*y + z*z) < (other.x*other.x + other.y*other.y + other.z*other.z);
-}
-
-template <typename T>
-constexpr bool Vector3<T>::operator<=(const Vector3<T>& other) const
-{
-    return (x*x + y*y + z*z) <= (other.x*other.x + other.y*other.y + other.z*other.z);
-}
-
-template <typename T>
-constexpr bool Vector3<T>::operator>(const Vector3<T>& other) const
-{
-    return (x*x + y*y + z*z) > (other.x*other.x + other.y*other.y + other.z*other.z);
-}
-
-template <typename T>
-constexpr bool Vector3<T>::operator>=(const Vector3<T>& other) const
-{
-    return (x*x + y*y + z*z) >= (other.x*other.x + other.y*other.y + other.z*other.z);
-}
-
-template <typename T>
-constexpr bool Vector3<T>::operator!() const
-{
-    return (x == 0) && (y == 0) && (z == 0);
-}
-
-template <typename T>
-constexpr bool Vector3<T>::operator&&(const Vector3<T>& v) const
-{
-    return ((x != 0) || (y != 0) || (z != 0)) && ((other.x != 0) || (other.y != 0) || (other.z != 0));
-}
-
-template <typename T>
-constexpr bool Vector3<T>::operator||(const Vector3<T>& v) const
-{
-    return ((x != 0) || (y != 0) || (z != 0)) || ((other.x != 0) || (other.y != 0) || (other.z != 0));
 }
