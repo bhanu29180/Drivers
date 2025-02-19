@@ -1,14 +1,20 @@
 #ifndef MATRIX2_H
 #define MATRIX2_H
 
+#include <cmath>
+
 template <typename T>
 class Matrix2
 {
 public:
+    T m[2][2] = {{0, 0}, {0, 0}};
+
     constexpr Matrix2();
     constexpr Matrix2(T m11, T m12, T m21, T m22);
+    
     Matrix2<T>(const Matrix2<T>& other);
     Matrix2<T>& operator=(const Matrix2& other);
+    
     static inline constexpr Matrix2<T> zero();
     static inline constexpr Matrix2<T> ones();
     static inline constexpr Matrix2<T> identity();
