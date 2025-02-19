@@ -91,7 +91,10 @@ inline constexpr Matrix2<T> Matrix2<T>::add(const Matrix2<T>& M1, T val)
 template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::add(T val, const Matrix2<T>& M1)
 {
-    return add(M1, val);
+    return Matrix2<T>(
+        M1.m[0][0] + val, M1.m[0][1] + val,
+        M1.m[1][0] + val, M1.m[1][1] + val
+    );
 }
 
 template <typename T>
@@ -124,7 +127,10 @@ inline constexpr Matrix2<T> Matrix2<T>::mul(const Matrix2<T>& M1, T val)
 template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::mul(T val, const Matrix2<T>& M1)
 {
-    return mul(M1, val);
+    return Matrix2<T>(
+        M1.m[0][0] * val, M1.m[0][1] * val,
+        M1.m[1][0] * val, M1.m[1][1] * val
+    );
 }
 
 template <typename T>
@@ -160,9 +166,6 @@ inline constexpr T Matrix2<T>::trace(const Matrix2<T>& M)
 template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::minor(const Matrix2<T>& M)
 {
-    // For a 2x2 matrix, the minor matrix is defined as:
-    // [ M[1][1], M[1][0] ]
-    // [ M[0][1], M[0][0] ]
     return Matrix2<T>(
         M.m[1][1], M.m[1][0],
         M.m[0][1], M.m[0][0]
@@ -172,9 +175,6 @@ inline constexpr Matrix2<T> Matrix2<T>::minor(const Matrix2<T>& M)
 template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::cofactor(const Matrix2<T>& M)
 {
-    // Cofactor matrix for 2x2:
-    // [  M[1][1], -M[1][0] ]
-    // [ -M[0][1],  M[0][0] ]
     return Matrix2<T>(
          M.m[1][1], -M.m[1][0],
         -M.m[0][1],  M.m[0][0]
@@ -184,14 +184,20 @@ inline constexpr Matrix2<T> Matrix2<T>::cofactor(const Matrix2<T>& M)
 template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::adj(const Matrix2<T>& M)
 {
-    return trans(cofactor(M));
+    return Matrix2<T>(
+         M.m[1][1], -M.m[0][1],
+        -M.m[1][0],  M.m[0][0]
+    );
 }
 
 template <typename T>
 inline constexpr Matrix2<T> Matrix2<T>::inv(const Matrix2<T>& M)
 {
     T determinant = det(M);
-    return div(adj(M), determinant);
+    return Matrix2<T>(
+         M.m[1][1]/determinant, -M.m[0][1]/determinant,
+        -M.m[1][0]/determinant,  M.m[0][0]/determinant
+    );
 }
 
 template <typename T>
