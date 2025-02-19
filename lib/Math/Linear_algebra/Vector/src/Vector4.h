@@ -2,8 +2,6 @@
 #define VECTOR4_H
 
 #include <cmath>
-#include "Vector3.h"
-
 
 template <typename T>
 class Vector4
