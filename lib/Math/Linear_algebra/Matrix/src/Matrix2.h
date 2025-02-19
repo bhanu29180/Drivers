@@ -22,7 +22,6 @@ public:
     static inline constexpr Matrix2<T> add(const Matrix2<T>& M1, const Matrix2<T>& M2);
     static inline constexpr Matrix2<T> sub(const Matrix2<T>& M1, const Matrix2<T>& M2);
     static inline constexpr Matrix2<T> mul(const Matrix2<T>& M1, const Matrix2<T>& M2);
-
     static inline constexpr Matrix2<T> add(const Matrix2<T>& M1, T val);
     static inline constexpr Matrix2<T> add(T val, const Matrix2<T>& M1);
     static inline constexpr Matrix2<T> sub(const Matrix2<T>& M1, T val);
