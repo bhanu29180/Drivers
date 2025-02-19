@@ -27,15 +27,12 @@ class Vector4
         static inline constexpr Vector4<T> mul(const Vector4<T>& v, T s);
         static inline constexpr Vector4<T> mul(T s, const Vector4<T>& v);
         static inline constexpr Vector4<T> div(const Vector4<T>& v, T s);
-        static inline constexpr Vector4<T> div(T s, const Vector4<T>& v);
 
         static inline constexpr T dot(const Vector4<T>& v1, const Vector4<T>& v2);
-        static inline constexpr Vector4<T> cross(const Vector4<T>& v1, const Vector4<T>& v2);
         static inline constexpr Vector4<T> normalize(const Vector4<T>& v);
         static inline constexpr T magnitude(const Vector4<T>& v);
         static inline constexpr T length(const Vector4<T>& v);
         static inline constexpr T norm(const Vector4<T>& v);
-        static inline constexpr Vector3<T> angle(const Vector4<T>& v);
 
         constexpr Vector4<T> operator+() const;
         constexpr Vector4<T> operator-() const;
@@ -58,14 +55,6 @@ class Vector4
 
         constexpr bool operator==(const Vector4<T>& other) const;
         constexpr bool operator!=(const Vector4<T>& other) const;
-        constexpr bool operator<(const Vector4<T>& other) const;
-        constexpr bool operator<=(const Vector4<T>& other) const;
-        constexpr bool operator>(const Vector4<T>& other) const;
-        constexpr bool operator>=(const Vector4<T>& other) const;
-
-        constexpr bool operator!() const;
-        constexpr bool operator&&(const Vector4<T>& other) const;
-        constexpr bool operator||(const Vector4<T>& other) const;
 };
 
 #include "Vector4.tpp"

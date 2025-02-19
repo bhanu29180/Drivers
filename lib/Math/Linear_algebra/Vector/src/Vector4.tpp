@@ -53,21 +53,9 @@ inline constexpr Vector4<T> Vector4<T>::div(const Vector4<T>& v, T s)
 }
 
 template <typename T>
-inline constexpr Vector4<T> Vector4<T>::div(T s, const Vector4<T>& v)
-{
-    return Vector4<T>(v.x / s, v.y / s, v.z / s, v.w / s);
-}
-
-template <typename T>
 inline constexpr T Vector4<T>::dot(const Vector4<T>& v1, const Vector4<T>& v2)
 {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
-}
-
-template <typename T>
-inline constexpr Vector4<T> Vector4<T>::cross(const Vector4<T>& v1, const Vector4<T>& v2)
-{
-    return Vector4<T>(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x, 0);
 }
 
 template <typename T>
@@ -93,13 +81,6 @@ template <typename T>
 inline constexpr T Vector4<T>::norm(const Vector4<T>& v)
 {
     return sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
-}
-
-template <typename T>
-inline constexpr Vector3<T> Vector4<T>::angle(const Vector4<T>& v)
-{
-    T L = sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
-    return Vector3<T>(acos(v.x/L), acos(v.y/L), acos(v.z/L));
 }
 
 template <typename T>
@@ -240,46 +221,4 @@ template <typename T>
 constexpr bool Vector4<T>::operator!=(const Vector4<T>& other) const
 {
     return !(*this == other);
-}
-
-template <typename T>
-constexpr bool Vector4<T>::operator<(const Vector4<T>& other) const
-{
-    return (x*x + y*y + z*z + w*w) < (other.x*other.x + other.y*other.y + other.z*other.z + other.w*other.w);
-}
-
-template <typename T>
-constexpr bool Vector4<T>::operator<=(const Vector4<T>& other) const
-{
-    return (x*x + y*y + z*z + w*w) <= (other.x*other.x + other.y*other.y + other.z*other.z + other.w*other.w);
-}
-
-template <typename T>
-constexpr bool Vector4<T>::operator>(const Vector4<T>& other) const
-{
-    return (x*x + y*y + z*z + w*w) > (other.x*other.x + other.y*other.y + other.z*other.z + other.w*other.w);
-}
-
-template <typename T>
-constexpr bool Vector4<T>::operator>=(const Vector4<T>& other) const
-{
-    return (x*x + y*y + z*z + w*w) >= (other.x*other.x + other.y*other.y + other.z*other.z + other.w*other.w);
-}
-
-template <typename T>
-constexpr bool Vector4<T>::operator!() const
-{
-    return (x == 0) && (y == 0) && (z == 0) && (w == 0);
-}
-
-template <typename T>
-constexpr bool Vector4<T>::operator&&(const Vector4<T>& v) const
-{
-    return ((x != 0) || (y != 0) || (z != 0) || (w != 0)) && ((other.x != 0) || (other.y != 0) || (other.z != 0) || (other.w != 0));
-}
-
-template <typename T>
-constexpr bool Vector4<T>::operator||(const Vector4<T>& v) const
-{
-    return ((x != 0) || (y != 0) || (z != 0) || (w != 0)) || ((other.x != 0) || (other.y != 0) || (other.z != 0) || (other.w != 0));
 }
