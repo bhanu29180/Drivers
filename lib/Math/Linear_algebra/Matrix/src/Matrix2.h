@@ -54,6 +54,7 @@ public:
     Matrix2<T>& operator+=(const Matrix2<T>& other);
     Matrix2<T>& operator-=(const Matrix2<T>& other);
     Matrix2<T>& operator*=(const Matrix2<T>& other);
+    Matrix2<T>& operator/=(const Matrix2<T>& other);
     Matrix2<T>& operator*=(T scalar);
     Matrix2<T>& operator/=(T scalar);
     Matrix2<T>& operator%=(T scalar);

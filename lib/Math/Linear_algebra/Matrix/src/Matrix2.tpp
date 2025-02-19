@@ -302,6 +302,13 @@ Matrix2<T>& Matrix2<T>::operator*=(const Matrix2<T>& other)
 }
 
 template <typename T>
+Matrix2<T>& Matrix2<T>::operator/=(const Matrix2<T>& other)
+{
+    *this = *this * inv(other);
+    return *this;
+}
+
+template <typename T>
 Matrix2<T>& Matrix2<T>::operator*=(T scalar)
 {
     *this = *this * scalar;
