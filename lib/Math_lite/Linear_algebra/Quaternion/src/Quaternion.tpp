@@ -13,19 +13,19 @@ constexpr Quaternion<T>::Quaternion(T q0, T q1, T q2, T q3) : q0(q0), q1(q1), q2
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::zero()
 {
-    return Quaternion<T>(0, 0, 0, 0)
+    return Quaternion<T>(0, 0, 0, 0);
 }
 
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::ones()
 {
-    return Quaternion<T>(1, 1, 1, 1)
+    return Quaternion<T>(1, 1, 1, 1);
 }
 
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::identity()
 {
-    return Quaternion<T>(1, 0, 0, 0)
+    return Quaternion<T>(1, 0, 0, 0);
 }
 
 template <typename T>
@@ -135,15 +135,15 @@ template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::exp(const Quaternion<T>& q)
 {
     Quaternion<T> q_2;
-    <T> u_norm = sqrt(q.q1 * q.q1 + q.q2 * q.q2 + q.q3 * q.q3);
+    T u_norm = sqrt(q.q1 * q.q1 + q.q2 * q.q2 + q.q3 * q.q3);
     q_2.q0 = cos(u_norm);
     q_2.q1 = sin(u_norm) * q.q1 / u_norm;
     q_2.q2 = sin(u_norm) * q.q2 / u_norm;
     q_2.q3 = sin(u_norm) * q.q3 / u_norm;
 
-    q_2 = q2 * exp(q.q0);
+    q_2 = mul(q_2, exp(q.q0));
 
-    return q2;
+    return q_2;
 }
 
 template <typename T>
@@ -155,7 +155,6 @@ inline constexpr Quaternion<T> Quaternion<T>::pow(const Quaternion<T>& q, T r)
 
     if(u_norm==0.0)
     {
-        T sin_r_th = sin(r * th);
         return Quaternion<T>(pow(norm_q,r), 0.0, 0.0, 0.0);
     }
     else
@@ -166,20 +165,44 @@ inline constexpr Quaternion<T> Quaternion<T>::pow(const Quaternion<T>& q, T r)
 
         T sin_r_th = sin(r * th);
         Quaternion<T> q_2(cos(r*th), u_hat_x * sin_r_th, u_hat_y * sin_r_th, u_hat_z * sin_r_th);
-        q2 = q2 * pow(norm_q,r);
-        return q2;
+        q_2 = mul(q_2, pow(norm_q,r));
+        return q_2;
     }
 }
 
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::LERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, T tau)
 {
-    return (tau*q_1) + (T(1)-tau)*q_2;
+    return add(mul(q_1, tau), mul(q_2, (T(1)-tau)));
 }
 
 template <typename T>
 inline constexpr Quaternion<T> Quaternion<T>::SLERP(const Quaternion<T>& q_1, const Quaternion<T>& q_2, T tau)
 {
+    T cos_theta = q_1.q0*q_2.q0 + q_1.q1*q_2.q1 + q_1.q2*q_2.q2 + q_1.q3*q_2.q3;
+    
+    // If the dot product is negative, slerp won't take the shorter path.
+    // Fix by reversing one quaternion
+    Quaternion<T> q_tmp;
+    if (cos_theta < 0) {
+        q_tmp = mul(q_2, -1);
+        cos_theta = -cos_theta;
+    } else {
+        q_tmp = q_2;
+    }
+    
+    // If the quaternions are very close, use linear interpolation
+    if (cos_theta > T(0.9995)) {
+        return normalize(LERP(q_1, q_tmp, tau));
+    }
+    
+    T theta = acos(cos_theta);
+    T sin_theta = sin(theta);
+    
+    T s1 = sin((T(1) - tau) * theta) / sin_theta;
+    T s2 = sin(tau * theta) / sin_theta;
+    
+    return add(mul(q_1, s1), mul(q_tmp, s2));
 }
 
 template <typename T>
@@ -281,13 +304,18 @@ Quaternion<T>& Quaternion<T>::operator-=(const Quaternion<T>& other)
 }
 
 template <typename T>
-Quaternion<T>& Quaternion<T>::operator*=(const Quaternion<T>& q_2)
+Quaternion<T>& Quaternion<T>::operator*=(const Quaternion<T>& other)
 {
-    Quaternion<T> q_1(q0, q1, q2, q3);
-    q0_ = q_1.q0*q_2.q0 - q_1.q1*q_2.q1 - q_1.q2*q_2.q2 - q_1.q3*q_2.q3;
-    q1_ = q_1.q0*q_2.q1 + q_1.q1*q_2.q0 + q_1.q2*q_2.q3 - q_1.q3*q_2.q2;
-    q2_ = q_1.q0*q_2.q2 - q_1.q1*q_2.q3 + q_1.q2*q_2.q0 + q_1.q3*q_2.q1;
-    q3_ = q_1.q0*q_2.q3 + q_1.q1*q_2.q2 - q_1.q2*q_2.q1 + q_1.q3*q_2.q0;
+    T q0_new = q0*other.q0 - q1*other.q1 - q2*other.q2 - q3*other.q3;
+    T q1_new = q0*other.q1 + q1*other.q0 + q2*other.q3 - q3*other.q2;
+    T q2_new = q0*other.q2 - q1*other.q3 + q2*other.q0 + q3*other.q1;
+    T q3_new = q0*other.q3 + q1*other.q2 - q2*other.q1 + q3*other.q0;
+
+    q0 = q0_new;
+    q1 = q1_new;
+    q2 = q2_new;
+    q3 = q3_new;
+
     return *this;
 }
 
@@ -324,11 +352,11 @@ Quaternion<T>& Quaternion<T>::operator%=(T scalar)
 template <typename T>
 constexpr bool Quaternion<T>::operator==(const Quaternion<T>& other) const
 {
-    return (q0==other.q0) && (q1==other.q1) && (q2==other.q2) || (q3==other.q3);
+    return (q0==other.q0) && (q1==other.q1) && (q2==other.q2) && (q3==other.q3);
 }
 
 template <typename T>
 constexpr bool Quaternion<T>::operator!=(const Quaternion<T>& other) const
 {
-    return !(*this == other)
+    return !(*this == other);
 }
