@@ -10,7 +10,7 @@ public:
     T m[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
     constexpr Matrix3();
-    constexpr Matrix3(T m11, T m12, T m21, T m22);
+    constexpr Matrix3(T m11, T m12, T m13, T m21, T m22, T m23, T m31, T m32, T m33);
     
     // constexpr Matrix3(const Matrix3<T>& other);
     // constexpr Matrix3<T>& operator=(const Matrix3<T>& other);
