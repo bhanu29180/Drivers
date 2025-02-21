@@ -2,89 +2,71 @@
 #define MATRIXMN_H
 
 #include <cmath>
-#include <type_traits>
-#include <initializer_list>
+#include <array>
+#include <stdexcept>
 
-template <typename T, int M, int N>
+template <typename T, size_t M, size_t N>
 class MatrixMN
 {
 public:
     T m[M][N] = {{0}};
 
-    // Constructors
     constexpr MatrixMN();
-    // Variadic constructor: accepts exactly M*N values in row-major order.
-    template <typename... Args, typename = std::enable_if_t<sizeof...(Args) == M * N>>
-    constexpr MatrixMN(Args... args);
+    constexpr MatrixMN(const T (&values)[M][N]);
     
-    constexpr MatrixMN(const MatrixMN<T, M, N>& other);
-    constexpr MatrixMN<T, M, N>& operator=(const MatrixMN<T, M, N>& other);
-    
-    // Static functions to create matrices
-    static inline constexpr MatrixMN<T, M, N> zero();
-    static inline constexpr MatrixMN<T, M, N> ones();
+    static inline constexpr MatrixMN<T,M,N> zero();
+    static inline constexpr MatrixMN<T,M,N> ones();
+    static inline constexpr MatrixMN<T,M,N> identity();
 
-    // Identity is only defined for square matrices.
-    static inline constexpr MatrixMN<T, M, N> identity();
+    static inline constexpr MatrixMN<T,M,N> add(const MatrixMN<T,M,N>& M1, const MatrixMN<T,M,N>& M2);
+    static inline constexpr MatrixMN<T,M,N> sub(const MatrixMN<T,M,N>& M1, const MatrixMN<T,M,N>& M2);
+    template <size_t P>
+    static inline constexpr MatrixMN<T,M,P> mul(const MatrixMN<T,M,N>& M1, const MatrixMN<T,N,P>& M2);
+    static inline constexpr MatrixMN<T,M,N> add(const MatrixMN<T,M,N>& M1, T val);
+    static inline constexpr MatrixMN<T,M,N> add(T val, const MatrixMN<T,M,N>& M1);
+    static inline constexpr MatrixMN<T,M,N> sub(const MatrixMN<T,M,N>& M1, T val);
+    static inline constexpr MatrixMN<T,M,N> sub(T val, const MatrixMN<T,M,N>& M1);
+    static inline constexpr MatrixMN<T,M,N> mul(const MatrixMN<T,M,N>& M1, T val);
+    static inline constexpr MatrixMN<T,M,N> mul(T val, const MatrixMN<T,M,N>& M1);
+    static inline constexpr MatrixMN<T,M,N> div(const MatrixMN<T,M,N>& M1, T val);
+    static inline constexpr MatrixMN<T,M,N> trans(const MatrixMN<T,M,N>& M);
+    static inline constexpr T det(const MatrixMN<T,M,N>& M);
+    static inline constexpr T trace(const MatrixMN<T,M,N>& M);
+    static inline constexpr MatrixMN<T,M,N> minor(const MatrixMN<T,M,N>& M);
+    static inline constexpr MatrixMN<T,M,N> cofactor(const MatrixMN<T,M,N>& M);
+    static inline constexpr MatrixMN<T,M,N> adj(const MatrixMN<T,M,N>& M);
+    static inline constexpr MatrixMN<T,M,N> inv(const MatrixMN<T,M,N>& M);
 
-    // Static arithmetic operations (element-wise for add/sub; proper matrix multiplication for mul is defined for square matrices)
-    static inline constexpr MatrixMN<T, M, N> add(const MatrixMN<T, M, N>& A, const MatrixMN<T, M, N>& B);
-    static inline constexpr MatrixMN<T, M, N> sub(const MatrixMN<T, M, N>& A, const MatrixMN<T, M, N>& B);
-    static inline constexpr MatrixMN<T, M, N> mul(const MatrixMN<T, M, N>& A, const MatrixMN<T, M, N>& B);
-    
-    static inline constexpr MatrixMN<T, M, N> add(const MatrixMN<T, M, N>& A, T val);
-    static inline constexpr MatrixMN<T, M, N> add(T val, const MatrixMN<T, M, N>& A);
-    static inline constexpr MatrixMN<T, M, N> sub(const MatrixMN<T, M, N>& A, T val);
-    static inline constexpr MatrixMN<T, M, N> sub(T val, const MatrixMN<T, M, N>& A);
-    static inline constexpr MatrixMN<T, M, N> mul(const MatrixMN<T, M, N>& A, T val);
-    static inline constexpr MatrixMN<T, M, N> mul(T val, const MatrixMN<T, M, N>& A);
-    static inline constexpr MatrixMN<T, M, N> div(const MatrixMN<T, M, N>& A, T val);
+    constexpr MatrixMN<T,M,N> operator+(const MatrixMN<T,M,N>& other) const;
+    constexpr MatrixMN<T,M,N> operator-(const MatrixMN<T,M,N>& other) const;
+    template <size_t P>
+    constexpr MatrixMN<T,M,P> operator*(const MatrixMN<T,N,P>& other) const;
+    constexpr MatrixMN<T,M,N> operator*(T scalar) const;
+    constexpr MatrixMN<T,M,N> operator/(T scalar) const;
+    constexpr MatrixMN<T,M,N> operator%(T scalar) const;
 
-    // Transpose returns a matrix with dimensions N x M.
-    static inline constexpr MatrixMN<T, N, M> trans(const MatrixMN<T, M, N>& A);
+    constexpr MatrixMN<T,M,N> operator+() const;
+    constexpr MatrixMN<T,M,N> operator-() const;
+    MatrixMN<T,M,N>& operator++();
+    MatrixMN<T,M,N> operator++(int);
+    MatrixMN<T,M,N>& operator--();
+    MatrixMN<T,M,N> operator--(int);
 
-    // The following functions are meaningful only for square matrices (M == N)
-    static inline constexpr T det(const MatrixMN<T, M, N>& A);
-    static inline constexpr T trace(const MatrixMN<T, M, N>& A);
-    static inline constexpr MatrixMN<T, M, N> minor(const MatrixMN<T, M, N>& A);
-    static inline constexpr MatrixMN<T, M, N> cofactor(const MatrixMN<T, M, N>& A);
-    static inline constexpr MatrixMN<T, M, N> adj(const MatrixMN<T, M, N>& A);
-    static inline constexpr MatrixMN<T, M, N> inv(const MatrixMN<T, M, N>& A);
+    MatrixMN<T,M,N>& operator+=(const MatrixMN<T,M,N>& other);
+    MatrixMN<T,M,N>& operator-=(const MatrixMN<T,M,N>& other);
+    MatrixMN<T,M,N>& operator*=(const MatrixMN<T,M,N>& other);
+    MatrixMN<T,M,N>& operator/=(const MatrixMN<T,M,N>& other);
+    MatrixMN<T,M,N>& operator*=(T scalar);
+    MatrixMN<T,M,N>& operator/=(T scalar);
+    MatrixMN<T,M,N>& operator%=(T scalar);
 
-    // Operator overloads (arithmetic)
-    constexpr MatrixMN<T, M, N> operator+(const MatrixMN<T, M, N>& other) const;
-    constexpr MatrixMN<T, M, N> operator-(const MatrixMN<T, M, N>& other) const;
-    constexpr MatrixMN<T, M, N> operator*(const MatrixMN<T, M, N>& other) const;
-    constexpr MatrixMN<T, M, N> operator*(T scalar) const;
-    constexpr MatrixMN<T, M, N> operator/(T scalar) const;
-    constexpr MatrixMN<T, M, N> operator%(T scalar) const;
+    constexpr bool operator==(const MatrixMN<T,M,N>& other) const;
+    constexpr bool operator!=(const MatrixMN<T,M,N>& other) const;
 
-    constexpr MatrixMN<T, M, N> operator+() const;
-    constexpr MatrixMN<T, M, N> operator-() const;
-    MatrixMN<T, M, N>& operator++();
-    MatrixMN<T, M, N> operator++(int);
-    MatrixMN<T, M, N>& operator--();
-    MatrixMN<T, M, N> operator--(int);
-
-    MatrixMN<T, M, N>& operator+=(const MatrixMN<T, M, N>& other);
-    MatrixMN<T, M, N>& operator-=(const MatrixMN<T, M, N>& other);
-    MatrixMN<T, M, N>& operator*=(const MatrixMN<T, M, N>& other);
-    MatrixMN<T, M, N>& operator*=(T scalar);
-    MatrixMN<T, M, N>& operator/=(T scalar);
-    MatrixMN<T, M, N>& operator%=(T scalar);
-
-    constexpr bool operator==(const MatrixMN<T, M, N>& other) const;
-    constexpr bool operator!=(const MatrixMN<T, M, N>& other) const;
-
-    // Utility functions
     bool isDiagonal() const;
     bool isSingular() const;
     bool isIdentity() const;
     bool isSymmetric() const;
-
-    // Element access operators
-    T& operator()(int row, int col);
-    constexpr T operator()(int row, int col) const;
 };
 
 #include "MatrixMN.tpp"
