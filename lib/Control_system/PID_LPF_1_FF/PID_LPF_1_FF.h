@@ -2,7 +2,7 @@
 #define CONTROL_SYSTEM_PID_LPF_1_FF
 
 #include <stdint.h>
-#include "Math_functions.h"
+#include "../../Math_lite/Utility/Math_functions.h"
 
 template <typename T>
 class PID_LPF_1_FF_controller {
