@@ -1,5 +1,5 @@
 #ifndef POINT1D_H
-#define POINT2D_H
+#define POINT1D_H
 
 template <typename T>
 class Point1D
