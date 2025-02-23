@@ -1,6 +1,7 @@
 #include "Math_functions.h"
 
-float Math_functions::saturate(float x, float x_min, float x_max){
+template <typename T>
+T Math_functions<T>::saturate(T x, T x_min, T x_max){
   if(x<x_min){
     return x_min;
   }
@@ -12,7 +13,8 @@ float Math_functions::saturate(float x, float x_min, float x_max){
   }
 }
 
-float Math_functions::mod(float x){
+template <typename T>
+T Math_functions<T>::mod(T x){
   if(x<0){
     return -x;
   }
@@ -21,7 +23,8 @@ float Math_functions::mod(float x){
   }
 }
 
-float Math_functions::sign(float x){
+template <typename T>
+T Math_functions<T>::sign(T x){
   if(x<0){
     return -1.0;
   }
@@ -33,7 +36,8 @@ float Math_functions::sign(float x){
   }
 }
 
-int Math_functions::great_int(float x){
+template <typename T>
+int Math_functions<T>::great_int(T x){
   if(x>=0){
     return (int)x;
   }
@@ -42,25 +46,28 @@ int Math_functions::great_int(float x){
   }
 }
 
-float Math_functions::ceil(float x){
+template <typename T>
+T Math_functions<T>::ceil(T x){
   if(x>=0){
-    return float((int)x + 1);
+    return T((int)x + 1);
   }
   else{
-    return float((int)x);
+    return T((int)x);
   }
 }
 
-float Math_functions::floor(float x){
+template <typename T>
+T Math_functions<T>::floor(T x){
   if(x>=0){
-    return float((int)x);
+    return T((int)x);
   }
   else{
-    return float((int)x - 1);
+    return T((int)x - 1);
   }
 }
 
-float Math_functions::wrap(float x, float a, float b){
+template <typename T>
+T Math_functions<T>::wrap(T x, T a, T b){
   if(x<=a){
     return x - a + b;
   }
@@ -72,7 +79,8 @@ float Math_functions::wrap(float x, float a, float b){
   }
 }
 
-float Math_functions::apply_deadband(float x, float deadband){
+template <typename T>
+T Math_functions<T>::apply_deadband(T x, T deadband){
   if(mod(x)<deadband*0.5){
     return 0;
   }
@@ -81,7 +89,8 @@ float Math_functions::apply_deadband(float x, float deadband){
   }
 }
 
-float Math_functions::apply_deadband2(float x, float deadband){
+template <typename T>
+T Math_functions<T>::apply_deadband2(T x, T deadband){
   if(mod(x)<=deadband*0.5){
     return 0;
   }
@@ -95,54 +104,66 @@ float Math_functions::apply_deadband2(float x, float deadband){
   }
 }
 
-float Math_functions::rad_2_deg(float x){
+template <typename T>
+T Math_functions<T>::rad_2_deg(T x){
   return x*57.295779513082320876798154814105; //x*180/PI
 }
 
-float Math_functions::deg_2_rad(float x){
+template <typename T>
+T Math_functions<T>::deg_2_rad(T x){
   return x*0.01745329251994329576923690768489; //x*PI/180
 }
 
-float Math_functions::rps_2_rpm(float rps){
+template <typename T>
+T Math_functions<T>::rps_2_rpm(T rps){
     return rps*9.54929658551;
 }
 
-float Math_functions::rpm_2_rps(float rpm){
+template <typename T>
+T Math_functions<T>::rpm_2_rps(T rpm){
   // return rpm/9.54929658551;
     return rpm*0.10471975512; // for faster execution
 }
 
-float Math_functions::linear_map(float x, float x1, float x2, float y1, float y2){
+template <typename T>
+T Math_functions<T>::linear_map(T x, T x1, T x2, T y1, T y2){
   return y1 + ((y2-y1)/(x2-x1))*(x-x1);
 }
 
-float Math_functions::poly_map_deg1(float x, float a0, float a1){
+template <typename T>
+T Math_functions<T>::poly_map_deg1(T x, T a0, T a1){
   return a0 + a1*x;
 }
 
-float Math_functions::poly_map_deg2(float x, float a0, float a1, float a2){
+template <typename T>
+T Math_functions<T>::poly_map_deg2(T x, T a0, T a1, T a2){
   return a0 + a1*x + a2*x*x;
 }
 
-float Math_functions::poly_map_deg3(float x, float a0, float a1, float a2, float a3){
+template <typename T>
+T Math_functions<T>::poly_map_deg3(T x, T a0, T a1, T a2, T a3){
   return a0 + a1*x + a2*x*x + a3*x*x*x;
 }
 
-float Math_functions::poly_map_deg4(float x, float a0, float a1, float a2, float a3, float a4){
+template <typename T>
+T Math_functions<T>::poly_map_deg4(T x, T a0, T a1, T a2, T a3, T a4){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x;
 }
 
-float Math_functions::poly_map_deg5(float x, float a0, float a1, float a2, float a3, float a4, float a5){
+template <typename T>
+T Math_functions<T>::poly_map_deg5(T x, T a0, T a1, T a2, T a3, T a4, T a5){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x + a4*x*x*x*x*x;
 }
 
-float Math_functions::poly_map_deg6(float x, float a0, float a1, float a2, float a3, float a4, float a5, float a6){
+template <typename T>
+T Math_functions<T>::poly_map_deg6(T x, T a0, T a1, T a2, T a3, T a4, T a5, T a6){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x + a4*x*x*x*x*x + a4*x*x*x*x*x*x;
 }
 
-float Math_functions::poly_map_degn(float x, float a[], int n){
+template <typename T>
+T Math_functions<T>::poly_map_degn(T x, T a[], int n){
   if(n>=1){
-    return 0;//poly_map_degn(float x, float a[], int n-1);
+    return 0;//poly_map_degn(T x, T a[], int n-1);
   }
   else{
     return a[0];
@@ -150,24 +171,26 @@ float Math_functions::poly_map_degn(float x, float a[], int n){
 }
 
 // https://en.wikipedia.org/wiki/Fast_inverse_square_root
-float Math_functions::fast_inv_sqrt(float number){
+template <typename T>
+T Math_functions<T>::fast_inv_sqrt(T number){
   long i;
-  float x2, y;
-  const float threehalfs = 1.5F;
+  T x2, y;
+  const T threehalfs = 1.5F;
 
   x2 = number*0.5F;
   y  = number;
   i  = *(long*)&y;
   i  = 0x5f3759df - (i>>1);
-  y  = *(float*)&i;
+  y  = *(T*)&i;
   y  = y*(threehalfs - (x2*y*y));
 	// y  = y*(threehalfs - (x2*y*y));   // 2nd iteration, this can be removed
 	return y;
 }
 
-bool Math_functions::points_AB_line_same_side(float x, float y, float x0, float y0, float x1, float y1, float x2, float y2){
-  float L0 = (y2-y1)*(x0-x1) - (x2-x1)*(y0-y1);
-  float L  = (y2-y1)*(x -x1) - (x2-x1)*(y -y1);
+template <typename T>
+bool Math_functions<T>::points_AB_line_same_side(T x, T y, T x0, T y0, T x1, T y1, T x2, T y2){
+  T L0 = (y2-y1)*(x0-x1) - (x2-x1)*(y0-y1);
+  T L  = (y2-y1)*(x -x1) - (x2-x1)*(y -y1);
   if(L0*L>=0){
     return true;
   }
@@ -176,9 +199,10 @@ bool Math_functions::points_AB_line_same_side(float x, float y, float x0, float 
   }
 }
 
-bool Math_functions::points_A0_line_same_side(float x, float y, float x1, float y1, float x2, float y2){
-  float L0 = (y2-y1)*(-x1) - (x2-x1)*(-y1);
-  float L  = (y2-y1)*(x-x1) - (x2-x1)*(y-y1);
+template <typename T>
+bool Math_functions<T>::points_A0_line_same_side(T x, T y, T x1, T y1, T x2, T y2){
+  T L0 = (y2-y1)*(-x1) - (x2-x1)*(-y1);
+  T L  = (y2-y1)*(x-x1) - (x2-x1)*(y-y1);
   if(L0*L>=0){
     return true;
   }
@@ -187,13 +211,16 @@ bool Math_functions::points_A0_line_same_side(float x, float y, float x1, float 
   }
 }
 
-Circle::Circle(){
+template <typename T>
+Circle<T>::Circle(){
 }
 
-Circle::~Circle(){
+template <typename T>
+Circle<T>::~Circle(){
 }
 
-bool Circle::inside(float cx, float cy, float r, float x0, float y0){
+template <typename T>
+bool Circle<T>::inside(T cx, T cy, T r, T x0, T y0){
   if(sqrt((x0-cx)*(x0-cx) + (y0-cy)*(y0-cy))<=r){
     return true;
   }
@@ -202,24 +229,25 @@ bool Circle::inside(float cx, float cy, float r, float x0, float y0){
   }
 }
 
-void Circle::intersection_line(float cx, float cy, float r, float x1, float y1, float x2, float y2, float* x10, float* y10, float* x20, float* y20){
-  float a = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
-  float b = 2.0*((x2-x1)*(x1-cx) + (y2-y1)*(y1-cy));
-  float c = (x1-cx)*(x1-cx) + (y1-cy)*(y1-cy) - r*r;
+template <typename T>
+void Circle<T>::intersection_line(T cx, T cy, T r, T x1, T y1, T x2, T y2, T* x10, T* y10, T* x20, T* y20){
+  T a = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
+  T b = 2.0*((x2-x1)*(x1-cx) + (y2-y1)*(y1-cy));
+  T c = (x1-cx)*(x1-cx) + (y1-cy)*(y1-cy) - r*r;
 
-  float D = b*b - 4.0*a*c;
+  T D = b*b - 4.0*a*c;
 
   if(D>0.0){
-  float lambda_1 = (-b + sqrt(D)) / (2.0*a);
-  float lambda_2 = (-b - sqrt(D)) / (2.0*a);
+  T lambda_1 = (-b + sqrt(D)) / (2.0*a);
+  T lambda_2 = (-b - sqrt(D)) / (2.0*a);
     *x10 = x1 + lambda_1*(x2-x1);
     *y10 = y1 + lambda_1*(y2-y1);
     *x20 = x1 + lambda_2*(x2-x1);
     *y20 = y1 + lambda_2*(y2-y1);
   }
   else if(D==0.0){
-    float lambda_1 = (-b) / (2.0*a);
-    float lambda_2 = (-b) / (2.0*a);
+    T lambda_1 = (-b) / (2.0*a);
+    T lambda_2 = (-b) / (2.0*a);
     *x10 = x1 + lambda_1*(x2-x1);
     *y10 = y1 + lambda_1*(y2-y1);
     *x20 = x1 + lambda_2*(x2-x1);
@@ -233,5 +261,6 @@ void Circle::intersection_line(float cx, float cy, float r, float x1, float y1, 
   }
 }
 
-void Circle::intersection_circle(float c1x, float c1y, float r1, float c2x, float c2y, float r2, float* x01, float* y01, float* x02, float* y02){
+template <typename T>
+void Circle<T>::intersection_circle(T c1x, T c1y, T r1, T c2x, T c2y, T r2, T* x01, T* y01, T* x02, T* y02){
 }
