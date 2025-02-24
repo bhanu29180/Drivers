@@ -1,0 +1,7 @@
+#include "Plane/Plane.h"
+#include "Sphere/Sphere.h"
+#include "Cylinder/Cylinder.h"
+#include "Ellipsoid/Ellipsoid.h"
+#include "Trapezoid/Trapezoid.h"
+#include "Paraboloid/Paraboloid.h"
+#include "Hyperboloid/Hyperboloid.h"

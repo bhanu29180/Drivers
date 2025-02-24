@@ -1,7 +1,7 @@
 #ifndef DUAL_QUATERNION_H
 #define DUAL_QUATERNION_H
 
-#include "../../Quaternion/src/Quaternion.h"
+#include "../Quaternion/Quaternion.h"
 #include <cmath>
 
 template <typename T>

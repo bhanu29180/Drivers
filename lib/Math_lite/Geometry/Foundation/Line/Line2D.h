@@ -2,7 +2,7 @@
 #define LINE2D_H
 
 #include "../Point/Point2D.h"
-#include "../../../Linear_algebra/Vector/src/Vector2.h"
+#include "../../../Linear_algebra/Vector/Vector2.h"
 
 template <typename T>
 class Line2D
