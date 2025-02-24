@@ -1,7 +1,7 @@
 #include "Math_lite.h"
 
 template <typename T>
-T Math_lite<T>::saturate(T x, T x_min, T x_max){
+inline constexpr T Math_lite<T>::saturate(T x, T x_min, T x_max){
   if(x<x_min){
     return x_min;
   }
@@ -14,7 +14,7 @@ T Math_lite<T>::saturate(T x, T x_min, T x_max){
 }
 
 template <typename T>
-T Math_lite<T>::mod(T x){
+inline constexpr T Math_lite<T>::mod(T x){
   if(x<0){
     return -x;
   }
@@ -24,7 +24,7 @@ T Math_lite<T>::mod(T x){
 }
 
 template <typename T>
-T Math_lite<T>::sign(T x){
+inline constexpr T Math_lite<T>::sign(T x){
   if(x<0){
     return -1.0;
   }
@@ -37,7 +37,7 @@ T Math_lite<T>::sign(T x){
 }
 
 template <typename T>
-int Math_lite<T>::great_int(T x){
+inline constexpr int Math_lite<T>::great_int(T x){
   if(x>=0){
     return (int)x;
   }
@@ -47,7 +47,7 @@ int Math_lite<T>::great_int(T x){
 }
 
 template <typename T>
-T Math_lite<T>::ceil(T x){
+inline constexpr T Math_lite<T>::ceil(T x){
   if(x>=0){
     return T((int)x + 1);
   }
@@ -57,7 +57,7 @@ T Math_lite<T>::ceil(T x){
 }
 
 template <typename T>
-T Math_lite<T>::floor(T x){
+inline constexpr T Math_lite<T>::floor(T x){
   if(x>=0){
     return T((int)x);
   }
@@ -67,7 +67,7 @@ T Math_lite<T>::floor(T x){
 }
 
 template <typename T>
-T Math_lite<T>::wrap(T x, T a, T b){
+inline constexpr T Math_lite<T>::wrap(T x, T a, T b){
   if(x<=a){
     return x - a + b;
   }
@@ -80,7 +80,7 @@ T Math_lite<T>::wrap(T x, T a, T b){
 }
 
 template <typename T>
-T Math_lite<T>::apply_deadband(T x, T deadband){
+inline constexpr T Math_lite<T>::apply_deadband(T x, T deadband){
   if(mod(x)<deadband*0.5){
     return 0;
   }
@@ -90,7 +90,7 @@ T Math_lite<T>::apply_deadband(T x, T deadband){
 }
 
 template <typename T>
-T Math_lite<T>::apply_deadband2(T x, T deadband){
+inline constexpr T Math_lite<T>::apply_deadband2(T x, T deadband){
   if(mod(x)<=deadband*0.5){
     return 0;
   }
@@ -105,63 +105,63 @@ T Math_lite<T>::apply_deadband2(T x, T deadband){
 }
 
 template <typename T>
-T Math_lite<T>::rad_2_deg(T x){
+inline constexpr T Math_lite<T>::rad_2_deg(T x){
   return x*57.295779513082320876798154814105; //x*180/PI
 }
 
 template <typename T>
-T Math_lite<T>::deg_2_rad(T x){
+inline constexpr T Math_lite<T>::deg_2_rad(T x){
   return x*0.01745329251994329576923690768489; //x*PI/180
 }
 
 template <typename T>
-T Math_lite<T>::rps_2_rpm(T rps){
+inline constexpr T Math_lite<T>::rps_2_rpm(T rps){
     return rps*9.54929658551;
 }
 
 template <typename T>
-T Math_lite<T>::rpm_2_rps(T rpm){
+inline constexpr T Math_lite<T>::rpm_2_rps(T rpm){
   // return rpm/9.54929658551;
     return rpm*0.10471975512; // for faster execution
 }
 
 template <typename T>
-T Math_lite<T>::linear_map(T x, T x1, T x2, T y1, T y2){
+inline constexpr T Math_lite<T>::linear_map(T x, T x1, T x2, T y1, T y2){
   return y1 + ((y2-y1)/(x2-x1))*(x-x1);
 }
 
 template <typename T>
-T Math_lite<T>::poly_map_deg1(T x, T a0, T a1){
+inline constexpr T Math_lite<T>::poly_map_deg1(T x, T a0, T a1){
   return a0 + a1*x;
 }
 
 template <typename T>
-T Math_lite<T>::poly_map_deg2(T x, T a0, T a1, T a2){
+inline constexpr T Math_lite<T>::poly_map_deg2(T x, T a0, T a1, T a2){
   return a0 + a1*x + a2*x*x;
 }
 
 template <typename T>
-T Math_lite<T>::poly_map_deg3(T x, T a0, T a1, T a2, T a3){
+inline constexpr T Math_lite<T>::poly_map_deg3(T x, T a0, T a1, T a2, T a3){
   return a0 + a1*x + a2*x*x + a3*x*x*x;
 }
 
 template <typename T>
-T Math_lite<T>::poly_map_deg4(T x, T a0, T a1, T a2, T a3, T a4){
+inline constexpr T Math_lite<T>::poly_map_deg4(T x, T a0, T a1, T a2, T a3, T a4){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x;
 }
 
 template <typename T>
-T Math_lite<T>::poly_map_deg5(T x, T a0, T a1, T a2, T a3, T a4, T a5){
+inline constexpr T Math_lite<T>::poly_map_deg5(T x, T a0, T a1, T a2, T a3, T a4, T a5){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x + a4*x*x*x*x*x;
 }
 
 template <typename T>
-T Math_lite<T>::poly_map_deg6(T x, T a0, T a1, T a2, T a3, T a4, T a5, T a6){
+inline constexpr T Math_lite<T>::poly_map_deg6(T x, T a0, T a1, T a2, T a3, T a4, T a5, T a6){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x + a4*x*x*x*x*x + a4*x*x*x*x*x*x;
 }
 
 template <typename T>
-T Math_lite<T>::poly_map_degn(T x, T a[], int n){
+inline constexpr T Math_lite<T>::poly_map_degn(T x, T a[], int n){
   if(n>=1){
     return 0;//poly_map_degn(T x, T a[], int n-1);
   }
@@ -172,7 +172,7 @@ T Math_lite<T>::poly_map_degn(T x, T a[], int n){
 
 // https://en.wikipedia.org/wiki/Fast_inverse_square_root
 template <typename T>
-T Math_lite<T>::fast_inv_sqrt(T number){
+inline constexpr T Math_lite<T>::fast_inv_sqrt(T number){
   long i;
   T x2, y;
   const T threehalfs = 1.5F;
