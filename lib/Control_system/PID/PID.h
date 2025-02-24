@@ -2,7 +2,7 @@
 #define CONTROL_SYSTEM_PID
 
 #include <stdint.h>
-#include "../../Math_lite/Utility/Math_functions.h"
+#include "../../Math_lite/Math_lite.h"
 
 template <typename T>
 class PID_controller {

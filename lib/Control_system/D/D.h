@@ -1,7 +1,7 @@
 #ifndef CONTROL_SYSTEM_D
 #define CONTROL_SYSTEM_D
 
-#include "../../Math_lite/Utility/Math_functions.h"
+#include "../../Math_lite/Math_lite.h"
 
 template <typename T>
 class D_controller {

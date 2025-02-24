@@ -1,8 +1,8 @@
 #ifndef CONTROL_SYSTEM_PID_P
 #define CONTROL_SYSTEM_PID_P
 
-#include "../../Math_lite/Utility/Math_functions.h"
-#include "../../Filters/LPF_1/src/LPF_1.h"
+#include "../../Math_lite/Math_lite.h"
+#include "../../Filters/Filters.h"
 
 template <typename T>
 class PID_P_controller{

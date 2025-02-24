@@ -1,8 +1,8 @@
 #ifndef CONTROL_SYSTEM_PID_GS
 #define CONTROL_SYSTEM_PID_GS
 
-#include "../../Math_lite/Utility/Math_functions.h"
-#include "../../Filters/LPF_1/src/LPF_1.h"
+#include "../../Math_lite/Math_lite.h"
+#include "../../Filters/Filters.h"
 
 template <typename T>
 class PID_GS_controller{

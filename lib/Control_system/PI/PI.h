@@ -1,7 +1,7 @@
 #ifndef CONTROL_SYSTEM_PI
 #define CONTROL_SYSTEM_PI
 
-#include "../../Math_lite/Utility/Math_functions.h"
+#include "../../Math_lite/Math_lite.h"
 
 template <typename T>
 class PI_controller {

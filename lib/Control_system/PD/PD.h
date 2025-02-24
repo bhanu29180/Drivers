@@ -1,7 +1,7 @@
 #ifndef CONTROL_SYSTEM_PD
 #define CONTROL_SYSTEM_PD
 
-#include "../../Math_lite/Utility/Math_functions.h"
+#include "../../Math_lite/Math_lite.h"
 
 template <typename T>
 class PD_controller {
