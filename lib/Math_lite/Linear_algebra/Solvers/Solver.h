@@ -1,0 +1,8 @@
+#include "LUD.h"
+#include "SVD.h"
+#include "EigenD.h"
+#include "CholeskyD.h"
+#include "Linear_solver.h"
+#include "Least_square_solver.h"
+#include "Gaussian_elimination.h"
+#include "Conjugate_gradient_solver.h"
