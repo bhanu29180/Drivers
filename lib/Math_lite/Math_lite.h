@@ -1,11 +1,11 @@
-#ifndef BASIC_FUNCTIONS
-#define BASIC_FUNCTIONS
+#ifndef MATH_LITE_H
+#define MATH_LITE_H
 
 #include "cmath"
-#include "../../Constants/Constants.h"
+#include "../Constants/Constants.h"
 
 template <typename T>
-class Math_functions{
+class Math_lite{
   public:
     T saturate(T x, T x_min, T x_max);
     T mod(T x);

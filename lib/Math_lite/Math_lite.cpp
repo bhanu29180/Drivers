@@ -1,7 +1,7 @@
-#include "Math_functions.h"
+#include "Math_lite.h"
 
 template <typename T>
-T Math_functions<T>::saturate(T x, T x_min, T x_max){
+T Math_lite<T>::saturate(T x, T x_min, T x_max){
   if(x<x_min){
     return x_min;
   }
@@ -14,7 +14,7 @@ T Math_functions<T>::saturate(T x, T x_min, T x_max){
 }
 
 template <typename T>
-T Math_functions<T>::mod(T x){
+T Math_lite<T>::mod(T x){
   if(x<0){
     return -x;
   }
@@ -24,7 +24,7 @@ T Math_functions<T>::mod(T x){
 }
 
 template <typename T>
-T Math_functions<T>::sign(T x){
+T Math_lite<T>::sign(T x){
   if(x<0){
     return -1.0;
   }
@@ -37,7 +37,7 @@ T Math_functions<T>::sign(T x){
 }
 
 template <typename T>
-int Math_functions<T>::great_int(T x){
+int Math_lite<T>::great_int(T x){
   if(x>=0){
     return (int)x;
   }
@@ -47,7 +47,7 @@ int Math_functions<T>::great_int(T x){
 }
 
 template <typename T>
-T Math_functions<T>::ceil(T x){
+T Math_lite<T>::ceil(T x){
   if(x>=0){
     return T((int)x + 1);
   }
@@ -57,7 +57,7 @@ T Math_functions<T>::ceil(T x){
 }
 
 template <typename T>
-T Math_functions<T>::floor(T x){
+T Math_lite<T>::floor(T x){
   if(x>=0){
     return T((int)x);
   }
@@ -67,7 +67,7 @@ T Math_functions<T>::floor(T x){
 }
 
 template <typename T>
-T Math_functions<T>::wrap(T x, T a, T b){
+T Math_lite<T>::wrap(T x, T a, T b){
   if(x<=a){
     return x - a + b;
   }
@@ -80,7 +80,7 @@ T Math_functions<T>::wrap(T x, T a, T b){
 }
 
 template <typename T>
-T Math_functions<T>::apply_deadband(T x, T deadband){
+T Math_lite<T>::apply_deadband(T x, T deadband){
   if(mod(x)<deadband*0.5){
     return 0;
   }
@@ -90,7 +90,7 @@ T Math_functions<T>::apply_deadband(T x, T deadband){
 }
 
 template <typename T>
-T Math_functions<T>::apply_deadband2(T x, T deadband){
+T Math_lite<T>::apply_deadband2(T x, T deadband){
   if(mod(x)<=deadband*0.5){
     return 0;
   }
@@ -105,63 +105,63 @@ T Math_functions<T>::apply_deadband2(T x, T deadband){
 }
 
 template <typename T>
-T Math_functions<T>::rad_2_deg(T x){
+T Math_lite<T>::rad_2_deg(T x){
   return x*57.295779513082320876798154814105; //x*180/PI
 }
 
 template <typename T>
-T Math_functions<T>::deg_2_rad(T x){
+T Math_lite<T>::deg_2_rad(T x){
   return x*0.01745329251994329576923690768489; //x*PI/180
 }
 
 template <typename T>
-T Math_functions<T>::rps_2_rpm(T rps){
+T Math_lite<T>::rps_2_rpm(T rps){
     return rps*9.54929658551;
 }
 
 template <typename T>
-T Math_functions<T>::rpm_2_rps(T rpm){
+T Math_lite<T>::rpm_2_rps(T rpm){
   // return rpm/9.54929658551;
     return rpm*0.10471975512; // for faster execution
 }
 
 template <typename T>
-T Math_functions<T>::linear_map(T x, T x1, T x2, T y1, T y2){
+T Math_lite<T>::linear_map(T x, T x1, T x2, T y1, T y2){
   return y1 + ((y2-y1)/(x2-x1))*(x-x1);
 }
 
 template <typename T>
-T Math_functions<T>::poly_map_deg1(T x, T a0, T a1){
+T Math_lite<T>::poly_map_deg1(T x, T a0, T a1){
   return a0 + a1*x;
 }
 
 template <typename T>
-T Math_functions<T>::poly_map_deg2(T x, T a0, T a1, T a2){
+T Math_lite<T>::poly_map_deg2(T x, T a0, T a1, T a2){
   return a0 + a1*x + a2*x*x;
 }
 
 template <typename T>
-T Math_functions<T>::poly_map_deg3(T x, T a0, T a1, T a2, T a3){
+T Math_lite<T>::poly_map_deg3(T x, T a0, T a1, T a2, T a3){
   return a0 + a1*x + a2*x*x + a3*x*x*x;
 }
 
 template <typename T>
-T Math_functions<T>::poly_map_deg4(T x, T a0, T a1, T a2, T a3, T a4){
+T Math_lite<T>::poly_map_deg4(T x, T a0, T a1, T a2, T a3, T a4){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x;
 }
 
 template <typename T>
-T Math_functions<T>::poly_map_deg5(T x, T a0, T a1, T a2, T a3, T a4, T a5){
+T Math_lite<T>::poly_map_deg5(T x, T a0, T a1, T a2, T a3, T a4, T a5){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x + a4*x*x*x*x*x;
 }
 
 template <typename T>
-T Math_functions<T>::poly_map_deg6(T x, T a0, T a1, T a2, T a3, T a4, T a5, T a6){
+T Math_lite<T>::poly_map_deg6(T x, T a0, T a1, T a2, T a3, T a4, T a5, T a6){
   return a0 + a1*x + a2*x*x + a3*x*x*x + a4*x*x*x*x + a4*x*x*x*x*x + a4*x*x*x*x*x*x;
 }
 
 template <typename T>
-T Math_functions<T>::poly_map_degn(T x, T a[], int n){
+T Math_lite<T>::poly_map_degn(T x, T a[], int n){
   if(n>=1){
     return 0;//poly_map_degn(T x, T a[], int n-1);
   }
@@ -172,7 +172,7 @@ T Math_functions<T>::poly_map_degn(T x, T a[], int n){
 
 // https://en.wikipedia.org/wiki/Fast_inverse_square_root
 template <typename T>
-T Math_functions<T>::fast_inv_sqrt(T number){
+T Math_lite<T>::fast_inv_sqrt(T number){
   long i;
   T x2, y;
   const T threehalfs = 1.5F;
@@ -188,7 +188,7 @@ T Math_functions<T>::fast_inv_sqrt(T number){
 }
 
 template <typename T>
-bool Math_functions<T>::points_AB_line_same_side(T x, T y, T x0, T y0, T x1, T y1, T x2, T y2){
+bool Math_lite<T>::points_AB_line_same_side(T x, T y, T x0, T y0, T x1, T y1, T x2, T y2){
   T L0 = (y2-y1)*(x0-x1) - (x2-x1)*(y0-y1);
   T L  = (y2-y1)*(x -x1) - (x2-x1)*(y -y1);
   if(L0*L>=0){
@@ -200,7 +200,7 @@ bool Math_functions<T>::points_AB_line_same_side(T x, T y, T x0, T y0, T x1, T y
 }
 
 template <typename T>
-bool Math_functions<T>::points_A0_line_same_side(T x, T y, T x1, T y1, T x2, T y2){
+bool Math_lite<T>::points_A0_line_same_side(T x, T y, T x1, T y1, T x2, T y2){
   T L0 = (y2-y1)*(-x1) - (x2-x1)*(-y1);
   T L  = (y2-y1)*(x-x1) - (x2-x1)*(y-y1);
   if(L0*L>=0){
