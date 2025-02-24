@@ -10,6 +10,7 @@ public:
 
     constexpr Point2D();
     constexpr Point2D(T x, T y);
+    static inline constexpr T distance(const Point2D<T>& p1, const Point2D<T>& p2)
 };
 
 #include "Point2D.tpp"
