@@ -1,6 +1,8 @@
 #ifndef POINT1D_H
 #define POINT1D_H
 
+#include <cmath>
+
 template <typename T>
 class Point1D
 {
@@ -9,6 +11,7 @@ public:
     
     constexpr Point1D();
     constexpr Point1D(T x);
+    static inline constexpr T distance(const Point1D<T>& p1, const Point1D<T>& p2);
 };
 
 #include "Point1D.tpp"
