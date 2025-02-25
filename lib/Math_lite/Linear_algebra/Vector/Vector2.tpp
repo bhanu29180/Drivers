@@ -74,25 +74,25 @@ inline constexpr Vector2<T> Vector2<T>::normalize(const Vector2<T>& v)
 template <typename T>
 inline constexpr T Vector2<T>::magnitude(const Vector2<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y);
+    return std::sqrt(v.x * v.x + v.y * v.y);
 }
 
 template <typename T>
 inline constexpr T Vector2<T>::length(const Vector2<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y);
+    return std::sqrt(v.x * v.x + v.y * v.y);
 }
 
 template <typename T>
 inline constexpr T Vector2<T>::norm(const Vector2<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y);
+    return std::sqrt(v.x * v.x + v.y * v.y);
 }
 
 template <typename T>
 inline constexpr T Vector2<T>::angle(const Vector2<T>& v)
 {
-    return atan2(v.y, v.x);
+    return std::atan2(v.y, v.x);
 }
 
 template <typename T>

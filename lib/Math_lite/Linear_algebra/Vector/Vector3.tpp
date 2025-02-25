@@ -74,26 +74,26 @@ inline constexpr Vector3<T> Vector3<T>::normalize(const Vector3<T>& v)
 template <typename T>
 inline constexpr T Vector3<T>::magnitude(const Vector3<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    return std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
 template <typename T>
 inline constexpr T Vector3<T>::length(const Vector3<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    return std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
 template <typename T>
 inline constexpr T Vector3<T>::norm(const Vector3<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    return std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
 template <typename T>
 inline constexpr Vector3<T> Vector3<T>::angle(const Vector3<T>& v)
 {
     T L = magnitude(v);
-    return Vector3<T> (acos(v.x/L), acos(v.y/L), acos(v.z/L));
+    return Vector3<T> (std::acos(v.x/L), std::acos(v.y/L), std::acos(v.z/L));
 }
 
 template <typename T>

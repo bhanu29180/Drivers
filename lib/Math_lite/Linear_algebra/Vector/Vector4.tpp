@@ -68,19 +68,19 @@ inline constexpr Vector4<T> Vector4<T>::normalize(const Vector4<T>& v)
 template <typename T>
 inline constexpr T Vector4<T>::magnitude(const Vector4<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
+    return std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
 }
 
 template <typename T>
 inline constexpr T Vector4<T>::length(const Vector4<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
+    return std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
 }
 
 template <typename T>
 inline constexpr T Vector4<T>::norm(const Vector4<T>& v)
 {
-    return sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
+    return std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
 }
 
 template <typename T>
