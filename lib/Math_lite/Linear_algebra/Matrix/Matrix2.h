@@ -12,8 +12,8 @@ public:
     constexpr Matrix2();
     constexpr Matrix2(T m11, T m12, T m21, T m22);
     
-    // constexpr Matrix2(const Matrix2<T>& other);
-    // constexpr Matrix2<T>& operator=(const Matrix2<T>& other);
+    constexpr Matrix2(const Matrix2<T>& other);
+    constexpr Matrix2<T>& operator=(const Matrix2<T>& other);
     
     static inline constexpr Matrix2<T> zero();
     static inline constexpr Matrix2<T> ones();
