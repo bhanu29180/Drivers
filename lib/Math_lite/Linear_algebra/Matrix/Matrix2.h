@@ -67,8 +67,8 @@ public:
     bool isIdentity() const;
     bool isSymmetric() const;
 
-    // T& operator()(int row, int col);
-    // constexpr T operator()(int row, int col) const;
+    T& operator()(int row, int col);
+    constexpr T operator()(int row, int col) const;
 };
 
 #include "Matrix2.tpp"

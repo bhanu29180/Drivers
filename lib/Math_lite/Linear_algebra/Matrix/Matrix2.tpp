@@ -380,14 +380,14 @@ bool Matrix2<T>::isSymmetric() const
     return (m[0][1] == m[1][0]);
 }
 
-// template <typename T>
-// T& Matrix2<T>::operator()(int row, int col)
-// {
-//     return m[row][col];
-// }
+template <typename T>
+T& Matrix2<T>::operator()(int row, int col)
+{
+    return m[row][col];
+}
 
-// template <typename T>
-// constexpr T Matrix2<T>::operator()(int row, int col) const
-// {
-//     return m[row][col];
-// }
+template <typename T>
+constexpr T Matrix2<T>::operator()(int row, int col) const
+{
+    return m[row][col];
+}
