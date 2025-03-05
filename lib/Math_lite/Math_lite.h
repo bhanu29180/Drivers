@@ -30,8 +30,11 @@ public:
 
 	static inline constexpr T rad_2_deg(T x);
 	static inline constexpr T deg_2_rad(T x);
-	static inline constexpr T rps_2_rpm(T rps);
-	static inline constexpr T rpm_2_rps(T rpm);
+	static inline constexpr T rpm_2_radps(T x);
+	static inline constexpr T rpm_2_degps(T x);
+	static inline constexpr T radps_2_rpm(T x);
+	static inline constexpr T degps_2_rpm(T x);
+
 
 	static inline constexpr T hz_to_s(T freq);
 	static inline constexpr T hz_to_ms(T freq);

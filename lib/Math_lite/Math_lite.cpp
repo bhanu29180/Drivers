@@ -217,17 +217,29 @@ inline constexpr T Math_lite<T>::deg_2_rad(T x)
 }
 
 template <typename T>
-inline constexpr T Math_lite<T>::rps_2_rpm(T rps)
+inline constexpr T rpm_2_radps(T x)
 {
-	return rps * 9.54929658551;
+	return x * T(RPM_2_RADPS);
 }
 
 template <typename T>
-inline constexpr T Math_lite<T>::rpm_2_rps(T rpm)
+inline constexpr T rpm_2_degps(T x)
 {
-	// return rpm/9.54929658551;
-	return rpm * 0.10471975512; // for faster execution
+	return x * T(RPM_2_DEGPS);
 }
+
+template <typename T>
+inline constexpr T radps_2_rpm(T x)
+{
+	return x * T(RADPS_2_RPM);
+}
+
+template <typename T>
+inline constexpr T degps_2_rpm(T x)
+{
+	return x * T(DEGPS_2_RPM);
+}
+
 
 template <typename T>
 inline constexpr T Math_lite<T>::linear_map(T x, T x1, T x2, T y1, T y2)
