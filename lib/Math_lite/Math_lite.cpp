@@ -217,29 +217,76 @@ inline constexpr T Math_lite<T>::deg_2_rad(T x)
 }
 
 template <typename T>
-inline constexpr T rpm_2_radps(T x)
+inline constexpr T Math_lite<T>::rpm_2_radps(T x)
 {
 	return x * T(RPM_2_RADPS);
 }
 
 template <typename T>
-inline constexpr T rpm_2_degps(T x)
+inline constexpr T Math_lite<T>::rpm_2_degps(T x)
 {
 	return x * T(RPM_2_DEGPS);
 }
 
 template <typename T>
-inline constexpr T radps_2_rpm(T x)
+inline constexpr T Math_lite<T>::radps_2_rpm(T x)
 {
 	return x * T(RADPS_2_RPM);
 }
 
 template <typename T>
-inline constexpr T degps_2_rpm(T x)
+inline constexpr T Math_lite<T>::degps_2_rpm(T x)
 {
 	return x * T(DEGPS_2_RPM);
 }
 
+template <typename T>
+inline constexpr T Math_lite<T>::hz_to_s(T freq)
+{
+	return T(1) / freq;
+}
+
+template <typename T>
+inline constexpr T Math_lite<T>::hz_to_ms(T freq)
+{
+	return T(1000) / freq;
+}
+
+template <typename T>
+inline constexpr T Math_lite<T>::hz_to_us(T freq)
+{
+	return T(1000000) / freq;
+}
+
+template <typename T>
+inline constexpr T Math_lite<T>::hz_to_ns(T freq)
+{
+	return T(1000000000) / freq;
+}
+
+template <typename T>
+inline constexpr T Math_lite<T>::s_to_hz(T dt)
+{
+	return T(1) / dt;
+}
+
+template <typename T>
+inline constexpr T Math_lite<T>::ms_to_hz(T dt)
+{
+	return T(1000) / dt;
+}
+
+template <typename T>
+inline constexpr T Math_lite<T>::us_to_hz(T dt)
+{
+	return T(1000000) / dt;
+}
+
+template <typename T>
+inline constexpr T Math_lite<T>::ns_to_hz(T dt)
+{
+	return T(1000000000) / dt;
+}
 
 template <typename T>
 inline constexpr T Math_lite<T>::linear_map(T x, T x1, T x2, T y1, T y2)

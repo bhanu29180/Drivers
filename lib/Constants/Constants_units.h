@@ -13,6 +13,19 @@
 #define M_2_FT      3.2808398950131233595800524934383202   // from meters to feet
 #define FT_2_M      0.3048                                 // from feet to meters
 
+#define SEC_2_NS   1000000000
+#define SEC_2_US   1000000
+#define SEC_2_MS   1000
+#define MS_2_SEC   0.001
+#define US_2_SEC   0.000001
+#define NS_2_SEC   0.000000001
+#define MIN_2_SEC  60
+#define HR_2_SEC   3600
+#define HR_2_MIN   60
+#define DAYS_2_HR  24
+#define DAYS_2_MIN 1440
+#define DAYS_2_SEC 86400
+
 // Decimal prefix Specific units of IEC 60027-2 A.2 and ISO/IEC 80000:13-2008
 #define QUETTA  1e30
 #define RONNA   1e27

@@ -35,15 +35,14 @@ public:
 	static inline constexpr T radps_2_rpm(T x);
 	static inline constexpr T degps_2_rpm(T x);
 
-
 	static inline constexpr T hz_to_s(T freq);
 	static inline constexpr T hz_to_ms(T freq);
 	static inline constexpr T hz_to_us(T freq);
 	static inline constexpr T hz_to_ns(T freq);
-	static inline constexpr T s_to_hz(T t);
-	static inline constexpr T ms_to_hz(T t);
-	static inline constexpr T us_to_hz(T t);
-	static inline constexpr T ns_to_hz(T t);
+	static inline constexpr T s_to_hz(T dt);
+	static inline constexpr T ms_to_hz(T dt);
+	static inline constexpr T us_to_hz(T dt);
+	static inline constexpr T ns_to_hz(T dt);
 
 	static inline constexpr T linear_map(T x, T x1, T x2, T y1, T y2);
 	static inline constexpr T poly_map_deg1(T x, T a0, T a1);
