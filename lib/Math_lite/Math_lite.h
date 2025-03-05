@@ -20,6 +20,10 @@ class Math_lite{
     static inline constexpr T ceil(T x);
     static inline constexpr T floor(T x);
     static inline constexpr T wrap(T x, T a, T b);
+    static inline constexpr T wrap_pi(T x,);
+    static inline constexpr T wrap_2pi(T x);
+    static inline constexpr T wrap_180(T x);
+    static inline constexpr T wrap_360(T x);
     static inline constexpr T apply_deadband(T x, T deadband);
     static inline constexpr T apply_deadband2(T x, T deadband);
 
@@ -27,6 +31,15 @@ class Math_lite{
     static inline constexpr T deg_2_rad(T x);
     static inline constexpr T rps_2_rpm(T rps);
     static inline constexpr T rpm_2_rps(T rpm);
+
+    static inline constexpr T hz_to_s(T freq);
+    static inline constexpr T hz_to_ms(T freq);
+    static inline constexpr T hz_to_us(T freq);
+    static inline constexpr T hz_to_ns(T freq);
+    static inline constexpr T s_to_hz(T t);
+    static inline constexpr T ms_to_hz(T t);
+    static inline constexpr T us_to_hz(T t);
+    static inline constexpr T ns_to_hz(T t);
     
     static inline constexpr T linear_map(T x, T x1, T x2, T y1, T y2);
     static inline constexpr T poly_map_deg1(T x, T a0, T a1);
