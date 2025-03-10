@@ -56,6 +56,8 @@ public:
 
 	bool points_AB_line_same_side(T x, T y, T x0, T y0, T x1, T y1, T x2, T y2);
 	bool points_A0_line_same_side(T x, T y, T x1, T y1, T x2, T y2);
+
+	#include "Math_lite.tpp"
 };
 
 template <typename T>

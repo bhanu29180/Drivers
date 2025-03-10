@@ -1,5 +1,6 @@
 #include "LUD.h"
 #include "SVD.h"
+#include "QRD.h"
 #include "EigenD.h"
 #include "CholeskyD.h"
 #include "Linear_solver.h"

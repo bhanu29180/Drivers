@@ -35,15 +35,15 @@ inline constexpr T Math_lite<T>::sign(T x)
 {
 	if (x < T(0))
 	{
-		return -1.0;
+		return T(-1.0);
 	}
 	else if (x == T(0))
 	{
-		return 0.0;
+		return T(0.0);
 	}
 	else
 	{
-		return 1.0;
+		return T(1.0);
 	}
 }
 
@@ -174,9 +174,9 @@ inline constexpr T Math_lite<T>::wrap_360(T x)
 template <typename T>
 inline constexpr T Math_lite<T>::apply_deadband(T x, T deadband)
 {
-	if (mod(x) < deadband * 0.5)
+	if (mod(x) < deadband * T(0.5))
 	{
-		return 0;
+		return T(0);
 	}
 	else
 	{
@@ -187,19 +187,19 @@ inline constexpr T Math_lite<T>::apply_deadband(T x, T deadband)
 template <typename T>
 inline constexpr T Math_lite<T>::apply_deadband2(T x, T deadband)
 {
-	if (mod(x) <= deadband * 0.5)
+	if (mod(x) <= deadband * T(0.5))
 	{
 		return 0;
 	}
 	else
 	{
-		if (x > deadband * 0.5)
+		if (x > deadband * T(0.5))
 		{
-			return x - deadband * 0.5;
+			return x - deadband * T(0.5);
 		}
 		else
 		{
-			return x + deadband * 0.5;
+			return x + deadband * T(0.5);
 		}
 	}
 }
