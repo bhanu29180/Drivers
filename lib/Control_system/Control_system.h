@@ -1,3 +1,6 @@
+#ifndef CONTROL_SYSTEM_H
+#define CONTROL_SYSTEM_H
+
 #include "P\P.h"
 #include "I\I.h"
 #include "D\D.h"
@@ -11,3 +14,5 @@
 #include "PID_S\PID_S.h"
 #include "PID_P\PID_P.h"
 #include "PID_GS\PID_GS.h"
+
+#endif

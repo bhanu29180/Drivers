@@ -1,9 +1,9 @@
 #ifndef ROTATION3D_H
 #define ROTATION3D_H
 
-#include "../Quaternion/Quaternion.h"
-#include "../Matrix/Matrix3.h"
-#include "../Vector/Vector3.h"
+#include "../../Quaternion/Quaternion.h"
+#include "../../Matrix/Matrix3.h"
+#include "../../Vector/Vector3.h"
 #include <cmath>
 
 template <typename T>

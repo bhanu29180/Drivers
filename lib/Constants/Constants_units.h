@@ -2,12 +2,29 @@
 #define CONSTANTS_UNITS_H
 
 // multiplicative conversion constants
-#define RAD_2_DEG  57.295779513082322864647721871733665   // from radians to degrees
-#define DEG_2_RAD  0.017453292519943295769236907684886127 // from degrees to radians
-#define IN_2_M     0.0254                                 // from inches to meters
-#define M_2_IN     39.370078740157480314960629921259843   // from meters to inches
-#define M_2_FT     3.2808398950131233595800524934383202   // from meters to feet
-#define FT_2_M     0.3048                                 // from feet to meters
+#define RAD_2_DEG   57.295779513082322864647721871733665   // from radians to degrees
+#define DEG_2_RAD   0.017453292519943295769236907684886127 // from degrees to radians
+#define RPM_2_RADPS 0.10471975511965977461542144610932     // from rpm to radian per second
+#define RPM_2_DEGPS 6                                      // from rpm to degree per second
+#define RADPS_2_RPM 9.5492965855137201461330258023509      // from radian per second to rpm
+#define DEGPS_2_RPM 0.16666666666666666666666666666667     // from degree per second to rpm
+#define IN_2_M      0.0254                                 // from inches to meters
+#define M_2_IN      39.370078740157480314960629921259843   // from meters to inches
+#define M_2_FT      3.2808398950131233595800524934383202   // from meters to feet
+#define FT_2_M      0.3048                                 // from feet to meters
+
+#define SEC_2_NS   1000000000
+#define SEC_2_US   1000000
+#define SEC_2_MS   1000
+#define MS_2_SEC   0.001
+#define US_2_SEC   0.000001
+#define NS_2_SEC   0.000000001
+#define MIN_2_SEC  60
+#define HR_2_SEC   3600
+#define HR_2_MIN   60
+#define DAYS_2_HR  24
+#define DAYS_2_MIN 1440
+#define DAYS_2_SEC 86400
 
 // Decimal prefix Specific units of IEC 60027-2 A.2 and ISO/IEC 80000:13-2008
 #define QUETTA  1e30
